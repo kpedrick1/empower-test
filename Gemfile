@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use postgresql as the database for Active Record
-gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -38,8 +36,41 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'sqlite3', group: :development
-
-gem 'rails_12factor', group: :production
-
 ruby "2.2.0"
+
+
+gem 'bootstrap-sass', '>= 3.0.0.0'
+gem 'devise'
+gem 'figaro'
+gem 'haml-rails'
+gem 'restforce'
+gem 'bootstrap-datepicker-rails'
+gem 'carmen-rails', '~> 1.0.0'
+gem 'modernizr-rails'
+#gem 'ruby-healthvault', :path => 'vendor/ruby-healthvault'
+gem 'wash_out'
+gem 'savon', '~> 2.10.0'
+gem 'rest-client'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'html2haml'
+  gem 'quiet_assets'
+  gem 'rails_layout'
+  gem 'pry-rails'
+  gem 'awesome_print'
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+  gem 'thin'
+  gem 'unicorn'
+  gem 'rails_12factor'
+end
+
+group :test do
+  gem 'minitest-spec-rails'
+  gem 'minitest-wscolor'
+end
