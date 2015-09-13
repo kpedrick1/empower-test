@@ -1,0 +1,91 @@
+.container{:style => "padding:0 0 0 0;"}
+  #drop_shadow
+  #footer_bar{:style => "padding-bottom:30px;padding-left:15px;background-color:white;"}
+    .row
+      .col-xs-8.col-md-9{:style => "font-size: 16px;"}
+        .row
+          .col-xs-12
+            Call Center: 888-552-9769
+        .row
+          .col-xs-12
+            Fax: 541-647-1676
+        .row
+          .col-xs-12
+            %a{:href => "mailto:newrx@bpcareconnect.com"} Email:newrx@bpcareconnect.com
+
+      .col-xs-4.col-md-3
+        - if session[:account_type] == 'Physician'
+          .row
+            .col-xs-12
+              Click below to download Rx Form
+          .row
+            .col-xs-12
+              = link_to image_tag('white-square-prescription.png', :alt => "Rx",:width => 60, :height => 60, :title => "Click here to download Rx form.", :style => "padding:0;"), home_download_pdf_url, class: "rx-image btn btn-link", :style => "padding:0;"
+        .row
+          .col-xs-12
+            = link_to "Privacy Policy", "http://www.symplmed.com/privacy/", target: "_blank", :class => "btn btn-link", :style => "padding:0;"
+
+    .row
+      .col-xs-12
+        &copy;2015 symplmed. All rights reserved.
+
+
+    -#.row
+    -#  .col-xs-12.col-sm-3
+    -#    %div{:style=> "text-align: center; white-space: nowrap; margin-top:15px;"}
+    -#      :javascript
+    -#        var bccbId = Math.random(); document.write(unescape('%3Cdiv id=' + bccbId + '%3E%3C/div%3E'));
+    -#          window._bcvma = window._bcvma || [];
+    -#          _bcvma.push(["setAccountID", "129061380871830311"]);
+    -#          _bcvma.push(["setParameter", "WebsiteID", "128727286450836218"]);
+    -#          _bcvma.push(["setParameter", "CustomUrl", ""]);
+    -#          _bcvma.push(["setParameter", "WindowParameters", "vr=&vi=&ve=&vp=&vn=&lc="]);
+    -#          _bcvma.push(["addStatic", {type: "chat", bdid: "128409265495444864", id: bccbId}]);
+    -#          var bcLoad = function(){
+    -#            if(window.bcLoaded) return; window.bcLoaded = true;
+    -#            var vms = document.createElement("script"); vms.type = "text/javascript"; vms.async = true;
+    -#            vms.src = ('https:'==document.location.protocol?'https://':'http://') + "vmss.boldchat.com/aid/129061380871830311/bc.vms4/vms.js";
+    -#            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vms, s);
+    -#          };
+    -#          if(window.pageViewer && pageViewer.load) pageViewer.load();
+    -#          else if(document.readyState=="complete") bcLoad();
+    -#          else if(window.addEventListener) window.addEventListener('load', bcLoad, false);
+    -#          else window.attachEvent('onload', bcLoad);
+    -#      %span{:style=>"font-family: Arial; font-size: 8pt; color: black;"}
+    -#        %a{:href=>"http://www.boldchat.com", :style=>"text-decoration: none; color: black;"}
+    -#          Chat service
+    -#        by BoldChat
+
+%script{:type => "text/javascript", :src  => "/assets/boldchat.js"}
+
+
+
+:javascript
+  window._bcvma = window._bcvma || [];
+    _bcvma.push(["setAccountID", "129061380871830311"]);
+    _bcvma.push(["setParameter", "WebsiteID", "128727286450836218"]);
+    _bcvma.push(["setParameter", "InvitationID", "128409265680984403"]);
+    _bcvma.push(["setParameter", "VisitName", ""]);
+    _bcvma.push(["setParameter", "VisitPhone", ""]);
+    _bcvma.push(["setParameter", "VisitEmail", ""]);
+    _bcvma.push(["setParameter", "VisitRef", ""]);
+    _bcvma.push(["setParameter", "VisitInfo", ""]);
+    _bcvma.push(["setParameter", "CustomUrl", ""]);
+    _bcvma.push(["setParameter", "WindowParameters", ""]);
+    _bcvma.push(["addFloat", {type: "chat", id: "128409264988848767"}]);
+    _bcvma.push(["pageViewed", document.location.href, document.referrer]);
+    var bcLoad = function(){
+      if(window.bcLoaded) return; window.bcLoaded = true;
+      var vms = document.createElement("script"); vms.type = "text/javascript"; vms.async = true;
+      vms.src = ('https:'==document.location.protocol?'https://':'http://') + "vmss.boldchat.com/aid/129061380871830311/bc.vms4/vms.js";
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vms, s);
+    };
+    if(window.pageViewer && pageViewer.load) pageViewer.load();
+    else if(document.readyState=="complete") bcLoad();
+    else if(window.addEventListener) window.addEventListener('load', bcLoad, false);
+    else window.attachEvent('onload', bcLoad);
+
+:css
+  .rx-image:hover {
+      outline: LightGray solid 1px;
+  }

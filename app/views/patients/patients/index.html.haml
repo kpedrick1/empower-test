@@ -1,0 +1,23 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} How To
+    .col-sm-9.hidden-xs
+
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+      .row
+        .col-xs-12
+          %iframe{:allowfullscreen => "", :frameborder => "0", :height => "400", :mozallowfullscreen => "", :src => "https://c.brightcove.com/services/viewer/federated_f9?&width=400&height=300&flashID=myExperience2195934920001&bgcolor=%23FFFFFF&playerID=1709592238001&playerKey=AQ~~%2CAAABjg7u0WE~%2C1M0n70-zc746ABCoBjqsbGI_EgtRkuwu&isVid=true&isUI=true&dynamicStreaming=true&%40videoPlayer=2195934920001&autoStart=&debuggerID=&startTime=1385946478203&secureConnections=true&secureHTMLConnections=true", :style => "display:block;", :webkitallowfullscreen => "", :width => "100%"}
+
+
+:javascript
+
+  $(function(){
+
+    $("#how-to").addClass("active")
+    $("#how-to-mobile").addClass("active")
+
+  })

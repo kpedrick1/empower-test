@@ -1,0 +1,67 @@
+.row{:style => "margin:0 0 0 0;"}
+  .col-xs-12.col-md-6.col-md-offset-3
+    #title_bar.col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 0 0 0;"}
+      .col-xs-12.col-sm-5{:style => "padding: 0 0 0 0;"}
+        #page_title{:style => "background-color: #c22b24;"}
+          %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Create Account
+      .col-sm-1.hidden-xs
+
+
+.col-xs-12.col-md-6.col-md-offset-3
+
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :role => "form") do |f|
+    = devise_error_messages!
+    
+    .panel.panel-default{:style => "margin-bottom:0;"}
+
+      .panel-body
+      
+        .form-group
+          = f.label "First Name"
+          = f.text_field :firstname, :class => "form-control", :required => "true"
+
+        .form-group
+          = f.label "Last Name"
+          = f.text_field :lastname, :class => "form-control", :required => "true"
+
+        .form-group
+          = f.label "Practice Zip"
+          = f.text_field :practiceZip, :class => "form-control", :required => "true"
+        
+        .form-group
+          = f.label :phone
+          = f.phone_field :phone, :class => "form-control", :required => "true", :autocomplete => "off"                  
+        
+        .form-group
+          = f.label :email
+          = f.email_field :email, :class => "form-control", :required => "true", :autocomplete => "off"
+
+        .form-group
+          = f.label "Dea / NPI", style: "text-transform:uppercase"
+          = f.text_field :username, :class => "form-control", :required => "true"
+
+        .form-group
+          = f.label :password
+          = f.password_field :password, :class => "form-control", :required => "true", :autocomplete => "off"
+
+        .form-group
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, :class => "form-control", :required => "true"
+
+        .form-group
+          = f.label "I agree the to the " 
+          = link_to "End User Agreement", pages_eua_path, class: "btn btn-primary btn-link", style: "padding-left: 0px"
+          
+          = f.check_box :agreement, :class => "checkbox", :required => "true"
+
+        .form-group
+          .col-xs-12{:style => "color:grey;"}
+            * All Fields are Required to Register
+
+      .panel-footer
+        .row
+          .col-xs-12.col-md-6
+            = f.submit "Create Account", class: "btn btn-primary btn-block new_button"
+          .col-xs-12.col-md-6
+            = link_to "Sign In", new_physicians_physician_session_path, class: "btn btn-primary btn-link btn-block"
+        

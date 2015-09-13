@@ -10,7 +10,29 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require require
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require bootstrap
+//= require bootstrap-datepicker
+//= require highcharts
+//= require jquery.creditCardValidator
+
+
+
+$(function(){
+
+  /*setTimeout(function(){
+
+    value = $("#main-container").height();
+    
+    if (value > $("#main-bar").height()) {
+      value = value + "px"
+      $("#main-bar").css("height", value)
+    }
+
+  }, 200)*/
+  
+})
+ 

@@ -1,0 +1,29 @@
+.container{:style => "padding:0 0 0 0;"}
+  .col-xs-12
+    .col-xs-12.col-md-6.col-md-offset-3
+      #drop_shadow.col-xs-12.col-md-6.col-md-offset-3
+      #footer_bar{:style => "padding-bottom:30px;padding-left:15px;background-color:white;"}
+        .row
+          .col-xs-12
+            %bold
+              Call Center:
+            %small
+              888-552-9769
+            %br
+
+            %small
+              Fax: 541-647-1676
+            %br
+            %small
+              Email:newrx@bpcareconnect.com
+            %br
+
+            %br
+              = link_to "Privacy Policy", "http://www.symplmed.com/privacy/", target: "_blank", class: "btn btn-link"
+
+        .row
+          .col-xs-12
+            %small
+              &copy;2015 symplmed. All rights reserved.
+
+%script{:type => "text/javascript", :src  => "/assets/boldchat.js"}

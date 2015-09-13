@@ -1,0 +1,2 @@
+module Patients::ActivitiesHelper
+end

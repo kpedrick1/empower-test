@@ -1,0 +1,2 @@
+module Physicians::SessionsHelper
+end

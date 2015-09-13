@@ -1,0 +1,28 @@
+.row{:style => "margin:0 0 0 0;"}
+  .col-xs-12.col-md-6.col-md-offset-3
+    #title_bar.col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 0 0 0;"}
+      .col-xs-12.col-md-5{:style => "padding: 0 0 0 0;"}
+        #page_title{:style => "background-color: #c22b24;"}
+          %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Reset Password
+      .col-md-1.hidden-sm
+
+.col-md-6.col-md-offset-3.col-xs-12
+
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :role => "form") do |f|
+    = devise_error_messages!
+    
+    .panel.panel-default{:style => "margin-bottom:0;"}
+
+      .panel-body
+
+        .form-group
+          = f.label "Email"
+          = f.email_field :username, :class => "form-control"
+
+      .panel-footer
+        .row
+          .col-xs-12.col-md-6
+            = f.submit "Reset Password", class: "btn btn-primary btn-block new_button"
+          .col-xs-12.col-md-6
+            = link_to "Sign In", new_patients_patient_session_path, class: "btn btn-primary btn-link btn-block"
+

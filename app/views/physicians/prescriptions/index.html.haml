@@ -1,0 +1,85 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Patients Prescriptions
+    .col-sm-9.hidden-xs
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+
+      .row
+        .col-xs-12
+          .panel.panel-default
+
+            .panel-body
+              = form_tag({action: "index"}, method: "get", class: "form-inline", role: "form") do
+
+                .row
+
+                  .form-group.patients-prescriptions
+                    .col-xs-12.col-md-2.col-sm-2.first
+                      = label_tag "Date"
+                      = select_tag "date", options_for_select(@dates), class: "form-control", include_blank: true
+
+                    .col-xs-12.col-md-2.col-sm-2
+                      = label_tag "Drug"
+                      = select_tag "drug", options_for_select(@drugs), class: "form-control", include_blank: true
+
+                    .col-xs-12.col-md-3.col-sm-3
+                      = label_tag "Patient Name"
+                      = text_field_tag "name", nil, class: "form-control", placeholder: "Patient Name"
+
+                    .col-xs-12.col-md-3.col-sm-3
+                      = label_tag "Status"
+                      = select_tag "status", options_for_select(@statuses), class: "form-control", include_blank: true
+
+                    .col-xs-12.col-md-2.col-sm-2
+                      = label_tag "Search"
+                      = button_tag(type: "submit", class: "form-control btn btn-info new_button") do
+                        %span.glyphicon.glyphicon-search
+                        Search
+
+      .row
+        .col-xs-12
+
+          .panel.panel-default
+
+            .panel-heading
+              %h4.panel-title Prescriptions List
+
+            .panel-body
+
+              .table-responsive
+
+                %table.table.table-hover
+                  %thead
+                    %tr
+                      %th Date
+                      %th Drug Name
+                      %th Patient Name
+                      %th Status
+
+                  - @prescriptions.each do |prescription|
+
+                    %tr
+                      %td
+                        = prescription.Opportunity_Date__c
+                      %td
+                        = "#{prescription.PricebookEntry.Name} #{prescription.try(:Dosage__r).try(:Display_Value__c)}"
+                      %td
+                        = "#{prescription.Opportunity.Account.First_Name__c} #{prescription.Opportunity.Account.Last_Name__c}"
+                      %td
+                        = "#{prescription.Opportunity.Status__c}"
+
+
+:javascript
+
+  $(function(){
+  
+    $("#patients").addClass("active");
+    $("#patients-mobile").addClass("active");
+  
+  })                  

@@ -1,0 +1,121 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} View Patient
+    .col-sm-9.hidden-xs
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+
+      .row
+
+        .col-xs-12
+
+          .panel.panel-default
+
+            .panel-heading
+              %h4.panel-title
+                = @patient.First_Name__c + ' ' + @patient.Last_Name__c
+
+            .panel-body
+
+              .row
+
+                .col-xs-12.col-md-6
+
+                  .form-group
+                    = label_tag "Name", nil, class: "control-label"
+                    = text_field_tag "patient[name]", @patient.First_Name__c + ' ' + @patient.Last_Name__c, class: "form-control", disabled: "true"
+
+                .col-xs-12.col-md-6
+
+                  .form-group
+                    = label_tag "Birthdate", nil, class: "control-label"
+                    = date_field_tag "patient[PersonBirthdate]", @patient.PersonBirthdate, class: "form-control", required: "true", disabled: "true"
+
+
+                .col-xs-12.col-md-6
+
+                  .form-group
+                    = label_tag "Home Phone", nil, class: "control-label"
+                    = phone_field_tag "patient[PersonHomePhone]", @patient.PersonHomePhone, class: "form-control phone", min: 10, max:10, required: "true", disabled: "true"
+
+                .col-xs-12.col-md-6
+
+                  .form-group
+                    = label_tag "Mobile Phone", nil, class: "control-label"
+                    = phone_field_tag "patient[PersonMobilePhone]", @patient.PersonMobilePhone, class: "form-control phone", min: 10, max:10, required: "true", disabled: "true"
+
+
+
+      .row
+
+        .col-xs-12
+
+          .panel.panel-default
+
+            .panel-heading
+              %h4.panel-title Recent Prescriptions
+
+            .panel-body
+
+              .table-responsive
+
+                %table.table.table-hover
+                  %thead
+                    %tr
+                      %th Name
+                      %th Date
+                      %th Quantity
+                      %th Days
+                      %th Administration
+                      %th Status
+
+                  - @prescriptions.each do |prescription|
+
+                    %tr
+                      %td
+                        = prescription.PricebookEntry.Name
+                      %td
+                        = prescription.Opportunity_Date__c
+                      %td
+                        = prescription.Dosage__r.Display_Value__c
+                      %td
+                        = prescription.Days__c
+                      %td
+                        = prescription.Administration__c
+                      %td
+                        = prescription.Opportunity.Status__c
+
+              .row
+                .col-xs-12.col-md-4.col-md-offset-4
+                  = link_to 'Prescribe', new_physicians_prescription_path(:id => params[:id]), class: 'btn btn-primary btn-block new_button'
+
+
+      .row
+        .col-xs-12
+          .panel.panel-default
+            .panel-body
+              = render "/shared/charts"
+
+            
+            
+:javascript
+
+  $(function(){
+  
+    $("#prescription").addClass("active");
+    $("#prescription-mobile").addClass("active");
+  
+  })
+
+            
+            
+            
+            
+            
+            
+            

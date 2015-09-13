@@ -1,0 +1,14 @@
+
+%td
+  = patient.Last_Name__c
+%td 
+  = patient.First_Name__c
+%td
+  - if patient.Is_Email_Bounced__c == false
+    = link_to 'Prescribe', new_physicians_prescription_path(:id => @ids[patient.Id]), class: 'btn btn-info btn-link'
+  - if patient.Is_Email_Bounced__c == true
+    %span Prescribe
+%td 
+  = link_to 'View', physicians_patient_path(@ids[patient.Id]), class: 'btn btn-primary btn-link'
+%td
+  = link_to 'Edit', edit_physicians_patient_path(@ids[patient.Id]), class: 'btn btn-primary btn-link'

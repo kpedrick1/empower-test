@@ -1,0 +1,97 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Prescriptions
+    .col-sm-9.hidden-xs
+
+= render 'layouts/messages'
+
+.panel.panel-default{:style => "margin-bottom:0;"}
+  .panel-body
+
+    .row
+
+      .col-xs-12
+        .panel.panel-default
+
+          .panel-body
+            = form_tag({action: "index"}, method: "get", class: "form-inline", role: "form") do
+
+              .row
+                .col-xs-12.col-md-3
+                  .form-group
+                    = label_tag "Date"
+                    %br
+                    = select_tag "date", options_for_select(@dates,@selectedDate), include_blank: true, class: "form-control"
+                .col-xs-12.col-md-3
+                  .form-group
+                    = label_tag "Drug"
+                    %br
+                    = select_tag "drug", options_for_select(@drugs.sort,@selectedDrug), include_blank: true, class: "form-control"
+                .col-xs-12.col-md-3
+                  .form-group
+                    = label_tag "Dosage"
+                    %br
+                    = select_tag "dosage", options_for_select(@dosages.sort,@selectedDosage), include_blank: true, class: "form-control"
+                .col-xs-12.col-md-3
+                  %br
+                  = button_tag(type: "submit", class: "btn btn-info new_button") do
+                    %span.glyphicon.glyphicon-search
+                    Search
+
+    .row
+
+      .col-xs-12
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title Prescriptions List
+
+          .panel-body
+            .table-responsive
+              %table.table.table-hover
+                %thead
+                  %tr
+                    %th Date
+                    %th Name
+                    %th Dosage
+                    %th Days
+                    %th Administration
+                    %th Refills
+                    %th Status
+
+                - @prescriptions.each do |prescription|
+
+                  = render partial: "row", locals: { :prescription => prescription}
+
+          
+            
+:javascript
+
+  $(function(){
+  
+    ml = $("#main-layout").height()
+    bl = $("#bar-layout").height()
+  
+    if (ml > bl) {
+      $("#bar-layout").height(ml)
+    }
+    else {
+      $("#bar-layout").height($(window).height())
+    }
+  
+    
+  
+  });            
+  
+:javascript
+
+  $(function(){
+  
+    $("#prescriptions").addClass("active");
+    $("#prescriptions-mobile").addClass("active");
+  
+  })  
+      
+      
+        

@@ -1,0 +1,30 @@
+!!!
+%html
+
+  %head
+
+    %meta{:content => "width=960", :name => "viewport"}/
+    %meta{:charset => "UTF-8"}/
+
+    %title bpCareConnect
+    
+    %meta{:content => "yes", :name => "mobile-web-app-capable"}/
+    
+    %link{rel: "shortcut icon", sizes:"196x196", href:"/assets/bpcc_icon_196_red.png"}/
+    %link{rel: "apple-touch-icon", sizes:"76x76", href:"/assets/bpcc_icon_76_red.png"}/
+    %link{rel: "apple-touch-icon", sizes:"120x120", href:"/assets/bpcc_icon_120_red.png"}/
+    %link{rel: "apple-touch-icon", sizes:"152x152", href:"/assets/bpcc_icon_152_red.png"}/
+
+    %link{:href => "assets/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "assets/style.css", :rel => "stylesheet"}/
+    %script{:src => "assets/jquery-1.10.2.js"}
+    %script{"data-main" => "assets/main", :src => "assets/require.js"}
+
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags    
+    = render 'layouts/bold_chat'
+    = render 'layouts/google_analytics'
+
+  %body
+    = yield
+    

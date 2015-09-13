@@ -1,0 +1,219 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Account Settings
+    .col-sm-9.hidden-xs
+
+= render 'layouts/messages'
+
+= form_tag({action: "update"}, method: "put") do
+
+  .row
+    .col-xs-12
+      = hidden_field_tag "patient[Id]", @patient.Id
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+      .row
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Patient Information
+
+            .panel-body
+              .form-group
+                = label_tag "First Name", nil, class: "control-label"
+                = text_field_tag "patient[FirstName]", @patient.First_Name__c, class: "form-control"
+
+              .form-group
+                = label_tag "Last Name", nil, class: "control-label"
+                = text_field_tag "patient[LastName]", @patient.Last_Name__c, class: "form-control"
+
+              .form-group
+                = label_tag "Email", nil, class: "control-label"
+                = email_field_tag "patient[PersonEmail]", @patient.PersonEmail, class: "form-control", :readonly => true
+
+              .form-group
+                = label_tag "Mobile Number", nil, class: "control-label"
+                = phone_field_tag "patient[PersonMobilePhone]", @patient.PersonMobilePhone, class: "form-control phone", min: 10, max:10
+
+              .form-group
+                = label_tag "Home Number", nil, class: "control-label"
+                = phone_field_tag "patient[PersonHomePhone]", @patient.PersonHomePhone, class: "form-control phone", min: 10, max:10
+
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Insurance
+
+            .panel-body
+              .form-group
+                = label_tag "Insurance Provider", nil, class: "control-label"
+                = text_field_tag "patient[Patient_Insurance_Provider__c]", @patient.Patient_Insurance_Provider__c, class: "form-control"
+
+              .form-group
+                = label_tag "Member Name", nil, class: "control-label"
+                = text_field_tag "patient[Patient_Member_Name__c]", @patient.Patient_Member_Name__c, class: "form-control"
+
+              .form-group
+                = label_tag "Member ID Number", nil, class: "control-label"
+                = text_field_tag "patient[Patient_Member_Id_Number__c]", @patient.Patient_Member_Id_Number__c , class: "form-control"
+
+              .form-group
+                = label_tag "Group Number", nil, class: "control-label"
+                = text_field_tag "patient[Patient_Group_Number__c]", @patient.Patient_Group_Number__c, class: "form-control"
+
+              .form-group
+                = label_tag "Provider Telephone", nil, class: "control-label"
+                = phone_field_tag "patient[Patient_Provider_Phone__c]", @patient.Patient_Provider_Phone__c, class: "form-control phone", min: 10, max:10
+
+      .row
+
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Shipping Address
+
+            .panel-body
+              .form-group
+                = label_tag "Address", nil, class: "control-label"
+                = text_field_tag "patient[ShippingStreet]", @patient.ShippingStreet, class: "form-control shipping-section"
+
+              .form-group
+                = label_tag "City", nil, class: "control-label"
+                = text_field_tag "patient[ShippingCity]", @patient.ShippingCity, class: "form-control shipping-section"
+
+              .form-group
+                = label_tag "State", nil, class: "control-label"
+                = select_tag "patient[ShippingState]", options_for_select(get_states_us, @patient.ShippingState), class: "form-control"
+
+              .form-group
+                = label_tag "Zip Code", nil, class: "control-label"
+                = text_field_tag "patient[ShippingPostalCode]", @patient.ShippingPostalCode, class: "form-control shipping-section"
+
+              .form-group
+                = label_tag "Country", nil, class: "control-label"
+                = select_tag "patient[ShippingCountry]", "<option>US</option>".html_safe, class: "form-control"
+
+              .form-group
+                = label_tag "Copy shipping Address to billing address", nil, class: "control-label"
+                = check_box_tag "patient[Billing_As_Shipping__c]", "true", @patient.Billing_As_Shipping__c, class: "form-control shipping-check"
+
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Billing Address
+
+            .panel-body
+              .form-group
+                = label_tag "Address", nil, class: "control-label"
+                = text_field_tag "patient[BillingStreet]", @patient.BillingStreet, class: "form-control"
+
+              .form-group
+                = label_tag "City", nil, class: "control-label"
+                = text_field_tag "patient[BillingCity]", @patient.BillingCity, class: "form-control"
+
+              .form-group
+                = label_tag "State", nil, class: "control-label"
+                = select_tag "patient[BillingState]", options_for_select(get_states_us, @patient.BillingState), class: "form-control"
+
+              .form-group
+                = label_tag "Zip Code", nil, class: "control-label"
+                = text_field_tag "patient[BillingPostalCode]", @patient.BillingPostalCode, class: "form-control"
+
+              .form-group
+                = label_tag "Country", nil, class: "control-label"
+                = select_tag "patient[BillingCountry]", "<option>US</option>".html_safe, class: "form-control"
+
+              .form-group
+                = label_tag "Timezone", nil, class: "control-label"
+                = select_tag "patient[Timezone__c]", options_for_select(@timezones, @patient.Timezone__c), class: "form-control"
+      .row
+        .col-xs-12
+          .panel.panel-default
+            .panel-body
+              .row
+                .col-xs-12.col-md-6
+                  = submit_tag "Update Patient", class: "btn btn-primary btn-block new_button"
+                .col-xs-12.col-md-6
+                  = link_to "Security Options", edit_patients_patient_registration_path, class: "btn btn-primary btn-link btn-block"
+
+:javascript
+
+  $(function(){
+  
+    $("#settings").addClass("active")
+    $("#settings-mobile").addClass("active")
+  
+  })  
+  
+:javascript
+
+  $(function(){
+
+    ml = $("#main-layout").height()
+    bl = $("#bar-layout").height()
+  
+    if (ml > bl) {
+      $("#bar-layout").height(ml)
+    }
+    else {
+      $("#bar-layout").height($(window).height())
+    }    
+    
+    $(".phone").focusout(function() {
+    
+        text = $(this).val()
+        text = text.replace(/[^0-9]/g, "")
+        text = text.substring(0,10)
+ 
+        if (text.length == 10) {
+          text = text.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+          $(this).val(text)
+        }
+        else if (text.length > 0) {
+          $(this).parent().addClass("has-error")
+        }
+        else {
+          $(this).parent().removeClass("has-error")
+        }
+    
+    });
+    
+    $(".shipping-section").focusout(function(){
+        
+      if ($(".shipping-check").prop("checked") == true) {
+    
+        $("#patient_BillingStreet").val($("#patient_ShippingStreet").val())
+        $("#patient_BillingCity").val($("#patient_ShippingCity").val())
+        $("#patient_BillingState").val($("#patient_ShippingState").val())
+        $("#patient_BillingPostalCode").val($("#patient_ShippingPostalCode").val())
+      }
+      
+    });    
+    
+    $(".shipping-check").click(function(){
+    
+      if ($(".shipping-check").prop("checked") == true) {
+    
+        $("#patient_BillingStreet").val($("#patient_ShippingStreet").val())
+        $("#patient_BillingCity").val($("#patient_ShippingCity").val())
+        $("#patient_BillingState").val($("#patient_ShippingState").val())
+        $("#patient_BillingPostalCode").val($("#patient_ShippingPostalCode").val())
+      }    
+      else {
+      
+        $(".shipping-check").val("false")
+      }
+    });
+           
+  });          
+  
+
+        
+        

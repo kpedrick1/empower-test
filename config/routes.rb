@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,6 +54,75 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  root 'welcome#index'
+  #get "physicians" => redirect "physicians/physicians"
+
+  #public domain
+
+  root :to => "home#index"
+  get "pages/eua"
+  get "pages/privacy"
+
+  get '/patients/activities/bloodpressure'
+
+  get 'home/download_pdf'
+
+
+  get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
+
+  resources :mailings
+
+  #no needed as physicians and patients are extending users
+  #devise_for :users
+
+  namespace :physicians do
+
+    devise_for :physicians, :controllers => { :registrations => 'physicians/registrations', :sessions =>  'physicians/sessions'}
+
+    resources :prescriptions
+    resources :activities
+    resources :patients
+    resources :physicians
+    resources :mailings
+    #resources :inventories
+    resources :monthend
+
+    #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
+
+  end
+
+  namespace :patients do
+
+    devise_for :patients, :controllers => { :registrations => 'patients/registrations', :sessions =>  'patients/sessions'}
+
+    resources :prescriptions
+    resources :patients
+    resources :activities
+    resources :mailings
+
+
+
+    #healthvault post
+    resources :activities do
+      post :connect_to_health_vault, :on => :collection
+    end
+
+    resources :activities do
+      post :disconnect_from_health_vault, :on => :collection
+    end
+
+
+  end
+
+
+
+  devise_scope :physicians do
+    get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
+  end
+
+  devise_scope :patients do
+    get '/patients/patients/sign_out' => 'patients/sessions#destroy'
+  end
+
+  wash_out :rumbas
 
 end
