@@ -21,22 +21,22 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
 
 
     if pass.length < 8
-      flash[:danger] = "Password needs has to be at least 8 character long"
-      redirect_to action: "new"
+      flash[:danger] = 'Password needs has to be at least 8 character long'
+      redirect_to action: 'new'
       return
     end
 
     if pass != pass_conf
-      flash[:danger] = "Password does not match the confirm password."
-      redirect_to action: "new"
+      flash[:danger] = 'Password does not match the confirm password.'
+      redirect_to action: 'new'
       return
     end
 
     physician_match = User.where("email = ? OR username = ?", params[:physicians_physician][:email],params[:physicians_physician][:username])
 
     if !physician_match.blank?
-      flash[:danger] = "The DEA / NPI  or email already exists."
-      redirect_to action: "new"
+      flash[:danger] = 'The DEA / NPI  or email already exists.'
+      redirect_to action: 'new'
       return
     end
 
@@ -53,7 +53,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     else
 
       flash[:danger] = result.message
-      redirect_to action: "new"
+      redirect_to action: 'new'
     end
 
   end
@@ -70,6 +70,8 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     args["Password__c"] = params[:password]
     args["Phone"] = params[:phone]
     args["practiceZip"] = params[:practiceZip]
+
+    args["Business_Unit__c"] = 'PuraCap'
 
     result = client.get "/services/apexrest/portal/physician", :args => args
 
