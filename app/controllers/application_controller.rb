@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
-  
   def set_session_values resource
     
     username = resource.username
@@ -65,7 +63,7 @@ class ApplicationController < ActionController::Base
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource)
     #root_path
-    'https://www.bpcareconnect.com/'
+    'https://www.puracap.com/'
   end
     
 end
