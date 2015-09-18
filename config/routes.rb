@@ -78,6 +78,8 @@ Rails.application.routes.draw do
     resources :mailings
     #resources :inventories
     resources :monthend
+    resources :order
+    resources :orderhistory
 
     #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
 
