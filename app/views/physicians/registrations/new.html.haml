@@ -49,12 +49,6 @@
           = f.password_field :password_confirmation, :class => "form-control", :required => "true"
 
         .form-group
-          = f.label "I agree the to the " 
-          = link_to "End User Agreement", pages_eua_path, class: "btn btn-primary btn-link", style: "padding-left: 0px"
-          
-          = f.check_box :agreement, :class => "checkbox", :required => "true"
-
-        .form-group
           .col-xs-12{:style => "color:grey;"}
             * All Fields are Required to Register
 
