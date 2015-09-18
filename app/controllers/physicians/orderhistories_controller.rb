@@ -8,9 +8,6 @@ class Physicians::OrderHistoriesController < Physicians::ApplicationController
 
   end
 
-  def show
-
-  end
 
 
 end
