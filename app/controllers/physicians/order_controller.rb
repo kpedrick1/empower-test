@@ -7,5 +7,9 @@ class Physicians::OrderController < Physicians::ApplicationController
 
   end
 
+  def show
+
+  end
+
 
 end
