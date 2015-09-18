@@ -59,20 +59,13 @@ Rails.application.routes.draw do
   #public domain
 
   root :to => "home#index"
-  #get "pages/eua"
-  #get "pages/privacy"
-
-  #get '/patients/activities/bloodpressure'
-
-  #get 'home/download_pdf'
 
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
 
   resources :mailings
 
-  #no needed as physicians and patients are extending users
-  #devise_for :users
+
 
   namespace :physicians do
 
@@ -89,6 +82,13 @@ Rails.application.routes.draw do
     #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
 
   end
+
+  devise_scope :physicians do
+    get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
+  end
+
+  wash_out :rumbas
+
 
   # namespace :patients do
   #
@@ -113,16 +113,9 @@ Rails.application.routes.draw do
   #
   # end
 
-
-
-  devise_scope :physicians do
-    get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
-  end
-
   # devise_scope :patients do
   #   get '/patients/patients/sign_out' => 'patients/sessions#destroy'
   # end
 
-  wash_out :rumbas
 
 end
