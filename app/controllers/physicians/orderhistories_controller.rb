@@ -1,4 +1,4 @@
-class Physicians::OrderHistoriesController < Physicians::ApplicationController
+class Physicians::OrderhistoriesController < Physicians::ApplicationController
 
 
   def index
