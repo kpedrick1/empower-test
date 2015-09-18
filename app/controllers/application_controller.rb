@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if resource.kind_of? Patient
       new_patients_activity_path
     else
-      physicians_order_path
+      physicians_orders_path
     end
   end
 
