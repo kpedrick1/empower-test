@@ -1,47 +1,5 @@
 #header_bar.row.hidden-xs.hidden-sm.visible-md.visible-lg
 
-  -#- if session[:Virtual_Pharmacy]
-  -#  .col-lg-3
-  -#    %a{href: physicians_patients_path}
-  -#      = image_tag('logo.png', style: "height:75px")
-  -#
-  -#  .col-md-1
-  -#
-  -#  #top_menu.col-md-11.col-lg-8
-  -#    %ul.nav.nav-pills{:style => "text-align: center;"}
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        %a{href: physicians_inventories_path, id: "inventories"}
-  -#          %span.sprite.sprite-bpCareConnect-icon-insurance{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Virtual Pharmacy
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        %a{href: physicians_patients_path, id: "prescription"}
-  -#          %span.sprite.sprite-bpCareConnect-icon-prescriptions{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Submit Prescription
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        %a{href: new_physicians_patient_path, id: "patient"}
-  -#          %span.sprite.sprite-bpCareConnect-icon-patient-info{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Create New Patient
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        %a{href: physicians_prescriptions_path, id: "patients"}
-  -#          %span.sprite.sprite-bpCareConnect-icon-insurance{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Prescriptions
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        %a{href: edit_physicians_physician_path(current_physicians_physician), id: "settings"}
-  -#          %span.sprite.sprite-bpCareConnect-icon-account-settings{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Account Settings
-  -#
-  -#      %li{:style => "width:116px;"}
-  -#        = link_to destroy_physicians_physician_session_path, method: "delete" do
-  -#          %span.sprite.sprite-bpCareConnect-icon-log-out{:style => "margin-left:auto;margin-right:auto;"}
-  -#        %small Logout
-  -#
-  -#- else
-
   .col-md-3
     %a{href: physicians_patients_path}
       = image_tag('puracap_logo.png', style: "height:75px")
@@ -51,19 +9,14 @@
     %ul.nav.nav-pills{:style => "text-align: center;"}
 
       %li{:style => "width:120px;"}
-        %a{href: physicians_patients_path, id: "prescription"}
+        %a{href: physicians_orders_path, id: "prescription"}
           %span.sprite.sprite-bpCareConnect-icon-prescriptions{:style => "margin-left:auto;margin-right:auto;"}
-        %small Submit Prescription
+        %small Order
 
       %li{:style => "width:120px;"}
-        %a{href: new_physicians_patient_path, id: "patient"}
-          %span.sprite.sprite-bpCareConnect-icon-patient-info{:style => "margin-left:auto;margin-right:auto;"}
-        %small Create New Patient
-
-      %li{:style => "width:120px;"}
-        %a{href: physicians_prescriptions_path, id: "patients"}
+        %a{href: physicians_orderhistories_path, id: "patients"}
           %span.sprite.sprite-bpCareConnect-icon-insurance{:style => "margin-left:auto;margin-right:auto;"}
-        %small Prescriptions
+        %small Order History
 
       %li{:style => "width:120px;"}
         %a{href: edit_physicians_physician_path(current_physicians_physician), id: "settings"}
