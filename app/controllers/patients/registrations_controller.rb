@@ -50,7 +50,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
       super
 
-      contest_site_callout params[:patients_patient][:username], "Qualified"
+      #contest_site_callout params[:patients_patient][:username], "Qualified"
 
     else
 
@@ -94,7 +94,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
     # puts "\n"
     # puts "\n"
 
-    contest_site_callout session[:username], session[:account_contest_status]
+    #contest_site_callout session[:username], session[:account_contest_status]
 
   end
 
