@@ -10,40 +10,48 @@
   .panel.panel-default{:style => "margin-bottom:0;"}
     .panel-body
 
-      = form_tag do
+      -if @oppId
         .row
           .col-xs-12
+            .col-xs-8.alert.alert-success
+              Your order has been processed. Click the link to
+              %a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId, :target => "_blank"} Pay Online Invoice
+            .col-xs-4
+      -else
+        = form_tag do
+          .row
+            .col-xs-12
 
-            .panel.panel-default
+              .panel.panel-default
 
-              .panel-heading
-                %h4.panel-title Order Form
+                .panel-heading
+                  %h4.panel-title Order Form
 
-              .panel-body
+                .panel-body
 
-                .table-responsive
+                  .table-responsive
 
-                  %table.table.table-hover
-                    %thead
-                      %tr
-                        %th Product
-                        %th Cost /Case
-                        %th Cases to Order
-                        %th total Cost
+                    %table.table.table-hover
+                      %thead
+                        %tr
+                          %th Product
+                          %th Cost /Case
+                          %th Cases to Order
+                          %th Total Cost
 
 
-                    - @order_line.each do |line|
+                      - @order_line.each do |line|
 
-                      %tr
-                        %td
-                          = line.productName
-                        %td
-                          = number_to_currency(line.productCost)
-                        %td
-                          = text_field_tag 'productline[][qty]', nil, size: 10
-                          = hidden_field_tag 'productline[][productId]', line.productId
-                        %td
-                          = number_to_currency(0)
+                        %tr
+                          %td
+                            = line.productName
+                          %td
+                            = number_to_currency(line.unitPrice)
+                          %td
+                            = text_field_tag 'productline[][qty]', nil, size: 10
+                            = hidden_field_tag 'productline[][productId]', line.productId
+                          %td
+                            = number_to_currency(0)
 
 
                       %tr
@@ -61,13 +69,26 @@
                         %td
                           %b
                             =number_to_currency(0)
-        .row
-          .col-xs-12
+          .row
+            .col-xs-12
+              .col-xs-8
+                .well
+                  A 10 case minimum is required to process Your Order
+              .col-xs-4
+                %table
+                  - @shipping_options.each do |shipping|
+
+                    %tr
+                      %td
+                        = radio_button_tag :shippingType, shipping.productId, :id => shipping.productId
+                        %label{:for => shipping.productId, :value => shipping.productId}
+                          = shipping.productName
+                      %td
+                        = number_to_currency(shipping.unitPrice)
+
             .col-xs-8
-              .well
-                A 10 case minimum is required to process Your Order
             .col-xs-4
-              = submit_tag "Confirm Order", class: "btn btn-primary new_button"
+              = submit_tag "Checkout", class: "btn btn-primary new_button"
               = submit_tag "Place Order", class: "btn btn-primary new_button"
 
 

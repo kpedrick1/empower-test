@@ -18,6 +18,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
     puts "\n"
     puts "\n"
 
+    @oppId = params[:oppId]
+
+    puts @oppId
+
+    puts "\n"
+    puts "\n"
+
+
   end
 
   def get_order_salesforce
@@ -30,40 +38,52 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     @order_line = result.body.orderLineList
 
+    @shipping_options = result.body.shippingList
+
   end
 
   def create
 
-    def create
       #send data to salesforce endpoint
 
-      puts '\n'
-      puts '\n'
-      puts '-----------------create called -------------------------'
-      puts params.inspect
-      puts '\n'
-      puts '\n'
+    puts "\n"
+    puts "\n"
+    puts '-----------------create called -------------------------'
+    puts params.inspect
+    puts "\n"
+    puts "\n"
 
-      client = Restforce.new
+    puts "\n"
+    puts "\n"
+    puts 'commit::::::::'
+    puts "\n"
 
-      args = Hash.new
-      args["username"] = session[:account_id]
-      #args["order"] = params[:inventory]
+    puts params['commit']
+    puts "\n"
+    puts "\n"
 
-      result = client.post '/services/apexrest/portal/order_product/', :userid => session[:account_id], :par => params
+    client = Restforce.new
 
+    args = Hash.new
+    args["username"] = session[:account_id]
+    #args["order"] = params[:inventory]
 
-      puts '\n'
-      puts '\n'
-      puts '-----------------result -------------------------'
-      puts result
-      puts '\n'
-      puts '\n'
+    result = client.post '/services/apexrest/portal/order_product/', :userid => session[:account_id], :par => params
 
 
-      redirect_to action: "index"
+    puts "\n"
+    puts "\n"
+    puts '-----------------result -------------------------'
+    puts result
+    puts "\n"
+    puts result.body
+    puts "\n"
+    puts "\n"
 
-      end
+
+
+
+    redirect_to action: "index", :oppId => result.body['opportunityId']
 
   end
 
