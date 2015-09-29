@@ -1,10 +1,4 @@
 .row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
-  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
-    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
-      #page_title{:style => "background-color: #c22b24;"}
-        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Order
-    .col-sm-9.hidden-xs
-
   = render 'layouts/messages'
 
   .panel.panel-default{:style => "margin-bottom:0;"}
@@ -45,12 +39,12 @@
                         %tr
                           %td
                             = line.productName
-                          %td
+                          %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = text_field_tag 'productline[][qty]', nil, size: 10
+                            = text_field_tag 'productline[][qty]', nil, size: 10, class: 'product_qty_input'
                             = hidden_field_tag 'productline[][productId]', line.productId
-                          %td
+                          %td.total_price_cell
                             = number_to_currency(0)
 
 
@@ -66,7 +60,7 @@
                         %td
                           %b
                             Total
-                        %td
+                        %td.grand_total_cell
                           %b
                             =number_to_currency(0)
           .row
@@ -94,10 +88,41 @@
 
 :javascript
 
+  $(".product_qty_input").on("input",null,null,function(){
+    calculateQuantityTotal($(this));
+  });
+
+
+  function calculateQuantityTotal(thisobj) {
+
+    var productGrandTotal = 0;
+
+    $(".product_qty_input").each(function(){
+
+        var productQuantity =  this.value;
+
+        var productCurrency = $(this).closest("tr").find(".unit_price_cell").text();
+        var productPrice = Number(productCurrency.replace(/[^0-9\.]+/g,""));
+
+        var totalPrice = (productPrice * productQuantity);
+
+        productGrandTotal = productGrandTotal + totalPrice;
+
+        var totalPriceCurrency = "$".concat(totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+
+        $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
+
+      });
+
+      var grandTotalCurrency = "$".concat(productGrandTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+      thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
+  }
+
+
   $(function(){
 
-    $("#inventories").addClass("active");
-    $("#inventories-mobile").addClass("active");
+    $("#order").addClass("active");
+    $("#order-mobile").addClass("active");
 
   })
 
