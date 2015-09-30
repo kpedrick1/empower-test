@@ -2,6 +2,9 @@
   = render 'layouts/messages'
 
   .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Order Form
     .panel-body
 
       -if @oppId
@@ -17,10 +20,6 @@
             .col-xs-12
 
               .panel.panel-default
-
-                .panel-heading
-                  %h4.panel-title Order Form
-
                 .panel-body
 
                   .table-responsive

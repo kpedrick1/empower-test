@@ -411,8 +411,21 @@ button:hover {
 
 #mobile_nav_bar .nav-pills > li > a {
     border:none;
-    background-color: transparent;
+    background-color: #dddddd;
 }
+
+#mobile_nav_bar .nav-pills > li > a:hover {
+    border:none;
+    background-color: white;
+}
+#mobile_nav_bar > ul > li > a.active {
+    border:none;
+    color:black;
+    background-color: white;
+}
+
+
+
 #header_bar {
     margin-top:15px;
     margin-bottom:15px;
