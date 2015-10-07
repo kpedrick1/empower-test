@@ -166,7 +166,7 @@
                           %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = number_field_tag 'productline[][qty]', nil, min:10, class: 'product_qty_input'
+                            = number_field_tag 'productline[][qty]', nil, min:1, class: 'product_qty_input'
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td.total_price_cell
                             = number_to_currency(0)
@@ -191,7 +191,11 @@
             .col-xs-12
               .col-xs-8
                 .well
-                  A 10 case minimum is required to process Your Order
+                  Pre-Sell – 10% off plus free shipping
+                  %br
+                  Launch – Free shipping
+                  %br
+                  Post launch – Free shipping for orders of 2 cases or more
               .col-xs-4
                 %table
                   - @shipping_options.each do |shipping|
