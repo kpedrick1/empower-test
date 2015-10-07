@@ -23,6 +23,7 @@
                   %thead
                     %tr
                       %th Name
+                      %th Order Number
                       %th Total Price
                       %th Tracking Link
                       %th Status
@@ -35,6 +36,8 @@
                     %tr
                       %td
                         = order.opportunityName
+                      %td
+                        = order.orderNumber
                       %td
                         = number_to_currency(order.totalPrice)
                       %td
