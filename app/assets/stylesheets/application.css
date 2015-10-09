@@ -5,11 +5,56 @@
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
  * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
  *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require_tree .
+ *= require bootstrap-datepicker
  */
+
+.list-group-item {
+    border: none !important;
+//background-color: transparent !important;
+    color: whitesmoke !important;
+}
+
+
+body {
+
+    background-image: url(image-path("main-bkg.jpg"));
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: repeat;
+}
+
+
+.nav.nav-pills.nav-stacked a:hover {
+
+    color: #428bca !important;
+    background-color: white !important;
+
+}
+
+.active {
+
+    border: solid;
+    background-color: whitesmoke;
+    color: black !important;
+}
+
+.panel-heading {
+    text-align:center
+}
+
+.panel-heading h4 {
+    color: #888
+}
+
+label.name {
+    color: #888888;
+}
+
+header.container {
+    margin-bottom: 20px;
+}

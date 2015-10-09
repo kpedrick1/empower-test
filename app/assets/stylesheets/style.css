@@ -1,0 +1,845 @@
+.cf:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+html{
+	height: 100%;
+	overflow-y: scroll;
+}
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	min-height: 100%;
+      background-image: url("blue_background.jpg");
+      background-attachment: fixed;
+      background-position: center center;
+      background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.underline {
+	text-decoration: underline;
+}
+.wrapper {
+	width: 960px;
+	margin: 0 auto;
+	background: url('bg.png') 0 0 repeat-y;
+}
+header {
+	position: relative;
+	height: 160px;
+}
+header img:first-child {
+	float: left;
+	margin-left: 90px;
+	margin-top: 40px;
+}
+header .ribbon {
+	float: right;
+	margin-right: 70px;
+	width: 340px;
+	height: 144px;
+	background: url('ribbon.png') bottom left no-repeat;
+  padding: 18px;
+}
+
+header .ribbon p {
+	padding: 0px 5px;
+	line-height: 24px;
+	margin: 0;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0.5px 0.866px 1px rgba(192, 57, 43, 0.6);
+}
+header .ribbon p .careconnect {
+	font-weight: 400;
+}
+
+
+.content {
+	padding: 0 70px;
+}
+
+h1 {
+	font-weight: normal;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 25px;
+	margin-bottom: 0px;
+	color: #444;
+}
+
+.bp { font-weight: bold; }
+
+.careConnect { font-weight: normal; }
+
+h2 {
+	font-size: 24px;
+	color: #444;
+	line-height: 36px;
+	margin: 12px 0 12px 0;
+	font-weight: normal;
+}
+h3 {
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+	background: #c0392b;
+	margin-bottom: 0;
+	margin-left: 12px;
+	margin-top: 48px;
+	position: relative;
+	outline: none;
+	padding-top: 12px;
+	height: 212px;
+	cursor: auto;
+}
+
+h3:before {
+	content: '';
+	background: url('h3-sprite.png') 8px 0 no-repeat;
+	height: 212px;
+	width: 20px;
+	position: absolute;
+	left: -20px;
+	top: 0;
+}
+h3:after{
+	content: '';
+	background: url('h3-sprite.png') -13px 0 no-repeat;
+	height: 212px;
+	width: 20px;
+	position: absolute;
+	right: -20px;
+	top: 0;
+}
+.ui-accordion-header-active, h3:hover {
+	background: #e32526;
+}
+.ui-accordion-header-active:before, h3:hover:before {
+	content: '';
+	background: url('h3-sprite.png') 8px -212px no-repeat;
+	height: 212px;
+	width: 20px;
+}
+.ui-accordion-header-active:after, h3:hover:after {
+	content: '';
+	background: url('h3-sprite.png') -13px -212px no-repeat;
+	height: 212px;
+	width: 20px;
+}
+
+h3 .caret {
+	position: absolute;
+	top: 40%;
+	right: 20px;
+	font-size: 45px;
+	margin-top: -7px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.ui-accordion-header-active .caret {
+	-webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    right: 26px;
+}
+a {
+	color: #2980b9;
+	text-decoration: none;
+}
+h4 {
+	color: #444;
+	font-size: 18px;
+	margin: 12px 0 12px 0;
+}
+.first-free {
+	margin: 10px 0;
+	text-align: center;
+	font-size: 24px;
+}
+
+#accordions { margin-top: 25px; }
+
+#accordions > div {
+	padding: 0 75px;
+	border: 5px solid #e32526;
+	border-top: 1px solid #c0392b;
+	margin-bottom: 48px;
+	margin-left: 0px;
+	background: #ecedee;
+}
+#accordions h3:first-child {
+	margin-top: 0;
+}
+
+#accordions h3 {
+	text-shadow: 0.5px 1px 1px rgba(0, 0, 0, 0.9);
+	-webkit-text-shadow: 0.5px 1px 1px rgba(0, 0, 0, 0.9);
+	font-size: 24px;
+	cursor: pointer;
+}
+
+#accordions h3 .register, #accordions h3 .enroll {
+	font-size: 18px;
+	color: #fff;
+}
+
+#accordions h3 ul {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: 205px;
+	list-style: none;
+}
+
+span.register a, span.enroll a {
+	color: white;
+}
+
+#accordions .physicians-header ul {
+	margin-left: 85px;
+}
+
+#accordions h3 li {
+	color: #fff;
+	text-align: left;
+	padding-left: 20px;
+	margin-bottom: 0px;
+}
+
+#accordions h3 li:before {
+  content: '\2022';
+  padding-right: 30px;
+  text-shadow: 0.5px 1px 1px rgba(0, 0, 0, 0.9);
+  -webkit-text-shadow: 0.5px 1px 1px rgba(0, 0, 0, 0.9);
+}
+
+#accordions .physicians-header li {
+	font-size: 17px;
+}
+
+#accordions .patients-header li {
+	font-size: 14px;
+}
+
+ul {
+	padding-left: 20px;
+}
+p, li {
+	font-size: 16px;
+	color: #444444;
+	line-height: 1.5em;
+}
+li {
+	margin-bottom: 5px;
+}
+table {
+	margin-bottom: 20px;
+	width: 400px;
+}
+
+/*table td, table th {
+	border: 1px solid #939598;
+	font-size: 16px;
+	text-align: center;
+	padding: 5px 0;
+}
+table th {
+	background: #c7c8ca;
+}
+*/
+
+.center {
+	text-align: center;
+}
+.contact-block p {
+	margin: 0;
+	text-align: center;
+}
+.contact-block {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.testimonial {
+	width: 310px;
+	margin: 0 auto;
+}
+
+.testimonial p:last-child {
+	float: right;
+	margin-top: 0;
+}
+h5 {
+	font-size: 18px;
+	text-align: center;
+	color: #444444;
+}
+footer {
+	height: 84px;
+	background: url('footer-bg.png') 0 0 repeat;
+	/*background: rgba(206, 207, 209, 0.33);*/
+	margin-top: 48px;
+}
+
+footer .copyright {
+	float: left;
+	font-weight: bold;
+	margin-left: 70px;
+	padding-top: 23px;
+	font-size: 12px;
+	color: #666;
+}
+
+footer img {
+	float: right;
+	margin-right: 60px;
+	padding-top: 20px;
+}
+
+div footer {
+	margin-left: -75px;
+	width: 810px;
+	background: #5c8d9c;
+	height: 45px;
+}
+
+div footer img {
+	float: right;
+	margin: -87px 33px 0 0;
+	padding: 0;
+}
+
+div footer h5 {
+	color: #fff;
+	text-align: center;
+	padding-top: 14px;
+}
+
+div footer a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.contact-us {
+	background: #ecedee;
+	width: 177px;
+	padding: 0;
+	border: 3px solid #b8b8b8;
+  position: relative;
+  margin: 0 auto;
+	height: 120px;
+	z-index: 100;
+  margin-top: 22px;
+}
+
+.contact-us .flag {
+display: block;
+width: 64px;
+height: 46px;
+position: absolute;
+left: -67px;
+top: -3px;
+	background: url('flag.png') 0 0 no-repeat;
+}
+
+.contact-us h2 {
+	text-align: center;
+	font-weight: bold;
+	color: #444;
+	font-size: 18px;
+	line-height: 20px;
+	margin: 17px 10px;
+}
+.contact-us h2 span {
+	color: #747578;
+	font-size: 14px;
+}
+button {
+	display: block;
+	color: #fff;
+	background: #2980b9;
+	border: 0;
+	padding: 0;
+	text-align: center;
+	margin: -2px auto 0 auto;
+	width: 155px;
+	height: 32px;
+	font-size: 14px;
+  line-height: 32px;
+}
+button:hover {
+	background: #5da6bd;
+}
+
+.patients-prescriptions div {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.patients-prescriptions div.first {
+	padding-left: 5px !important;
+}
+
+#top_menu .nav-pills > li {
+    border:none;
+}
+#top_menu .nav-pills > li > a {
+    border:none;
+    background-color: #dddddd;
+}
+#top_menu .nav-pills > li > a:hover {
+    border:none;
+    background-color: white;
+}
+#top_menu > ul > li > a.active {
+    border:none;
+    color:black;
+    background-color: white;
+}
+
+#mobile_nav_bar .nav-pills > li > a {
+    border:none;
+    background-color: #dddddd;
+}
+
+#mobile_nav_bar .nav-pills > li > a:hover {
+    border:none;
+    background-color: white;
+}
+#mobile_nav_bar > ul > li > a.active {
+    border:none;
+    color:black;
+    background-color: white;
+}
+
+
+
+#header_bar {
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+#top_menu > ul > li > small {
+    font-size: 70%;
+}
+
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-bpCareConnect-icon-account-settings {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -5px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-billing {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -5px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-blood-pressure {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -5px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-how-to {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -65px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-insurance {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -65px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-log-out {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -65px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-patient-address {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -125px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-patient-info {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -125px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-prescriptions {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -125px;
+    border-radius:50px;
+    background-color:#2088ca;
+}
+a.active .sprite-bpCareConnect-icon-account-settings {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -5px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-billing {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -5px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-blood-pressure {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -5px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-how-to {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -65px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-insurance {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -65px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-log-out {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -65px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-patient-address {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -125px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-patient-info {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -125px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-prescriptions {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -125px;
+    border-radius:50px;
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-account-settings:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-billing:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-blood-pressure:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-how-to:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-insurance:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-log-out:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-patient-address:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-patient-info:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-prescriptions:hover {
+    background-color:#c22b24;
+}
+
+
+.sprite_mobile {
+    background-image: url(spritesheet_mobile.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-bpCareConnect-icon-account-settings-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -5px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-address-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -5px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-billing-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -5px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-blood-pressure-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -50px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-how-to-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -50px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-insurance-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -50px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-log-out-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -95px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-patient-info---mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -95px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+.sprite-bpCareConnect-icon-prescriptions-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -95px;
+    border-radius:35px;
+    background-color:#2088ca;
+}
+
+a.active .sprite-bpCareConnect-icon-account-settings-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -5px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-address-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -5px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-billing-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -5px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-blood-pressure-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -50px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-how-to-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -50px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-insurance-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -50px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-log-out-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -5px -95px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-patient-info---mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -50px -95px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+a.active .sprite-bpCareConnect-icon-prescriptions-mobile {
+    width: 35px;
+    height: 35px;
+    background-position: -95px -95px;
+    border-radius:35px;
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-account-settings-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-address-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-billing-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-blood-pressure-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-how-to-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-insurance-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-log-out-mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-patient-info---mobile:hover {
+    background-color:#c22b24;
+}
+
+.sprite-bpCareConnect-icon-prescriptions-mobile:hover {
+    background-color:#c22b24;
+}
+
+
+#drop_shadow {
+    background-image: url(/assets/shadow-full-screen.png);
+    background-color: white;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    content:"";
+    height:45px;
+}
+
+#mobile_nav_bar {
+
+}
+
+.new_button{
+    background: linear-gradient(to bottom, #5b5b5b 1%, #8d8d8d 100%);
+    border: 3px solid #aba7a3;
+}
+.new_button:hover{
+    background: linear-gradient(to bottom, #0073ad 1%, #189cd6 100%);
+    border: 3px solid #b4dee8;
+}
+.new_button:active{
+    background: linear-gradient(to bottom, #0073ad 1%, #189cd6 100%);
+    border: 3px solid #b4dee8;
+}
+
+div#flash_notice {
+    font-size: 16px;
+    font-weight:bold;
+}
+
+div#flash_alert {
+    font-size: 16px;
+    font-weight:bold;
+}

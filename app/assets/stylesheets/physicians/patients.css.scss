@@ -1,0 +1,23 @@
+// Place all the styles related to the physicians/patients controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+td {
+
+  vertical-align:middle !important; 
+}
+
+.patient-bounced {
+
+  background-color: #f8c9c4;  
+  
+  span.glyphicon.glyphicon-exclamation-sign {
+      color: #c0392b;  
+      font-size: large;
+
+  }
+  
+}
+
