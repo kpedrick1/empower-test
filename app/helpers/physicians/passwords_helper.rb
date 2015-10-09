@@ -1,0 +1,2 @@
+module Physicians::PasswordsHelper
+end

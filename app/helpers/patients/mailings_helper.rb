@@ -1,0 +1,2 @@
+module Patients::MailingsHelper
+end
