@@ -1,0 +1,128 @@
+
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Order History
+    .panel-body
+
+
+      .row
+        .col-xs-12
+
+          .panel.panel-default
+
+            .panel-body
+
+              .table-responsive
+
+                %table.table.table-hover
+                  %thead
+                    %tr
+                      %th Name
+                      %th Order Number
+                      %th Total Price
+                      %th Tracking Link
+                      %th Status
+                      %th Paid Off
+
+
+
+                  - @orderList.each do |order|
+
+                    %tr
+                      %td
+                        = order.opportunityName
+                      %td
+                        = order.orderNumber
+                      %td
+                        = number_to_currency(order.totalPrice)
+                      %td
+                        = raw order.trackingLink
+                      %td
+                        = order.status
+                      %td
+                        = order.paidOff
+
+
+
+:javascript
+
+  $(function(){
+
+      $("#order-history").addClass("active");
+      $("#order-history-mobile").addClass("active");
+
+    })
+
+-#= form_tag do
+-#
+-#  #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", "data-backdrop"=>"false", :role => "dialog"}
+-#    .modal-dialog
+-#      .modal-content
+-#        .modal-header
+-#          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+-#            %span{"aria-hidden" => "true"} &times;
+-#          %h4#myModalLabel.modal-title Acquire Product
+-#        .modal-body
+-#          .row
+-#            .col-xs-12.col-sm-12
+-#              .table-responsive
+-#
+-#                %table.table.table-hover
+-#                  %thead
+-#                    %tr
+-#                      %th Current Inventory
+-#                      %th Add to Inventory
+-#                      %th Product
+-#                      %th Cost
+-#                      %th Sale Price
+-#                      %th Revenue/ Unit
+-#
+-#                  - @inventory.each do |newinv|
+-#
+-#                    %tr
+-#                      %td
+-#                        = newinv.currentInventory
+-#                      %td
+-#                        = text_field_tag 'inventory[][qty]', nil, size: 10
+-#                        = hidden_field_tag 'inventory[][productId]', newinv.productId
+-#                      %td
+-#                        = newinv.productName
+-#                      %td
+-#                        = number_to_currency(newinv.salePrice)
+-#                      %td
+-#                        = number_to_currency(newinv.productCost)
+-#                      %td
+-#                        = number_to_currency(newinv.revenue)
+-#          .row
+-#            .col-xs-12.col-sm-12
+-#              %div{:style => "border-radius: 5px; border: 1px solid #888888; padding: 5px; color:#888888;"}
+-#                By clicking the Confirm Order button I am agreeing to make the above change to Inventory levels.  I understand that if my inventory level for a product reaches zero then Inventory will be added automatically at the level of this order.
+-#
+-#        .modal-footer
+-#          %button.btn.new_button{"data-dismiss" => "modal", :type => "button"} Close
+-#          = submit_tag "Confirm Order", class: "btn btn-primary new_button"
+-#
+-#
+-#
+-#:javascript
+-#  $('#myModal').on('shown.bs.modal', function () {
+-#    $('#myInput').focus()
+-#  })
+-#
+-#:javascript
+-#
+-#  $(function(){
+-#
+-#    $("#inventories").addClass("active");
+-#    $("#inventories-mobile").addClass("active");
+-#
+-#  })
+-#
+-#:css
+-#  .modal {overflow-y: auto;}
+-#  .modal-open {padding-right: 0 !important;}

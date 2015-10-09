@@ -1,0 +1,27 @@
+#progress-chart.panel.panel-default
+  .panel-heading
+    %h4.panel-title Your Progress Chart
+
+  .panel-body
+    .table-responsive
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Date
+            %th Time
+            %th AM/PM
+            %th Systolic
+            %th Diastolic
+
+        - @activities.each do |activity|
+          %tr
+            %td
+              = activity.Formatted_Date__c
+            %td
+              = "#{activity.Date_Hour__c}:#{activity.Date_Minutes__c}"
+            %td
+              = activity.Date_AMPM__c
+            %td
+              = activity.Blood_Pressure_Systolic__c
+            %td
+              = activity.Blood_Pressure_Diastolic__c          

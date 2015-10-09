@@ -1,0 +1,31 @@
+.container{:style => "padding:0 0 0 0;"}
+  .col-xs-12
+    .col-xs-12.col-md-6.col-md-offset-3
+      #drop_shadow.col-xs-12.col-md-6.col-md-offset-3
+      #footer_bar{:style => "padding-bottom:30px;padding-left:15px;background-color:white;"}
+        .row
+          .col-xs-8.col-md-8
+            .row
+              .col-xs-12
+                %bold
+                  Call Center:
+                %small
+                  888-552-9769
+                %br
+
+                %small
+                  Fax: 541-647-1676
+                %br
+                %small
+                  Email:newrx@puracap.com
+                %br
+
+            .row
+              .col-xs-12
+                %small
+                  &copy;2015 puracap. All rights reserved.
+
+          .col-xs-4.col-md-4
+            = image_tag('puracap_logo.png', style: "max-height:100px")
+
+%script{:type => "text/javascript", :src  => "/assets/boldchat.js"}

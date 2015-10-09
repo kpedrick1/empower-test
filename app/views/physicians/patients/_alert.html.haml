@@ -1,0 +1,7 @@
+- if @patient.Is_Email_Bounced__c == true
+  .col-xs-12
+    .alert.alert-danger.alert-dismissable 
+      %ul
+        %li
+          %strong Error : 
+          Patient Email is wrong or unreachable

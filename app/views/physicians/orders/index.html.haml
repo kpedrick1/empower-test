@@ -1,0 +1,258 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Order Form
+    .panel-body
+
+      -if @commit_action == 'Place Order'
+        = form_tag do
+
+          .row
+            .col-xs-12
+
+              .panel.panel-default
+                .panel-body
+
+                  .table-responsive
+
+                    %table.table.table-hover
+                      %thead
+                        %tr
+                          %th Product
+                          %th Cost /Case
+                          %th Cases to Order
+                          %th Total Cost
+
+
+                      - @opp_lines.each do |line|
+
+                        %tr
+                          %td
+                            = line.productName
+                          %td.unit_price_cell
+                            = number_to_currency(line.unitPrice)
+                          %td
+                            = line.qty
+                            = hidden_field_tag 'productline[][qty]', line.qty
+                            = hidden_field_tag 'productline[][productId]', line.productId
+                          %td.total_price_cell
+                            = number_to_currency(line.totalPrice)
+
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                        %td
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                          %b
+                            Total
+                        %td.grand_total_cell
+                          %b
+                            =number_to_currency(@grand_total)
+          .row
+            .col-xs-12
+              .col-xs-8
+                .well
+                  Please select a payment method.
+                  %br
+                  = radio_button_tag :paymentType, 'payment_invoice', :id => 'payment_invoice'
+                  %label{:for => 'payment_invoice', :value => 'payment_invoice'}
+                    Pay Online Invoice.
+                  %br
+                  = radio_button_tag :paymentType, 'payment_call_center', :id => 'payment_call_center'
+                  %label{:for => 'payment_call_center', :value => 'payment_call_center'}
+                    Have the Call Center call for Payment Method.
+                  %br
+                  = radio_button_tag :paymentType, 'payment_stored', :id => 'payment_stored'
+                  %label{:for => 'payment_stored', :value => 'payment_stored'}
+                    Use Stored Payment Method.
+              .col-xs-4
+                = submit_tag "Accept", class: "btn btn-primary new_button"
+                = submit_tag "Cancel", class: "btn btn-primary new_button"
+
+      -elsif @commit_action == 'Accept'
+        -if @payment_type == 'payment_invoice'
+          .row
+            .col-xs-12
+              .embed-responsive.embed-responsive-4by3
+                %iframe.embed-responsive-item{:src => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s}
+        -else
+          .row
+            .col-xs-12
+              .col-xs-8.alert.alert-success
+                Your order has been processed.
+                -#%a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s, :target => "_blank"} Pay Online Invoice
+              .col-xs-4
+          .row
+            .col-xs-12
+
+              .panel.panel-default
+                .panel-body
+
+                  .table-responsive
+
+                    %table.table.table-hover
+                      %thead
+                        %tr
+                          %th Product
+                          %th Cost /Case
+                          %th Cases to Order
+                          %th Total Cost
+
+
+                      - @opp_lines.each do |line|
+
+                        %tr
+                          %td
+                            = line.productName
+                          %td.unit_price_cell
+                            = number_to_currency(line.unitPrice)
+                          %td
+                            = line.qty
+                            = hidden_field_tag 'productline[][qty]', line.qty
+                            = hidden_field_tag 'productline[][productId]', line.productId
+                          %td.total_price_cell
+                            = number_to_currency(line.totalPrice)
+
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                        %td
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                          %b
+                            Total
+                        %td.grand_total_cell
+                          %b
+                            =number_to_currency(@grand_total)
+
+      -else
+        = form_tag do
+          .row
+            .col-xs-12
+
+              .panel.panel-default
+                .panel-body
+
+                  .table-responsive
+
+                    %table.table.table-hover
+                      %thead
+                        %tr
+                          %th Product
+                          %th Cost /Case
+                          %th Cases to Order
+                          %th Total Cost
+
+
+                      - @order_line.each do |line|
+
+                        %tr
+                          %td
+                            = line.productName
+                          %td.unit_price_cell
+                            = number_to_currency(line.unitPrice)
+                          %td
+                            = number_field_tag 'productline[][qty]', nil, min:1, class: 'product_qty_input'
+                            = hidden_field_tag 'productline[][productId]', line.productId
+                          %td.total_price_cell
+                            = number_to_currency(0)
+
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                        %td
+
+                      %tr
+                        %td
+                        %td
+                        %td
+                          %b
+                            Total
+                        %td.grand_total_cell
+                          %b
+                            =number_to_currency(0)
+          .row
+            .col-xs-12
+              .col-xs-8
+                .well
+                  Pre-Sell – 10% off plus free shipping
+                  %br
+                  Launch – Free shipping
+                  %br
+                  Post launch – Free shipping for orders of 2 cases or more
+              .col-xs-4
+                %table
+                  - @shipping_options.each do |shipping|
+
+                    %tr
+                      %td
+                        = radio_button_tag :shippingType, shipping.productId, :id => shipping.productId
+                        %label{:for => shipping.productId, :value => shipping.productId}
+                          = shipping.productName
+                      %td
+                        = number_to_currency(shipping.unitPrice)
+
+            .col-xs-8
+            .col-xs-4
+              = submit_tag "Place Order", class: "btn btn-primary new_button"
+
+
+:javascript
+
+  $(".product_qty_input").on("input",null,null,function(){
+    calculateQuantityTotal($(this));
+  });
+
+
+  function calculateQuantityTotal(thisobj) {
+
+    var productGrandTotal = 0;
+
+    $(".product_qty_input").each(function(){
+
+        var productQuantity =  this.value;
+
+        var productCurrency = $(this).closest("tr").find(".unit_price_cell").text();
+        var productPrice = Number(productCurrency.replace(/[^0-9\.]+/g,""));
+
+        var totalPrice = (productPrice * productQuantity);
+
+        productGrandTotal = productGrandTotal + totalPrice;
+
+        var totalPriceCurrency = "$".concat(totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+
+        $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
+
+      });
+
+      var grandTotalCurrency = "$".concat(productGrandTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+      thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
+  }
+
+
+  $(function(){
+
+    $("#order").addClass("active");
+    $("#order-mobile").addClass("active");
+
+  })
+
+:css
+  .modal {overflow-y: auto;}
+  .modal-open {padding-right: 0 !important;}

@@ -1,0 +1,19 @@
+%head
+  %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+  %title puracap
+  
+  %meta{name: "mobile-web-app-capable", content: "yes"}/
+  
+  -#%link{rel: "shortcut icon", sizes:"196x196", href:"/assets/bpcc_icon_196_red.png"}/
+  -#%link{rel: "apple-touch-icon", sizes:"76x76", href:"/assets/bpcc_icon_76_red.png"}/
+  -#%link{rel: "apple-touch-icon", sizes:"120x120", href:"/assets/bpcc_icon_120_red.png"}/
+  -#%link{rel: "apple-touch-icon", sizes:"152x152", href:"/assets/bpcc_icon_152_red.png"}/
+  
+  %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Sm'}"}
+  
+  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => false
+  
+  = javascript_include_tag "application", "data-turbolinks-track" => false
+  = javascript_include_tag "modernizr"
+  
+  = csrf_meta_tags

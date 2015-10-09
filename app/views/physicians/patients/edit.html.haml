@@ -1,0 +1,159 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Edit Patient
+    .col-sm-9.hidden-xs
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+
+
+      .row
+
+        .col-xs-12
+
+          .panel.panel-default
+
+            .panel-heading
+              = @patient.Name
+
+            .panel-body
+
+              = form_tag({action: "update"}, method: "put") do
+
+                .col-xs-12
+                  = hidden_field_tag "patient[Id]", @patient.Id
+                  = hidden_field_tag "id", params[:id]
+
+                = render partial: "alert"
+
+                .col-xs-12
+
+                  .panel.panel-default
+                    .panel-body
+
+                      .col-xs-12.col-md-6
+
+                        .form-group
+                          = label_tag "First Name", nil, class: "control-label"
+                          = text_field_tag "patient[FirstName]", @patient.First_Name__c, class: "form-control", required: "true"
+
+                        .form-group
+                          = label_tag "Last Name", nil, class: "control-label"
+                          = text_field_tag "patient[LastName]", @patient.Last_Name__c, class: "form-control", required: "true"
+
+                        .form-group
+                          = label_tag "Email", nil, class: "control-label"
+                          = text_field_tag "patient[PersonEmail]", @patient.PersonEmail, class: "form-control", disabled: "true"
+
+                        .form-group
+                          = label_tag "Birthdate", nil, class: "control-label"
+                          .row
+                            .col-xs-12.col-md-4{style: "margin-top: 1px"}
+                              = select_tag "patient[Patient_Birthday_Year__c]", options_for_select(Date.today.year.downto(1900).to_a, @patient.Patient_Birthday_Year__c), class: "form-control"
+                            .col-xs-12.col-md-5{style: "margin-top: 1px"}
+                              = select_tag "patient[Patient_Birthday_Month__c]", options_for_select(@months, @patient.Patient_Birthday_Month__c), class: "form-control"
+                            .col-xs-12.col-md-3{style: "margin-top: 1px"}
+                              = select_tag "patient[Patient_Birthday_Day__c]", options_for_select(@days, @patient.Patient_Birthday_Day__c), class: "form-control"
+
+                      .col-xs-12.col-md-6
+
+                        .form-group
+                          = label_tag "Contact Method", nil, class: "control-label"
+                          = select_tag "patient[Patient_Contact_Method__c]", options_for_select(["Telephone", "Email", "Text"], @patient.Patient_Contact_Method__c), class: "form-control"
+                        .form-group
+                          = label_tag "Mobile Phone", nil, class: "control-label"
+                          = phone_field_tag "patient[PersonMobilePhone]", @patient.PersonMobilePhone, class: "form-control phone", min: 10, max:10, required: "true", autocomplete: "off"
+
+                        .form-group
+                          = label_tag "Home Phone", nil, class: "control-label"
+                          = phone_field_tag "patient[PersonHomePhone]", @patient.PersonHomePhone, class: "form-control phone", min: 10, max:10, required: "true", autocomplete: "off"
+
+                        .form-group
+                          = label_tag "Gender", nil, class: "control-label", style: "display: block"
+                          .radio-inline
+                            %label
+                              %input{type: "radio", name: "patient[Gender__c]", value: "Male", checked: "true"}
+                              Male
+                          .radio-inline
+                            %label
+                              %input{type: "radio", name: "patient[Gender__c]", value: "Female"}
+                              Female
+
+                  .panel.panel-default
+                    .panel-body
+
+
+                      .col-xs-12.col-md-6
+
+                        .form-group
+                          = label_tag "Street", nil, class: "control-label"
+                          = text_field_tag "patient[BillingStreet]", @patient.BillingStreet, class: "form-control"
+
+                        .form-group
+                          = label_tag "City", nil, class: "control-label"
+                          = text_field_tag "patient[BillingCity]", @patient.BillingCity, class: "form-control"
+
+                        .form-group
+                          = label_tag "State", nil, class: "control-label"
+                          /= text_field_tag "patient[BillingState]", @patient.BillingState, class: "form-control"
+                          = select_tag "patient[BillingState]", options_for_select(get_states_us, @patient.BillingState), class: "form-control"
+
+                      .col-xs-12.col-md-6
+
+                        .form-group
+                          = label_tag "Zip Code", nil, class: "control-label"
+                          = text_field_tag "patient[BillingPostalCode]", @patient.BillingPostalCode, class: "form-control"
+
+                        .form-group
+                          = label_tag "Country", nil, class: "control-label"
+                          = select_tag "patient[BillingCountry]", "<option>US</option>".html_safe, class: "form-control"
+
+                        .form-group
+                          = label_tag "", nil, class: "control-label"
+                          = submit_tag "Save", class: "btn btn-primary form-control new_button"
+
+              
+:javascript
+
+  $(function(){ 
+    
+    $(".phone").focusout(function() {
+    
+        text = $(this).val()
+        text = text.replace(/[^0-9]/g, "")
+        text = text.substring(0,10)
+ 
+        if (text.length == 10) {
+          text = text.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+          $(this).val(text)
+        }
+        else if (text.length > 0) {
+          $(this).parent().addClass("has-error")
+        }
+        else {
+          $(this).parent().removeClass("has-error")
+        }
+    
+    });
+    
+  });   
+            
+:javascript
+
+  $(function(){
+  
+    $("#prescription").addClass("active")
+  
+  })            
+            
+            
+            
+            
+            
+            
+            
+            

@@ -1,0 +1,6 @@
+.row
+  #bar-layout.col-xs-2{style: "position: fixed;"}
+    = render 'layouts/patients/menu'
+  #main-layout.col-xs-10.col-xs-offset-2{style: "padding-left:5%; padding-right:5%;"}
+    = render 'layouts/messages'
+    = yield

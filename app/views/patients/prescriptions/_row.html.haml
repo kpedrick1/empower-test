@@ -1,0 +1,15 @@
+%tr
+  %td
+    = prescription.Opportunity_Date__c
+  %td
+    = "#{prescription.PricebookEntry.Name}"
+  %td 
+    = "#{prescription.Dosage_Value__c}"
+  %td
+    = "#{prescription.Days__c}"
+  %td 
+    = "#{prescription.Administration__c}"
+  %td 
+    = "#{prescription.Refills__c}"
+  %td 
+    = "#{prescription.Opportunity.Status__c}"    

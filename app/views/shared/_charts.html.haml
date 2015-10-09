@@ -1,0 +1,135 @@
+#chart-pb-control{style: "-webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; width: 300px"}
+  %span Select the desired range:
+  %select{id: "chart-bp-select", style: "width:90px"}
+    %option{value: 'year'} Year
+    %option{value: 'semester'} 6 Months
+    %option{value: 'quarter'} 3 Months
+    %option{value: 'month'} Month
+    %option{value: 'week'} Week
+
+#chart-bp{style: "min-with:310px; margin: 10px auto; margin-bottom: 50px"}
+
+:javascript
+
+  var ss, dd = "";
+  var chart = undefined;
+  var chartOptions = undefined;
+
+  $(function () {
+
+          chartOptions = {
+              chart: {
+                  type: 'line',
+                  zoomType: 'x',
+                  spacingRight: 50
+              },
+              title: {
+                  text: 'Blood Pressure Log'
+              },
+              subtitle: {
+                text: 'Click and drag to zoom',
+                floating: true,
+                align: 'center',
+                verticalAlign: 'bottom',
+                y: 12
+              },               
+              xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { // don't display the dummy year
+                      month: '%e. %b',
+                      year: '%b'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Pressure (mm Hg)'
+                  },
+                  tickInterval: 10,
+                  min: 40,
+                  max: 200,
+                  startOnTick: false
+              },
+              plotOptions: {
+                  area: {
+                      marker: {
+                          enabled: false,
+                          symbol: 'circle',
+                          radius: 2,
+                          states: {
+                              hover: {
+                                  enabled: true
+                              }
+                          }
+                      }
+                  }
+              },
+              tooltip: {
+                  formatter: function() {
+                          return '<b>'+ this.series.name +'</b><br/>'+
+                          Highcharts.dateFormat('%m/%d %I:%M %p', this.x) +': '+ this.y +' mm HG';
+                  }
+              },
+
+              series: [{
+                  name: 'Systolic',
+                  // Define the data points. All series have a dummy year
+                  // of 1970/71 in order to be compared on the same x axis. Note
+                  // that in JavaScript, months start at 0 for January, 1 for February etc.
+                  data: [#{@systolic.year}]
+              }, {
+                  name: 'Diastolic',
+                  data: [#{@diastolic.year}]
+              }]
+          }
+
+
+
+          $('#chart-bp').highcharts(chartOptions);
+
+          $('#chart-bp-select').change(function(){
+
+            var period = ""
+            $( "select option:selected" ).each(function() {
+              period = $( this ).val();
+            });
+
+            if (period == "semester") {
+              ss = "#{@systolic.semester}";
+              dd = "#{@diastolic.semester}";
+            }
+            else if (period == "quarter") {
+              ss = "#{@systolic.quarter}";
+              dd = "#{@diastolic.quarter}";
+            }
+            else if (period == "month") {
+              ss = "#{@systolic.month}";
+              dd = "#{@diastolic.month}";
+            }
+            else if (period == "week") {
+              ss = "#{@systolic.week}";
+              dd = "#{@diastolic.week}";
+            }
+            else {
+              ss = "#{@systolic.year}";
+              dd = "#{@diastolic.year}";
+            }
+
+            console.log(ss);
+            console.log(dd);
+
+            ss = "[" + ss + "]";
+            dd = "[" + dd + "]";
+
+
+            chartOptions.series[0].data = $.parseJSON(ss);
+            chartOptions.series[1].data = $.parseJSON(dd);
+
+            //$('#chart-bp').children().remove();
+            $('#chart-bp').highcharts(chartOptions);
+
+          });
+      });
+
+
+
+

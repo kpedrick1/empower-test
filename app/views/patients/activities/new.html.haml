@@ -1,0 +1,166 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  .col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 15 0 15;"}
+    .col-xs-12.col-sm-3{:style => "padding: 0 0 0 0;"}
+      #page_title{:style => "background-color: #c22b24;"}
+        %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Blood Pressure
+    .col-sm-9.hidden-xs
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
+      .row
+        .col-md-4.col-xs-12
+
+          #bp-panel.panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Enter Blood Pressure
+              %label.label.label-danger Contact your physician if above 140/90
+            .panel-body
+              = form_tag({action: "create"}) do
+
+                = hidden_field_tag "instance-id", "false", class: "instance-id-field"
+                = hidden_field_tag "overwrite", "false", class: "overwrite-field"
+                = hidden_field_tag "activity[Account__c]", session[:account_id]
+
+                .form-group
+                  %small
+                    = label_tag "Systolic"
+                  = select_tag "activity[Blood_Pressure_Systolic__c]", options_for_select(@bp_values, "120"), class: "form-control"
+
+                .form-group
+                  %small
+                    = label_tag "Diastolic"
+                  = select_tag "activity[Blood_Pressure_Diastolic__c]", options_for_select(@bp_values, "80"), class: "form-control"
+                .form-group
+                  %small
+                    = label_tag "Date"
+                  = date_field_tag "activity[Date__c]", Date.today, class: "time-fields form-control datepicker", required: "true", "data-date-format" => "yyyy-mm-dd"
+
+                .form-group
+                  .row
+                    .col-xs-12
+                      %small
+                        = label_tag "Time"
+                    .col-xs-12.col-md-6
+                      = select_tag "activity[Date_Hour__c]", options_for_select(@hours, "12"), class: "form-control time time-fields", required: "true"
+                    .col-xs-12.col-md-6
+                      = select_tag "activity[Date_Minutes__c]", options_for_select(@minutes), class: "form-control time time-fields", required: "true"
+                .form-group
+                  .row
+                    .col-xs-12.col-md-12
+                      = select_tag "activity[Date_AMPM__c]", options_for_select(['AM', 'PM'], 'PM'), class: "form-control time time-fields", required: "true"
+                .row
+                  .col-xs-12
+                    = submit_tag "Save", class: "btn btn-primary btn-block save new_button", style: "text-align: center"
+                    %label.label.label-info{style: "display:none"} Overwrite existing blood pressure?
+                  -#.col-xs-12
+                  -#  - if @hv_disconnected == true
+                  -#    = link_to "Connect to HealthVault", {controller: 'activities', action: 'connect_to_health_vault'}, {method: 'post', class: "btn btn-primary btn-link btn-block" }
+                  -#  - else
+                  -#    = link_to "Disconnect from HealthVault", {controller: 'activities', action: 'disconnect_from_health_vault'}, {method: 'post', class: "btn btn-primary btn-link btn-block" }
+
+
+        .col-md-8.col-xs-12
+
+          #video-panel.panel.panel-default
+            .panel-body
+              = render partial: "charts"
+
+      .row
+        .col-xs-12
+          = render partial: "table"
+
+
+
+:javascript
+
+  $(function(){
+    
+    vp = $("#video-panel").height()
+    bp = $("#bp-panel").height()
+  
+    if (bp > vp) {
+      $("#video-panel").height(bp)
+      }
+    else { 
+      $("#bp-panel").height(vp)
+    }
+      
+    $("#systolic_value").addClass("form-control")
+    $("#diastolic_value").addClass("form-control")
+      
+    ml = $("#main-layout").height()
+    bl = $("#bar-layout").height()
+  
+    if (ml > bl) {
+      $("#bar-layout").height(ml)
+    }
+    else {
+      $("#bar-layout").height($(window).height())
+    }    
+  
+  
+  });
+:javascript
+
+  $(function(){
+  
+    $("#blood-pressure").addClass("active");
+    $("#blood-pressure-mobile").addClass("active");
+  
+  })  
+  
+  
+:javascript
+
+  $(function(){
+  
+    if (!Modernizr.inputtypes.date) {
+    
+      $(".datepicker").datepicker();
+      $(".time").css("padding", "6px 2px")
+    }
+
+    /*
+    $(".time-fields").change(function(){
+    
+      $("label.label-info").hide()
+      $(".instance-id-field").val("")
+      $(".overwrite-field").val(false)
+      $(".save").prop("disabled", true).val("Validating")
+      
+      $.ajax({
+        type: "POST",
+        url: "/patients/activities/lalalala.json",
+        data: $(".time-fields").serialize(),
+        success: function(data) {
+        
+          console.log(data)
+          if (data == "") {
+            $(".save").prop("disabled", false).val("Save").removeClass("btn-warning")
+          }
+          else {
+            $(".save").prop("disabled", false).val("Overwrite").addClass("btn-warning")
+            $("label.label-info").show()
+            $(".overwrite-field").val(true)
+            $(".instance-id-field").val(data)
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown ){
+          console.log(textStatus + ' ' + errorThrown)
+        }
+        
+      })
+    
+    })
+    */
+    
+    
+  
+  })
+
+
+
+

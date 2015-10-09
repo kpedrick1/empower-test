@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-md-12
+      = render 'layouts/physicians/menu'
+
+#back_ground_wrapper
+  .container{:style => "background-color:#f5f4f2;"}
+    .row
+      #main-container.col-md-12{:style => "padding:0 0 0 0;"}
+        = yield

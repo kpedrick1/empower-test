@@ -1,0 +1,10 @@
+!!!
+%html
+  = render 'shared/metainfo'
+  = render 'layouts/bold_chat'
+  = render 'layouts/google_analytics'
+  = javascript_include_tag "physicians"
+  %body{"data-no-turbolink" => "true"}
+    = render 'layouts/physicians/header'
+    = render 'layouts/physicians/main'
+    = render 'layouts/external/footer'

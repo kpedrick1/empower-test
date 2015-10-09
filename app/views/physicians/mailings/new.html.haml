@@ -1,0 +1,46 @@
+.row
+  .col-xs-12
+    %h5.subtitle New Message
+
+= form_tag({action: "create"}) do 
+
+  .row
+    .col-xs-12
+    
+      = hidden_field_tag "case[AccountId]", @physician[:Id]
+      = hidden_field_tag "case[ContactId]", session[:contact_id]
+      = hidden_field_tag "case[Is_Originated_From_Portal__c]", true
+      = hidden_field_tag "case[Origin]", "Web"
+      = hidden_field_tag "case[Status]", "New"
+
+  .row
+    .col-xs-12.col-md-12
+      .panel.panel-default
+        .panel-heading
+          %h4.panel-title
+            Information
+            
+        .panel-body
+          .col-xs-12.col-md-6
+            .form-group
+              = label_tag "First Name", nil, class: "control-label"
+              = text_field_tag "firstname", @firstname, class: "form-control mandatory", required: "true", autocomplete: "off", readonly: "true"
+              
+          .col-xs-12.col-md-6
+            .form-group
+              = label_tag "Last Name", nil, class: "control-label"
+              = text_field_tag "lastname", @lastname, class: "form-control mandatory", required: "true", autocomplete: "off", readonly: "true"
+            
+          .col-xs-12.col-md-6
+            .form-group
+              = label_tag "Email", nil, class: "control-label"
+              = text_field_tag "case[SuppliedEmail]", @email, class: "form-control mandatory", required: "true", autocomplete: "off", readonly: "true"
+          .col-xs-12.col-md-6
+            .form-group
+              = label_tag "Message", nil, class: "control-label"
+              = text_area_tag "case[Description]", nil, class: "form-control", required: "true"
+              
+          .col-xs-12.col-md-6
+            .form-group
+              = submit_tag "Send", class: "btn btn-primary btn-block"
+

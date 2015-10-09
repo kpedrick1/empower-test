@@ -1,0 +1,127 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+
+= render 'layouts/messages'
+
+= form_tag({action: "update"}, method: "put") do
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Account Settings
+    .panel-body
+      .row
+
+        .col-xs-12
+          = hidden_field_tag "physician[Id]", @physician.Id
+
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Physician Information
+
+            .panel-body
+              .form-group
+                = label_tag "First Name", nil, class: "control-label"
+                = text_field_tag "physician[FirstName]", @physician.FirstName, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "Last Name", nil, class: "control-label"
+                = text_field_tag "physician[LastName]", @physician.LastName, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "Email", nil, class: "control-label"
+                = email_field_tag "physician[PersonEmail]", @physician.PersonEmail, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "Mobile Number", nil, class: "control-label"
+                = phone_field_tag "physician[PersonMobilePhone]", @physician.PersonMobilePhone, class: "form-control phone", min: 10, max:10, autocomplete: "off", required: "true"
+
+              .form-group
+                = label_tag "Home Number", nil, class: "control-label"
+                = phone_field_tag "physician[PersonHomePhone]", @physician.PersonHomePhone, class: "form-control phone", min: 10, max:10, autocomplete: "off", required: "true"
+
+              .form-group
+                = label_tag "Fax Number", nil, class: "control-label"
+                = phone_field_tag "physician[Fax]", @physician.Fax, class: "form-control phone", min: 10, max:10, autocomplete: "off", required: "true"
+              -#.form-group
+                -#-#= check_box_tag "ratings[#{rating}]", 1, (@selected_ratings.include? rating)
+                -#= check_box_tag "physician[Virtual_Pharmacy__c]", 1, @physician.Virtual_Pharmacy__c
+                -#= label_tag "Virtual Pharmacy", nil, class: "control-label"
+
+
+        .col-xs-12.col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                Address
+
+            .panel-body
+
+              .form-group
+                = label_tag "Address", nil, class: "control-label"
+                = text_field_tag "physician[ShippingStreet]", @physician.ShippingStreet, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "City", nil, class: "control-label"
+                = text_field_tag "physician[ShippingCity]", @physician.ShippingCity, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "State", nil, class: "control-label"
+                /= text_field_tag "physician[ShippingState]", @physician.ShippingState, class: "form-control"
+                = select_tag "physician[ShippingState]", options_for_select(get_states_us, @physician.ShippingState), class: "form-control", required: "true"
+              .form-group
+                = label_tag "Zip Code", nil, class: "control-label"
+                = text_field_tag "physician[ShippingPostalCode]", @physician.ShippingPostalCode, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "Country", nil, class: "control-label"
+                = select_tag "physician[ShippingCountry]", "<option>US</option>".html_safe, class: "form-control", required: "true"
+
+              .form-group
+                = label_tag "Timezone", nil, class: "control-label"
+                = select_tag "physician[Timezone__c]", options_for_select(@timezones, @physician.Timezone__c), class: "form-control", required: "true"
+
+      .row
+        .col-xs-12
+          .panel.panel-default
+            .panel-body
+              .row
+                .col-xs-12.col-md-6
+                  = submit_tag "Save", class: "btn btn-primary btn-block new_button"
+                .col-xs-12.col-md-6
+                  = link_to "Security Options", edit_physicians_physician_registration_path, class: "btn btn-primary btn-link btn-block"
+
+:javascript
+
+  $(function(){ 
+    
+    $(".phone").focusout(function() {
+    
+        text = $(this).val()
+        text = text.replace(/[^0-9]/g, "")
+        text = text.substring(0,10)
+ 
+        if (text.length == 10) {
+          text = text.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+          $(this).val(text)
+        }
+        else if (text.length > 0) {
+          $(this).parent().addClass("has-error")
+        }
+        else {
+          $(this).parent().removeClass("has-error")
+        }
+    
+    });
+    
+  });  
+  
+:javascript
+
+  $(function(){
+  
+    $("#settings").addClass("active");
+    $("#settings-mobile").addClass("active");
+  
+  })  

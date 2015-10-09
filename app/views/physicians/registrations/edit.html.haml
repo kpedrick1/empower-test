@@ -1,0 +1,48 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Account Settings
+    .panel-body
+
+
+
+      .row
+        .col-xs-12.col-md-8.col-md-offset-2
+
+          = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :role => "form") do |f|
+            = devise_error_messages!
+
+            .panel.panel-default
+
+              .panel-heading
+                %h4.panel-title Edit Security Options
+
+              .panel-body
+
+                .form-group
+                  = f.label "Current password"
+                  = f.password_field :current_password, :class => "form-control"
+
+                .form-group
+                  = f.label "New password"
+                  = f.password_field :password, :class => "form-control"
+
+                .form-group
+                  = f.label :password_confirmation
+                  = f.password_field :password_confirmation, :class => "form-control"
+
+              .panel-footer
+                = f.submit "Save", class: "btn btn-primary btn-block new_button"
+        
+        
+:javascript
+
+  $(function(){
+  
+    $("#settings").addClass("active")
+  
+  })        
