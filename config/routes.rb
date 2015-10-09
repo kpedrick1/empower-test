@@ -56,4 +56,45 @@ Rails.application.routes.draw do
 
 	root 'welcome#index'
 
+
+  #get "physicians" => redirect "physicians/physicians"
+
+  #public domain
+
+  #root :to => "home#index"
+
+
+  get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
+
+  resources :mailings
+
+
+
+  namespace :physicians do
+
+    devise_for :physicians, :controllers => { :registrations => 'physicians/registrations', :sessions =>  'physicians/sessions'}
+
+    resources :prescriptions
+    resources :activities
+    resources :patients
+    resources :physicians
+    resources :mailings
+    #resources :inventories
+    resources :monthend
+    resources :orders
+    resources :orderhistories
+
+    #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
+
+  end
+
+  devise_scope :physicians do
+    get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
+  end
+
+  wash_out :rumbas
+
+
+
+
 end
