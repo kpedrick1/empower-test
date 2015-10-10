@@ -1,3 +1,8 @@
+PATH
+  remote: vendor/ruby-healthvault
+  specs:
+    ruby-healthvault (0.0.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -267,6 +272,7 @@ DEPENDENCIES
   rails_layout
   rest-client
   restforce
+  ruby-healthvault!
   sass-rails (~> 4.0.3)
   savon (~> 2.10.0)
   sqlite3
