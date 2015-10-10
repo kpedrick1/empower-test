@@ -22,6 +22,7 @@
 
 body {
 
+    background-image: url(image-path("main-bkg.jpg"));
     background-attachment: fixed;
     background-position: center center;
     background-repeat: repeat;
