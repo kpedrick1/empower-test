@@ -73,7 +73,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
 
     args["Business_Unit__c"] = 'PuraCap'
 
-    result = client.get "/services/apexrest/portal/physician", :args => args
+    result = client.get '/services/apexrest/portal/physician', :args => args
 
     result_body = result.body
 

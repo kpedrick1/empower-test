@@ -85,3 +85,7 @@ pickle-email-*.html
 Procfile
 
 puracap.iml
+
+
+server.crt
+server.key
