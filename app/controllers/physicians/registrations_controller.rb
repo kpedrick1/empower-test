@@ -1,5 +1,3 @@
-require 'pp'
-
 class Physicians::RegistrationsController < Devise::RegistrationsController
   
   before_filter :configure_permitted_parameters, if: :devise_controller? 
@@ -63,14 +61,6 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
   def create_account params
     
     client = Restforce.new
-
-    puts "---start restforce debug ----\n\n"
-
-
-    pp client
-
-
-    puts "---end restforce debug ----\n\n"
 
     args = Hash.new
     args["FirstName"] = params[:firstname]
