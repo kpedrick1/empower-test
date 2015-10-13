@@ -83,3 +83,5 @@ pickle-email-*.html
 
 .env
 Procfile
+
+puracap-qa.iml
