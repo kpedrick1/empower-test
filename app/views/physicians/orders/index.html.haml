@@ -128,7 +128,10 @@
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td
-                            10%
+                            -if line.productName.exclude? 'Shipping'
+                              10%
+                            -elsif line.productName.include? 'Standard Shipping'
+                              100%
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
