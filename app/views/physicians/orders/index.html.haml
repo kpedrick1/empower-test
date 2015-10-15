@@ -12,7 +12,7 @@
 
           .row
             .col-xs-12
-
+ENV['DATABASE_URL']
               .panel.panel-default
                 .panel-body
 
@@ -83,7 +83,7 @@
           .row
             .col-xs-12
               .embed-responsive.embed-responsive-4by3
-                %iframe.embed-responsive-item{:src => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s}
+                %iframe.embed-responsive-item{:src => ENV['SITE_INVOICE_URL'] + '?id=' + @oppId.to_s}
         -else
           .row
             .col-xs-12
@@ -191,11 +191,14 @@
             .col-xs-12
               .col-xs-8
                 .well
-                  Pre-Sell – 10% off plus free shipping
+                  Today’s Special Offer: 10% off plus free shipping
                   %br
-                  Launch – Free shipping
+                  Questions? Call 1-888-552-9769 Opt #3
                   %br
-                  Post launch – Free shipping for orders of 2 cases or more
+                  Hours: Monday-Friday  9:00 AM  - 8:00 PM EST
+                  %br
+                  Thank you for your business!
+
               .col-xs-4
                 %table
                   - @shipping_options.each do |shipping|
