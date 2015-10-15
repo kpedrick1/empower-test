@@ -54,14 +54,15 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-	root 'welcome#index'
-
+	#root 'welcome#index'
 
   #get "physicians" => redirect "physicians/physicians"
 
   #public domain
 
-  #root :to => "home#index"
+  root :to => "home#index"
+  get "pages/eua"
+
 
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'

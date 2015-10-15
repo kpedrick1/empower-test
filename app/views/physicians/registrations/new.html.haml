@@ -32,7 +32,7 @@
           = f.email_field :email, :class => "form-control", :required => "true", :autocomplete => "off"
 
         .form-group
-          = f.label "NPI", style: "text-transform:uppercase"
+          = f.label "NPI", :style => "text-transform:uppercase"
           = f.text_field :username, :class => "form-control", :required => "true"
 
         .form-group
@@ -44,13 +44,19 @@
           = f.password_field :password_confirmation, :class => "form-control", :required => "true"
 
         .form-group
+          = f.label "I agree the to the "
+          = link_to "End User Agreement", pages_eua_path, :target => '_blank', :class => "btn btn-primary btn-link", :style => "padding-left: 0px"
+
+          = f.check_box :agreement, :class => "checkbox", :required => "true"
+
+        .form-group
           .col-xs-12{:style => "color:grey;"}
             * All Fields are Required to Register
 
       .panel-footer
         .row
           .col-xs-12.col-md-6
-            = f.submit "Create Account", class: "btn btn-primary btn-block new_button"
+            = f.submit "Create Account", :class => "btn btn-primary btn-block new_button"
           .col-xs-12.col-md-6
-            = link_to "Sign In", new_physicians_physician_session_path, class: "btn btn-primary btn-link btn-block"
+            = link_to "Sign In", new_physicians_physician_session_path, :class => "btn btn-primary btn-link btn-block"
         
