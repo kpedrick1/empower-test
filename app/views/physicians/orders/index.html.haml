@@ -23,6 +23,7 @@
                           %th Product
                           %th Cost /Case
                           %th Cases to Order
+                          %th Discount
                           %th Total Cost
 
 
@@ -37,6 +38,11 @@
                             = line.qty
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
+                          %td
+                            -if line.productName.exclude? 'Shipping'
+                              10%
+                            -elsif line.productName.include? 'Standard Shipping'
+                              100%
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
@@ -46,8 +52,10 @@
                         %td
                         %td
                         %td
+                        %td
 
                       %tr
+                        %td
                         %td
                         %td
                         %td
@@ -74,8 +82,8 @@
                   %label{:for => 'payment_stored', :value => 'payment_stored'}
                     Use Stored Payment Method.
               .col-xs-4
-                = submit_tag "Accept", class: "btn btn-primary new_button"
-                = submit_tag "Cancel", class: "btn btn-primary new_button"
+                = submit_tag 'Accept', class: 'btn btn-primary new_button'
+                = submit_tag 'Cancel', class: 'btn btn-primary new_button'
 
       -elsif @commit_action == 'Accept'
         -if @payment_type == 'payment_invoice'
@@ -104,6 +112,7 @@
                           %th Product
                           %th Cost /Case
                           %th Cases to Order
+                          %th Discount
                           %th Total Cost
 
 
@@ -118,6 +127,8 @@
                             = line.qty
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
+                          %td
+                            10%
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
@@ -127,8 +138,10 @@
                         %td
                         %td
                         %td
+                        %td
 
                       %tr
+                        %td
                         %td
                         %td
                         %td
@@ -198,12 +211,13 @@
                   %br
                   Thank you for your business!
               .col-xs-4
-                %table
+                %table.table
                   - @shipping_options.each do |shipping|
 
                     %tr
                       %td
                         = radio_button_tag :shippingType, shipping.productId, :id => shipping.productId
+                      %td
                         %label{:for => shipping.productId, :value => shipping.productId}
                           = shipping.productName
                       %td
@@ -211,7 +225,7 @@
 
             .col-xs-8
             .col-xs-4
-              = submit_tag "Place Order", class: "btn btn-primary new_button"
+              = submit_tag 'Place Order', class: 'btn btn-primary new_button'
 
 
 :javascript

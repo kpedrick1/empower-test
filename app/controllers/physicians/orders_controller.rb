@@ -71,6 +71,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
+          orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
           @opp_lines.push(orderline)
@@ -86,6 +88,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
         shippingopt.qty = 1
 
         shippingopt.totalPrice = shippingopt.unitPrice
+
+        if shippingopt.productName.include? 'Standard Shipping'
+          shippingopt.totalPrice = 0
+        end
 
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
@@ -128,6 +134,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
+          orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
           @opp_lines.push(orderline)
@@ -149,7 +157,11 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           shippingopt.qty = product['qty']
 
-          shippingopt.totalPrice = shippingopt.qty.to_f * shippingopt.unitPrice.to_f
+          shippingopt.totalPrice = shippingopt.unitPrice
+
+          if shippingopt.productName.include? 'Standard Shipping'
+            shippingopt.totalPrice = 0
+          end
 
           @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
