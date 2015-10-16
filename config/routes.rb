@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   root :to => "home#index"
   get "pages/eua"
 
-
+  get 'home/download_pdf'
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
 
