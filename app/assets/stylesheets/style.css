@@ -13,7 +13,7 @@ html{
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	min-height: 100%;
-      background-image: url("blue_background.jpg");
+      background-image: url("background_smaller.jpg");
       background-attachment: fixed;
       background-position: center center;
       background-repeat: no-repeat;
