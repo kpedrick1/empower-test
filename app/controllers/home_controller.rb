@@ -50,7 +50,7 @@ class HomeController < ApplicationController
   def download_pdf
 
     send_file(
-        "#{Rails.root}/public/EPICERAM_L_ORDER_FORM.pdf",
+        "#{Rails.root}/public/EPICERAM_L_ORDER_FORM_REV.pdf",
         filename: "EPICERAM_L_ORDER_FORM_REV.pdf",
         type: "application/pdf"
     )
