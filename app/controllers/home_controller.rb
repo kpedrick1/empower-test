@@ -49,11 +49,19 @@ class HomeController < ApplicationController
 
   def download_pdf
 
-    send_file(
-        "#{Rails.root}/public/Prestalia-Rx-Form-051515.pdf",
-        filename: "Rx-Form.pdf",
-        type: "application/pdf"
-    )
+    if physicians_physician_signed_in?
+
+      send_file(
+          "#{Rails.root}/public/Prestalia-Rx-Form-051515.pdf",
+          filename: "Rx-Form.pdf",
+          type: "application/pdf"
+      )
+
+    else
+      redirect_to '/physicians/physicians/sign_in'
+      return
+    end
+
   end
 
 end
