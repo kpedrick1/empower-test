@@ -42,7 +42,7 @@ class HomeController < ApplicationController
       return
     end
 
-    redirect_to "http://www.puracap.com/"
+    redirect_to "http://www.epiceramlipcare.com"
     return
 
   end

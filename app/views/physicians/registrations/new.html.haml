@@ -13,31 +13,39 @@
       
         .form-group
           = f.label "First Name"
-          = f.text_field :firstname, :class => "form-control", :required => "true"
+          = f.text_field :firstname, :class => "form-control", :required => "true", :value => @physician_firstname
 
         .form-group
           = f.label "Last Name"
-          = f.text_field :lastname, :class => "form-control", :required => "true"
+          = f.text_field :lastname, :class => "form-control", :required => "true", :value => @physician_lastname
 
         .form-group
           = f.label "Practice Zip"
-          = f.text_field :practiceZip, :class => "form-control", :required => "true"
+          = f.text_field :practiceZip, :class => "form-control", :required => "true", :value => @physician_practiceZip
         
         .form-group
           = f.label :phone
-          = f.phone_field :phone, :class => "form-control", :required => "true", :autocomplete => "off"                  
+          = f.phone_field :phone, :class => "form-control", :required => "true", :autocomplete => "off", :value => @physician_phone
         
         .form-group
           = f.label :email
-          = f.email_field :email, :class => "form-control", :required => "true", :autocomplete => "off"
+          = f.email_field :email, :class => "form-control", :required => "true", :autocomplete => "off", :value => @physician_email
 
         .form-group
           = f.label "NPI", :style => "text-transform:uppercase"
-          = f.text_field :username, :class => "form-control", :required => "true"
+          = f.text_field :username, :class => "form-control", :required => "true", :value => @physician_username
 
         .form-group
           = f.label :password
           = f.password_field :password, :class => "form-control", :required => "true", :autocomplete => "off"
+
+        .form-group
+          = f.label 'Password Strength'
+          %br
+          %span
+            Passwords must contain, at least one lowercase letter, at least one uppercase letter, at least one number and must be a minimum length of eight characters.
+          .progress
+            #result.progress-bar{:style => "width: 0;"}
 
         .form-group
           = f.label :password_confirmation
@@ -60,3 +68,101 @@
           .col-xs-12.col-md-6
             = link_to "Sign In", new_physicians_physician_session_path, :class => "btn btn-primary btn-link btn-block"
         
+:javascript
+
+  $(document).ready(function()
+  {
+      /*
+          assigning keyup event to password field
+          so everytime user type code will execute
+      */
+
+      $('#physicians_physician_password').keyup(function()
+      {
+          //$('#result').html(checkStrength($('#physicians_physician_password').val()))
+
+          checkStrength($('#physicians_physician_password').val());
+      })
+
+      /*
+          checkStrength is function which will do the
+          main password strength checking for us
+      */
+
+      function checkStrength(password)
+      {
+          //initial strength
+          var strength = 0;
+
+          //if length is 8 characters or more, increase strength value
+          if (password.length > 7) strength += 1
+
+          //if has lowercase character, increase strength value
+          if ( password.match(/([a-z])/) )  strength += 1
+
+          //if has uppercase character, increase strength value
+          if ( password.match(/([A-Z])/) )  strength += 1
+
+          //if has number, increase strength value
+          if ( password.match(/([0-9])/))  strength += 1
+
+          //if it has one special character, increase strength value
+          //if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/))  strength += 1
+
+
+          //now we have calculated strength value, we can return messages
+
+          console.log(strength);
+
+          //if value is less than 2
+          if (strength == 1 )
+          {
+              $('#result').removeClass();
+              $('#result').addClass('progress-bar');
+              $('#result').addClass('progress-bar-danger');
+              $('#result').css('width','25%');
+              //return 'Weak'
+          }
+          if (strength == 2 )
+          {
+              $('#result').removeClass();
+              $('#result').addClass('progress-bar');
+              $('#result').addClass('progress-bar-danger');
+              $('#result').css('width','50%');
+              //return 'Weak'
+          }
+          if (strength == 3 )
+          {
+              $('#result').removeClass();
+              $('#result').addClass('progress-bar');
+              $('#result').addClass('progress-bar-warning');
+              $('#result').css('width','75%');
+              //return 'Weak'
+          }
+          else if (strength >= 4 )
+          {
+              $('#result').removeClass();
+              $('#result').addClass('progress-bar');
+              $('#result').addClass('progress-bar-success');
+              $('#result').css('width','100%');
+              //return 'Good'
+          }
+      }
+  });
+
+:CSS
+  .short{
+  	color:#FF0000;
+  }
+
+  .weak{
+  	color:#E66C2C;
+  }
+
+  .good{
+  	color:#2D98F3;
+  }
+
+  .strong{
+  	color:#006400;
+  }
