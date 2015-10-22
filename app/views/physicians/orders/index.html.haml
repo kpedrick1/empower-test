@@ -66,93 +66,112 @@
                             =number_to_currency(@grand_total)
           .row
             .col-xs-12
-              .col-xs-8
+              .col-xs-12
                 .well
                   Please select a payment method.
                   %br
-                  = radio_button_tag :paymentType, 'payment_invoice', :id => 'payment_invoice'
+                  = radio_button_tag :paymentType, 'payment_invoice',false, :id => 'payment_invoice', :required => 'required'
                   %label{:for => 'payment_invoice', :value => 'payment_invoice'}
                     Pay Online Invoice.
                   %br
-                  = radio_button_tag :paymentType, 'payment_call_center', :id => 'payment_call_center'
+                  = radio_button_tag :paymentType, 'payment_call_center',false, :id => 'payment_call_center', :required => 'required'
                   %label{:for => 'payment_call_center', :value => 'payment_call_center'}
                     Have the Call Center call for Payment Method.
                   %br
-                  = radio_button_tag :paymentType, 'payment_stored', :id => 'payment_stored'
+                  = radio_button_tag :paymentType, 'payment_stored',false, :id => 'payment_stored', :required => 'required'
                   %label{:for => 'payment_stored', :value => 'payment_stored'}
                     Use Stored Payment Method.
+
+          .row
+            .col-xs-12
               .col-xs-4
+              .col-xs-8
                 = submit_tag 'Accept', class: 'btn btn-primary new_button'
                 = submit_tag 'Cancel', class: 'btn btn-primary new_button'
 
       -elsif @commit_action == 'Accept'
-        -if @payment_type == 'payment_invoice'
-          .row
-            .col-xs-12
-              .embed-responsive.embed-responsive-4by3
-                %iframe.embed-responsive-item{:src => ENV['SITE_INVOICE_URL'] + '?id=' + @oppId.to_s}
-        -else
-          .row
-            .col-xs-12
-              .col-xs-8.alert.alert-success
-                Your order has been processed.
-                -#%a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s, :target => "_blank"} Pay Online Invoice
-              .col-xs-4
-          .row
-            .col-xs-12
+        = form_tag do
+          -if @payment_type == 'payment_invoice'
+            .row
+              .col-xs-12
+                .embed-responsive.embed-responsive-4by3
+                  %iframe.embed-responsive-item{:src => ENV['SITE_INVOICE_URL'] + '?id=' + @oppId.to_s}
+            .row
+              .col-xs-1
+              .col-xs-10
+                .panel.panel-default
+                  .panel-body
+                    .col-xs-5
+                    .col-xs-7
+                      = submit_tag 'Close Invoice', class: 'btn btn-primary new_button'
+              .col-xs-1
+          -else
+            .row
+              .col-xs-12
+                .col-xs-8.alert.alert-success
+                  Your order has been processed.
+                  -#%a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s, :target => "_blank"} Pay Online Invoice
+                .col-xs-4
+            .row
+              .col-xs-12
 
-              .panel.panel-default
-                .panel-body
+                .panel.panel-default
+                  .panel-body
 
-                  .table-responsive
+                    .table-responsive
 
-                    %table.table.table-hover
-                      %thead
+                      %table.table.table-hover
+                        %thead
+                          %tr
+                            %th Product
+                            %th Cost /Case
+                            %th Cases to Order
+                            %th Discount
+                            %th Total Cost
+
+
+                        - @opp_lines.each do |line|
+
+                          %tr
+                            %td
+                              = line.productName
+                            %td.unit_price_cell
+                              = number_to_currency(line.unitPrice)
+                            %td
+                              = line.qty
+                              = hidden_field_tag 'productline[][qty]', line.qty
+                              = hidden_field_tag 'productline[][productId]', line.productId
+                            %td
+                              -if line.productName.exclude? 'Shipping'
+                                10%
+                              -elsif line.productName.include? 'Standard Shipping'
+                                100%
+                            %td.total_price_cell
+                              = number_to_currency(line.totalPrice)
+
+
                         %tr
-                          %th Product
-                          %th Cost /Case
-                          %th Cases to Order
-                          %th Discount
-                          %th Total Cost
-
-
-                      - @opp_lines.each do |line|
+                          %td
+                          %td
+                          %td
+                          %td
+                          %td
 
                         %tr
                           %td
-                            = line.productName
-                          %td.unit_price_cell
-                            = number_to_currency(line.unitPrice)
                           %td
-                            = line.qty
-                            = hidden_field_tag 'productline[][qty]', line.qty
-                            = hidden_field_tag 'productline[][productId]', line.productId
                           %td
-                            -if line.productName.exclude? 'Shipping'
-                              10%
-                            -elsif line.productName.include? 'Standard Shipping'
-                              100%
-                          %td.total_price_cell
-                            = number_to_currency(line.totalPrice)
-
-
-                      %tr
-                        %td
-                        %td
-                        %td
-                        %td
-                        %td
-
-                      %tr
-                        %td
-                        %td
-                        %td
-                        %td
-                          %b
-                            Total
-                        %td.grand_total_cell
-                          %b
-                            =number_to_currency(@grand_total)
+                          %td
+                            %b
+                              Total
+                          %td.grand_total_cell
+                            %b
+                              =number_to_currency(@grand_total)
+            .row
+              .col-xs-12
+                .col-xs-8
+                .col-xs-4
+                  = submit_tag 'Close Invoice', class: 'btn btn-primary new_button'
 
       -else
         = form_tag do
@@ -181,7 +200,7 @@
                           %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = number_field_tag 'productline[][qty]', nil, min:1, class: 'product_qty_input'
+                            = number_field_tag 'productline[][qty]', nil, :min => 1, :class => 'product_qty_input', :required => 'required'
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td.total_price_cell
                             = number_to_currency(0)
@@ -219,7 +238,7 @@
 
                     %tr
                       %td
-                        = radio_button_tag :shippingType, shipping.productId, :id => shipping.productId
+                        = radio_button_tag :shippingType, shipping.productId,false, :id => shipping.productId, :required => 'required'
                       %td
                         %label{:for => shipping.productId, :value => shipping.productId}
                           = shipping.productName

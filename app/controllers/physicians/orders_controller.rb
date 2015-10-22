@@ -170,17 +170,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       }
 
-      puts @opp_lines
-
-      puts "\n"
-      puts "-------END ProductLine----------\n"
-      puts "\n"
 
     end
 
-
-
-        delete_cart_session
+    delete_cart_session
 
 
   end
@@ -264,6 +257,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       session['paymentType'] = params['paymentType']
 
+    elsif params['commit'] == 'Close Invoice'
+      delete_cart_session
+      redirect_to '/physicians/orderhistories'
+      return
     end
 
     redirect_to action: "index"
