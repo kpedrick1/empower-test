@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     resources :physicians
     resources :mailings
     #resources :inventories
+    resources :invoices
     resources :monthend
     resources :orders
     resources :orderhistories

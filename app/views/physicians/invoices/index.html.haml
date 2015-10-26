@@ -1,0 +1,22 @@
+.row{:style => "background-color:#f5f4f2;margin:0 0 0 0;"}
+  = render 'layouts/messages'
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-heading
+      %h4
+        Order Form
+    .panel-body
+      = form_tag do
+        .row
+          .col-xs-12
+            .embed-responsive.embed-responsive-4by3
+              %iframe.embed-responsive-item{:src => ENV['SITE_INVOICE_URL'] + '?id=' + @oppId.to_s}
+        .row
+          .col-xs-1
+          .col-xs-10
+            .panel.panel-default
+              .panel-body
+                .col-xs-5
+                .col-xs-7
+                  = submit_tag 'Close Invoice', :class => 'btn btn-primary new_button'
+          .col-xs-1
