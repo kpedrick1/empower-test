@@ -239,7 +239,7 @@
                     %tr
                       %td
                         = radio_button_tag :shippingType, shipping.productId,false, :id => shipping.productId, :required => 'required'
-                      %td
+                      %td{:style => "max-width:100px;"}
                         %label{:for => shipping.productId, :value => shipping.productId}
                           = shipping.productName
                       %td
