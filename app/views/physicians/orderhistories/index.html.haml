@@ -48,7 +48,7 @@
                         -if order.paidOff == true
                           Yes
                         -else
-                          = link_to 'No', physicians_invoices_path(:oppId => order.opportunityId)
+                          = link_to 'Click to Pay', physicians_invoices_path(:oppId => order.opportunityId)
 
 
 
