@@ -72,15 +72,15 @@
                   %br
                   = radio_button_tag :paymentType, 'payment_invoice',false, :id => 'payment_invoice', :required => 'required'
                   %label{:for => 'payment_invoice', :value => 'payment_invoice'}
-                    Pay Online Invoice.
+                    Online invoice  (Pay now one time payment)
                   %br
                   = radio_button_tag :paymentType, 'payment_call_center',false, :id => 'payment_call_center', :required => 'required'
                   %label{:for => 'payment_call_center', :value => 'payment_call_center'}
-                    Have the Call Center call for Payment Method.
+                    Call Center Payment (We will call you for payment information)
                   %br
                   = radio_button_tag :paymentType, 'payment_stored',false, :id => 'payment_stored', :required => 'required'
                   %label{:for => 'payment_stored', :value => 'payment_stored'}
-                    Use Stored Payment Method.
+                    Use Stored Payment Method (If you have given it to our call center)
 
           .row
             .col-xs-12
