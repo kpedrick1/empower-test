@@ -71,7 +71,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+          #orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -134,7 +134,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+          #orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
