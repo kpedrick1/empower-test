@@ -268,13 +268,13 @@
 
         productGrandTotal = productGrandTotal + totalPrice;
 
-        var totalPriceCurrency = "$".concat(totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+        var totalPriceCurrency = "$".concat(totalPrice.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
 
         $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
 
       });
 
-      var grandTotalCurrency = "$".concat(productGrandTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+      var grandTotalCurrency = "$".concat(productGrandTotal.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
       thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
   }
 
