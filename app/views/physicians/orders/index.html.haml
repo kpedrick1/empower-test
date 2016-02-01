@@ -41,6 +41,8 @@
                           %td
                             -if line.productName.include? 'Standard Shipping'
                               100%
+                            -if line.productFamily == 'Cosmetic' && @has_order == false
+                              20%
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
@@ -142,6 +144,8 @@
                             %td
                               -if line.productName.include? 'Standard Shipping'
                                 100%
+                              -if line.productFamily == 'Cosmetic' && @has_order == false
+                                20%
                             %td.total_price_cell
                               = number_to_currency(line.totalPrice)
 

@@ -11,6 +11,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     get_order_salesforce
 
+    get_first_order_account
+
+
+
     puts "\n"
     puts "\n"
 
@@ -71,7 +75,9 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          #orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+          if (session[:has_order] == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+          end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -134,7 +140,9 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          #orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.10)
+          if (session[:has_order] == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+          end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -174,6 +182,32 @@ class Physicians::OrdersController < Physicians::ApplicationController
     end
 
     delete_cart_session
+
+    puts "has order \n"
+
+    puts @has_order
+
+
+  end
+
+  def get_first_order_account
+
+    account_id = session[:account_id]
+
+    client = Restforce.new
+
+    accounts = client.query("select Id, Orders__c from Account where Id = '#{account_id}'")
+
+    account = accounts.first
+
+
+    if (!account.nil? && account.Orders__c > 0)
+      session[:has_order] = true
+    else
+      session[:has_order] = false
+    end
+
+    @has_order = session[:has_order]
 
 
   end
