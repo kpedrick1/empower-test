@@ -9,6 +9,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     @grand_total = 0;
 
+    @order_amount = 0;
+
     get_order_salesforce
 
     get_first_order_account
@@ -20,7 +22,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     puts @order_line
 
-    puts "\n"
     puts "\n"
     puts "\n"
 
@@ -71,6 +72,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           #puts "#{product}\n"
 
+          @order_amount += product['qty'].to_i
+
           orderline.qty = product['qty']
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
@@ -95,7 +98,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
         shippingopt.totalPrice = shippingopt.unitPrice
 
-        if shippingopt.productName.include? 'Standard Shipping'
+        if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
           shippingopt.totalPrice = 0
         end
 
@@ -114,6 +117,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     elsif @commit_action == 'Accept'
 
+
       products = session['productline']
 
       puts "\n"
@@ -123,6 +127,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       #puts "---------shipping----------------\n"
       #puts shipping
+
+
 
       @order_line.each { |orderline|
         products.each { |product|
@@ -135,6 +141,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
           end
 
           #puts "#{product}\n"
+
+          @order_amount += product['qty'].to_i
 
           orderline.qty = product['qty']
 
@@ -167,7 +175,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           shippingopt.totalPrice = shippingopt.unitPrice
 
-          if shippingopt.productName.include? 'Standard Shipping'
+          if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
             shippingopt.totalPrice = 0
           end
 

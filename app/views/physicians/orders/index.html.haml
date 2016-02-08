@@ -39,7 +39,7 @@
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td
-                            -if line.productName.include? 'Standard Shipping'
+                            -if line.productName.include?('Standard Shipping') && @order_amount >= 2
                               100%
                             -if line.productFamily == 'Cosmetic' && @has_order == false
                               20%
@@ -142,7 +142,7 @@
                               = hidden_field_tag 'productline[][qty]', line.qty
                               = hidden_field_tag 'productline[][productId]', line.productId
                             %td
-                              -if line.productName.include? 'Standard Shipping'
+                              -if line.productName.include?('Standard Shipping') && @order_amount >= 2
                                 100%
                               -if line.productFamily == 'Cosmetic' && @has_order == false
                                 20%
@@ -225,8 +225,7 @@
             .col-xs-12
               .col-xs-8
                 .well
-                  Today’s Special Offer: Free standard shipping on all orders during the introductory period.
-                  We will extend this offer for any order until February 5th due to the blizzard.
+                  Free Standard Shipping on Orders of 2 or more cases
                   %br
                   %br
                   Questions? Call 1-888-552-9769 Opt #3
