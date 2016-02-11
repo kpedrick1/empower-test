@@ -102,6 +102,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
           shippingopt.totalPrice = 0
         end
 
+        if (session[:has_order] == false)
+          shippingopt.totalPrice = 0
+        end
+
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
         @opp_lines.push(shippingopt)
@@ -176,6 +180,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
           shippingopt.totalPrice = shippingopt.unitPrice
 
           if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
+            shippingopt.totalPrice = 0
+          end
+
+          if (session[:has_order] == false)
             shippingopt.totalPrice = 0
           end
 
