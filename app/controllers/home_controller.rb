@@ -42,7 +42,7 @@ class HomeController < ApplicationController
       return
     end
 
-    redirect_to "https://www.bpcareconnect.com/"
+    redirect_to "http://www.epiceramlipcare.com"
     return
 
   end
@@ -52,11 +52,10 @@ class HomeController < ApplicationController
     if physicians_physician_signed_in?
 
       send_file(
-          "#{Rails.root}/public/Prestalia-Rx-Form-051515.pdf",
-          filename: "Rx-Form.pdf",
+          "#{Rails.root}/public/EPICERAM_L_ORDER_FORM_REV.pdf",
+          filename: "EPICERAM_L_ORDER_FORM_REV.pdf",
           type: "application/pdf"
       )
-
     else
       redirect_to '/physicians/physicians/sign_in'
       return

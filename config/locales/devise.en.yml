@@ -7,7 +7,7 @@ en:
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
-      not_approved: "Your account has not been verified."
+      not_approved: "Thank you for registering!  You will receive a call shortly from one of our call center representatives to confirm receipt of your registration, verify your NPI number, and protect your privacy.  After verification you will immediately be able to place your order for EpiCeram-L.  Once your information is in our system subsequent orders will not need to be verified.  Any questions please call 1-888-552-9769 Opt #3.  We thank you for your business."
       already_authenticated: "Welcome back!"
       inactive: "Your account is not activated yet."
       invalid: "Invalid Identification / Email or password."

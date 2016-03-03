@@ -84,4 +84,10 @@ pickle-email-*.html
 .env
 Procfile
 
-puracap-qa.iml
+puracap.iml
+
+
+server.crt
+server.key
+
+assets.rb

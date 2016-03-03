@@ -54,12 +54,16 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+	#root 'welcome#index'
+
   #get "physicians" => redirect "physicians/physicians"
 
   #public domain
 
   root :to => "home#index"
+  get "pages/eua"
 
+  get 'home/download_pdf'
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
 
@@ -77,6 +81,7 @@ Rails.application.routes.draw do
     resources :physicians
     resources :mailings
     #resources :inventories
+    resources :invoices
     resources :monthend
     resources :orders
     resources :orderhistories
@@ -92,32 +97,6 @@ Rails.application.routes.draw do
   wash_out :rumbas
 
 
-  # namespace :patients do
-  #
-  #   devise_for :patients, :controllers => { :registrations => 'patients/registrations', :sessions =>  'patients/sessions'}
-  #
-  #   resources :prescriptions
-  #   resources :patients
-  #   resources :activities
-  #   resources :mailings
-  #
-  #
-  #
-  #   #healthvault post
-  #   resources :activities do
-  #     post :connect_to_health_vault, :on => :collection
-  #   end
-  #
-  #   resources :activities do
-  #     post :disconnect_from_health_vault, :on => :collection
-  #   end
-  #
-  #
-  # end
-
-  # devise_scope :patients do
-  #   get '/patients/patients/sign_out' => 'patients/sessions#destroy'
-  # end
 
 
 end

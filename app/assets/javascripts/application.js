@@ -23,16 +23,16 @@
 
 $(function(){
 
-  /*setTimeout(function(){
+    /*setTimeout(function(){
 
-    value = $("#main-container").height();
-    
-    if (value > $("#main-bar").height()) {
-      value = value + "px"
-      $("#main-bar").css("height", value)
-    }
+     value = $("#main-container").height();
 
-  }, 200)*/
-  
+     if (value > $("#main-bar").height()) {
+     value = value + "px"
+     $("#main-bar").css("height", value)
+     }
+
+     }, 200)*/
+
 })
  

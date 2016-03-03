@@ -9,14 +9,19 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     @grand_total = 0;
 
+    @order_amount = 0;
+
     get_order_salesforce
+
+    get_first_order_account
+
+
 
     puts "\n"
     puts "\n"
 
     puts @order_line
 
-    puts "\n"
     puts "\n"
     puts "\n"
 
@@ -67,9 +72,15 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           #puts "#{product}\n"
 
+          @order_amount += product['qty'].to_i
+
           orderline.qty = product['qty']
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
+
+          if (session[:has_order] == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+          end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -87,6 +98,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
         shippingopt.totalPrice = shippingopt.unitPrice
 
+        if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
+          shippingopt.totalPrice = 0
+        end
+
+        if (session[:has_order] == false)
+          shippingopt.totalPrice = 0
+        end
+
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
         @opp_lines.push(shippingopt)
@@ -102,6 +121,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     elsif @commit_action == 'Accept'
 
+
       products = session['productline']
 
       puts "\n"
@@ -111,6 +131,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       #puts "---------shipping----------------\n"
       #puts shipping
+
+
 
       @order_line.each { |orderline|
         products.each { |product|
@@ -124,9 +146,15 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           #puts "#{product}\n"
 
+          @order_amount += product['qty'].to_i
+
           orderline.qty = product['qty']
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
+
+          if (session[:has_order] == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+          end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -149,7 +177,15 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           shippingopt.qty = product['qty']
 
-          shippingopt.totalPrice = shippingopt.qty.to_f * shippingopt.unitPrice.to_f
+          shippingopt.totalPrice = shippingopt.unitPrice
+
+          if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
+            shippingopt.totalPrice = 0
+          end
+
+          if (session[:has_order] == false)
+            shippingopt.totalPrice = 0
+          end
 
           @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
@@ -158,17 +194,36 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       }
 
-      puts @opp_lines
-
-      puts "\n"
-      puts "-------END ProductLine----------\n"
-      puts "\n"
 
     end
 
+    delete_cart_session
+
+    puts "has order \n"
+
+    puts @has_order
 
 
-        delete_cart_session
+  end
+
+  def get_first_order_account
+
+    account_id = session[:account_id]
+
+    client = Restforce.new
+
+    accounts = client.query("select Id, Orders__c from Account where Id = '#{account_id}'")
+
+    account = accounts.first
+
+
+    if (!account.nil? && account.Orders__c > 0)
+      session[:has_order] = true
+    else
+      session[:has_order] = false
+    end
+
+    @has_order = session[:has_order]
 
 
   end
@@ -252,6 +307,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
       session['paymentType'] = params['paymentType']
 
+    elsif params['commit'] == 'Close Invoice'
+      delete_cart_session
+      redirect_to '/physicians/orderhistories'
+      return
     end
 
     redirect_to action: "index"

@@ -27,7 +27,7 @@
                       %th Total Price
                       %th Tracking Link
                       %th Status
-                      %th Paid Off
+                      %th Paid
 
 
 
@@ -45,7 +45,10 @@
                       %td
                         = order.status
                       %td
-                        = order.paidOff
+                        -if order.paidOff == true
+                          Yes
+                        -else
+                          = link_to 'Click to Pay', physicians_invoices_path(:oppId => order.opportunityId)
 
 
 

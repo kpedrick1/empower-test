@@ -12,7 +12,6 @@
 
           .row
             .col-xs-12
-
               .panel.panel-default
                 .panel-body
 
@@ -24,6 +23,7 @@
                           %th Product
                           %th Cost /Case
                           %th Cases to Order
+                          %th Discount
                           %th Total Cost
 
 
@@ -38,6 +38,13 @@
                             = line.qty
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
+                          %td
+                            -if line.productName.include?('Standard Shipping') && @order_amount >= 2
+                              100%
+                            -if line.productName.include?('Standard Shipping') && @has_order == false
+                              100%
+                            -if line.productFamily == 'Cosmetic' && @has_order == false
+                              20%
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
@@ -47,8 +54,10 @@
                         %td
                         %td
                         %td
+                        %td
 
                       %tr
+                        %td
                         %td
                         %td
                         %td
@@ -59,85 +68,114 @@
                             =number_to_currency(@grand_total)
           .row
             .col-xs-12
-              .col-xs-8
+              .col-xs-12
                 .well
                   Please select a payment method.
                   %br
-                  = radio_button_tag :paymentType, 'payment_invoice', :id => 'payment_invoice'
+                  = radio_button_tag :paymentType, 'payment_invoice',false, :id => 'payment_invoice', :required => 'required'
                   %label{:for => 'payment_invoice', :value => 'payment_invoice'}
-                    Pay Online Invoice.
+                    Online invoice  (Pay now one time payment)
                   %br
-                  = radio_button_tag :paymentType, 'payment_call_center', :id => 'payment_call_center'
+                  = radio_button_tag :paymentType, 'payment_call_center',false, :id => 'payment_call_center', :required => 'required'
                   %label{:for => 'payment_call_center', :value => 'payment_call_center'}
-                    Have the Call Center call for Payment Method.
+                    Call Center Payment (We will call you for payment information)
                   %br
-                  = radio_button_tag :paymentType, 'payment_stored', :id => 'payment_stored'
+                  = radio_button_tag :paymentType, 'payment_stored',false, :id => 'payment_stored', :required => 'required'
                   %label{:for => 'payment_stored', :value => 'payment_stored'}
-                    Use Stored Payment Method.
+                    Use Stored Payment Method (If you have given it to our call center)
+
+          .row
+            .col-xs-12
               .col-xs-4
-                = submit_tag "Accept", class: "btn btn-primary new_button"
-                = submit_tag "Cancel", class: "btn btn-primary new_button"
+              .col-xs-8
+                = submit_tag 'Accept', class: 'btn btn-primary new_button'
+                = submit_tag 'Cancel', class: 'btn btn-primary new_button'
 
       -elsif @commit_action == 'Accept'
-        -if @payment_type == 'payment_invoice'
-          .row
-            .col-xs-12
-              .embed-responsive.embed-responsive-4by3
-                %iframe.embed-responsive-item{:src => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s}
-        -else
-          .row
-            .col-xs-12
-              .col-xs-8.alert.alert-success
-                Your order has been processed.
-                -#%a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s, :target => "_blank"} Pay Online Invoice
-              .col-xs-4
-          .row
-            .col-xs-12
+        = form_tag do
+          -if @payment_type == 'payment_invoice'
+            .row
+              .col-xs-12
+                .embed-responsive.embed-responsive-4by3
+                  %iframe.embed-responsive-item{:src => ENV['SITE_INVOICE_URL'] + '?id=' + @oppId.to_s}
+            .row
+              .col-xs-1
+              .col-xs-10
+                .panel.panel-default
+                  .panel-body
+                    .col-xs-5
+                    .col-xs-7
+                      = submit_tag 'Close Invoice', class: 'btn btn-primary new_button'
+              .col-xs-1
+          -else
+            .row
+              .col-xs-12
+                .col-xs-8.alert.alert-success
+                  Your order has been processed.
+                  -#%a.alert-link{:href => "https://qa-symplmed.cs15.force.com/pmtxpc/quot__SiteInvoice?id=" + @oppId.to_s, :target => "_blank"} Pay Online Invoice
+                .col-xs-4
+            .row
+              .col-xs-12
 
-              .panel.panel-default
-                .panel-body
+                .panel.panel-default
+                  .panel-body
 
-                  .table-responsive
+                    .table-responsive
 
-                    %table.table.table-hover
-                      %thead
-                        %tr
-                          %th Product
-                          %th Cost /Case
-                          %th Cases to Order
-                          %th Total Cost
+                      %table.table.table-hover
+                        %thead
+                          %tr
+                            %th Product
+                            %th Cost /Case
+                            %th Cases to Order
+                            %th Discount
+                            %th Total Cost
 
 
-                      - @opp_lines.each do |line|
+                        - @opp_lines.each do |line|
+
+                          %tr
+                            %td
+                              = line.productName
+                            %td.unit_price_cell
+                              = number_to_currency(line.unitPrice)
+                            %td
+                              = line.qty
+                              = hidden_field_tag 'productline[][qty]', line.qty
+                              = hidden_field_tag 'productline[][productId]', line.productId
+                            %td
+                              -if line.productName.include?('Standard Shipping') && @order_amount >= 2
+                                100%
+                              -if line.productName.include?('Standard Shipping') && @has_order == false
+                                100%
+                              -if line.productFamily == 'Cosmetic' && @has_order == false
+                                20%
+                            %td.total_price_cell
+                              = number_to_currency(line.totalPrice)
+
 
                         %tr
                           %td
-                            = line.productName
-                          %td.unit_price_cell
-                            = number_to_currency(line.unitPrice)
                           %td
-                            = line.qty
-                            = hidden_field_tag 'productline[][qty]', line.qty
-                            = hidden_field_tag 'productline[][productId]', line.productId
-                          %td.total_price_cell
-                            = number_to_currency(line.totalPrice)
+                          %td
+                          %td
+                          %td
 
-
-                      %tr
-                        %td
-                        %td
-                        %td
-                        %td
-
-                      %tr
-                        %td
-                        %td
-                        %td
-                          %b
-                            Total
-                        %td.grand_total_cell
-                          %b
-                            =number_to_currency(@grand_total)
+                        %tr
+                          %td
+                          %td
+                          %td
+                          %td
+                            %b
+                              Total
+                          %td.grand_total_cell
+                            %b
+                              =number_to_currency(@grand_total)
+            .row
+              .col-xs-12
+                .col-xs-8
+                .col-xs-4
+                  = submit_tag 'Close Invoice', class: 'btn btn-primary new_button'
 
       -else
         = form_tag do
@@ -166,7 +204,7 @@
                           %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = number_field_tag 'productline[][qty]', nil, min:1, class: 'product_qty_input'
+                            = number_field_tag 'productline[][qty]', nil, :min => 1, :class => 'product_qty_input', :required => 'required'
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td.total_price_cell
                             = number_to_currency(0)
@@ -191,18 +229,22 @@
             .col-xs-12
               .col-xs-8
                 .well
-                  Pre-Sell – 10% off plus free shipping
+                  Free Standard Shipping on Orders of 2 or more cases
                   %br
-                  Launch – Free shipping
                   %br
-                  Post launch – Free shipping for orders of 2 cases or more
+                  Questions? Call 1-888-552-9769 Opt #3
+                  %br
+                  Hours: Monday-Friday  9:00 AM  - 8:00 PM EST
+                  %br
+                  Thank you for your business!
               .col-xs-4
-                %table
+                %table.table
                   - @shipping_options.each do |shipping|
 
                     %tr
                       %td
-                        = radio_button_tag :shippingType, shipping.productId, :id => shipping.productId
+                        = radio_button_tag :shippingType, shipping.productId,false, :id => shipping.productId, :required => 'required'
+                      %td{:style => "max-width:100px;"}
                         %label{:for => shipping.productId, :value => shipping.productId}
                           = shipping.productName
                       %td
@@ -210,7 +252,7 @@
 
             .col-xs-8
             .col-xs-4
-              = submit_tag "Place Order", class: "btn btn-primary new_button"
+              = submit_tag 'Place Order', class: 'btn btn-primary new_button'
 
 
 :javascript
@@ -235,13 +277,13 @@
 
         productGrandTotal = productGrandTotal + totalPrice;
 
-        var totalPriceCurrency = "$".concat(totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+        var totalPriceCurrency = "$".concat(totalPrice.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
 
         $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
 
       });
 
-      var grandTotalCurrency = "$".concat(productGrandTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+      var grandTotalCurrency = "$".concat(productGrandTotal.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
       thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
   }
 

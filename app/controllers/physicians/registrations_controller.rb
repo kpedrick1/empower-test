@@ -10,27 +10,57 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
   # create user in local database with coresponding salesforce Ids account id and portal credential id
   
   def new
+
+    puts "\n\n --------PAGE LOAD---------- \n\n"
+
+    @physician_firstname = session['reg_physician_firstname']
+    @physician_lastname = session['reg_physician_lastname']
+    @physician_practiceZip = session['reg_physician_practiceZip']
+    @physician_phone = session['reg_physician_phone']
+    @physician_email = session['reg_physician_email']
+    @physician_username = session['reg_physician_username']
+
+    delete_cart_session
+
     super #we are extending devise so we need to invoke the user creation here
   end
   
-  def create    
-    
+  def create
+
+    create_cart_session
+
+
     pass = params[:physicians_physician][:password]
 
     pass_conf = params[:physicians_physician][:password_confirmation]
 
-
+    # check password length
     if pass.length < 8
       flash[:danger] = 'Password needs has to be at least 8 character long'
       redirect_to action: 'new'
       return
     end
 
+    # check password upper
+    if pass =~ /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
+
+    else
+
+      flash[:danger] = 'Password does not meet strength requirements'
+      redirect_to :action => 'new'
+      return
+    end
+    # check password lower
+
+    # check password number
+
+
     if pass != pass_conf
       flash[:danger] = 'Password does not match the confirm password.'
       redirect_to action: 'new'
       return
     end
+
 
     physician_match = User.where("email = ? OR username = ?", params[:physicians_physician][:email],params[:physicians_physician][:username])
 
@@ -73,7 +103,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
 
     args["Business_Unit__c"] = 'PuraCap'
 
-    result = client.get "/services/apexrest/portal/physician", :args => args
+    result = client.get '/services/apexrest/portal/physician', :args => args
 
     result_body = result.body
 
@@ -95,6 +125,28 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     '/physicians/physicians/sign_in' # Or :prefix_to_your_route
+  end
+
+  def create_cart_session
+
+    session['reg_physician_firstname'] = params[:physicians_physician][:firstname]
+    session['reg_physician_lastname'] = params[:physicians_physician][:lastname]
+    session['reg_physician_practiceZip'] = params[:physicians_physician][:practiceZip]
+    session['reg_physician_phone'] = params[:physicians_physician][:phone]
+    session['reg_physician_email'] = params[:physicians_physician][:email]
+    session['reg_physician_username'] = params[:physicians_physician][:username]
+
+  end
+
+  def delete_cart_session
+
+    session['reg_physician_firstname'] = nil
+    session['reg_physician_lastname'] = nil
+    session['reg_physician_practiceZip'] = nil
+    session['reg_physician_phone'] = nil
+    session['reg_physician_email'] = nil
+    session['reg_physician_username'] = nil
+
   end
 
   private
