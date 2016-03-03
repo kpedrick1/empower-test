@@ -100,7 +100,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     args["Password__c"] = params[:password]
     args["Phone"] = params[:phone]
     args["practiceZip"] = params[:practiceZip]
-
+    args["Promo_Code__c"] = params[:promoCode]
     args["Business_Unit__c"] = 'PuraCap'
 
     result = client.get '/services/apexrest/portal/physician', :args => args
@@ -114,7 +114,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
   #allowing devise to access my fields
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit :username, :email, :password, :password_confirmation, :firstname, :lastname, :agreement, :practicezip, :account_id, :portal_credential_id, :portal_credential_token
+      u.permit :username, :email, :password, :password_confirmation, :firstname, :lastname, :agreement, :practicezip, :promoCode, :account_id, :portal_credential_id, :portal_credential_token
     end
   end
 
@@ -132,6 +132,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     session['reg_physician_firstname'] = params[:physicians_physician][:firstname]
     session['reg_physician_lastname'] = params[:physicians_physician][:lastname]
     session['reg_physician_practiceZip'] = params[:physicians_physician][:practiceZip]
+    session['reg_physician_promoCode'] = params[:physicians_physician][:promoCode]
     session['reg_physician_phone'] = params[:physicians_physician][:phone]
     session['reg_physician_email'] = params[:physicians_physician][:email]
     session['reg_physician_username'] = params[:physicians_physician][:username]
@@ -143,6 +144,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     session['reg_physician_firstname'] = nil
     session['reg_physician_lastname'] = nil
     session['reg_physician_practiceZip'] = nil
+    session['reg_physician_promoCode'] = nil
     session['reg_physician_phone'] = nil
     session['reg_physician_email'] = nil
     session['reg_physician_username'] = nil

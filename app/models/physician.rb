@@ -21,6 +21,10 @@ class Physician < User
   def practiceZip
     @practiceZip
   end
+
+  def promoCode
+    @promoCode
+  end
   
   def firstname=(val)
     @firstname = val
@@ -40,6 +44,10 @@ class Physician < User
 
   def practiceZip=(val)
     @practiceZip = val
+  end
+
+  def promoCode=(val)
+    @promoCode = val
   end
 
 end

@@ -52,6 +52,10 @@
           = f.password_field :password_confirmation, :class => "form-control", :required => "true"
 
         .form-group
+          = f.label "Promo Code (optional)"
+          = f.text_field :promoCode, :class => "form-control"
+
+        .form-group
           = f.label "I agree the to the "
           = link_to "End User Agreement", pages_eua_path, :target => '_blank', :class => "btn btn-primary btn-link", :style => "padding-left: 0px"
 
