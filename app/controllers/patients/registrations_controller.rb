@@ -73,6 +73,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
     args["Physician_Registration__c"] = params[:myPhysician]
     args["Password__c"] = params[:password]
     args["Phone"] = params[:phone]
+    args["Business_Unit__c"] = 'PuraCap'
 
     result = client.get "/services/apexrest/portal/patientRegistration", :args => args
 

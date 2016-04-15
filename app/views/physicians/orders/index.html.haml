@@ -204,7 +204,7 @@
                           %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = number_field_tag 'productline[][qty]', nil, :min => 1, :class => 'product_qty_input', :required => 'required'
+                            = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required'
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td.total_price_cell
                             = number_to_currency(0)

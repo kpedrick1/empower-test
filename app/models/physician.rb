@@ -25,6 +25,10 @@ class Physician < User
   def promoCode
     @promoCode
   end
+
+  def officeContact
+    @officeContact
+  end
   
   def firstname=(val)
     @firstname = val
@@ -48,6 +52,10 @@ class Physician < User
 
   def promoCode=(val)
     @promoCode = val
+  end
+
+  def officeContact=(val)
+    @officeContact = val
   end
 
 end

@@ -66,7 +66,12 @@ class Physicians::OrdersController < Physicians::ApplicationController
             next
           end
 
-          if product['qty'] == nil
+
+          puts "\n"
+          puts product['qty']
+          puts "\n"
+
+          if product['qty'] == nil || product['qty'] == '0'
             next
           end
 

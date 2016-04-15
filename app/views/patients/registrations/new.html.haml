@@ -1,12 +1,4 @@
 .row{:style => "margin:0 0 0 0;"}
-  .col-xs-12.col-md-6.col-md-offset-3
-    #title_bar.col-xs-12{:style => "background-color: rgba(194, 43, 36, 0.6);margin:0 0 0 0;"}
-      .col-xs-12.col-sm-5{:style => "padding: 0 0 0 0;"}
-        #page_title{:style => "background-color: #c22b24;"}
-          %h5{:style => "color:white; line-height: 45px;margin:0 0 0 0;"} Create Account
-      .col-sm-1.hidden-xs
-
-
 
 .col-xs-12.col-md-6.col-md-offset-3
 
@@ -14,6 +6,11 @@
     = devise_error_messages!
 
     .panel.panel-default{:style => "margin-bottom:0;"}
+
+      .panel-heading
+        %h4
+          Create Account
+      .panel-body
 
       .panel-body
 

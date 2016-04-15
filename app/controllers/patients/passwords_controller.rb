@@ -15,7 +15,7 @@ class Patients::PasswordsController < Devise::PasswordsController
     
     if !Patient.where(:username => username).empty?
     
-      result = client.get "/services/apexrest/portal/password/patient", username: username
+      result = client.get "/services/apexrest/portal/password/patient", :username => username, :businessUnit => 'PuraCap'
             
       if result.body.status
         
