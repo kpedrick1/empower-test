@@ -146,9 +146,9 @@
                             %td
                               -if line.productName.include?('Standard Shipping') && @order_amount >= 2
                                 100%
-                              -if line.productName.include?('Standard Shipping') && @has_order == false
+                              -elsif line.productName.include?('Standard Shipping') && @has_order == false
                                 100%
-                              -if line.productFamily == 'Cosmetic' && @has_order == false
+                              -elsif line.productFamily == 'Cosmetic' && @has_order == false
                                 20%
                             %td.total_price_cell
                               = number_to_currency(line.totalPrice)
