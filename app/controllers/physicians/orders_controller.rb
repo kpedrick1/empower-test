@@ -9,7 +9,11 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     @grand_total = 0;
 
-    @order_amount = 0;
+    @has_rx = false
+    @has_not_rx = false
+    @has_multi_dist = false
+
+    @num_shipping_discounts = 0;
 
     get_order_salesforce
 
@@ -31,7 +35,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
     @payment_type = session['paymentType']
 
 
-    @oppId = session['oppId'];
+    @oppId = session['oppId']
 
 
     puts '-----------------START @commit_action -------------------------'
@@ -75,16 +79,35 @@ class Physicians::OrdersController < Physicians::ApplicationController
             next
           end
 
-          #puts "#{product}\n"
+          if orderline.rXrequired == true
 
-          @order_amount += product['qty'].to_i
+            @has_rx = true
+
+            if product['qty'].to_i >= 2
+              @num_shipping_discounts += 1
+            end
+
+          elsif orderline.rXrequired == false
+
+            @has_not_rx = true
+
+            if product['qty'].to_i >= 2
+              @num_shipping_discounts += 1
+            end
+
+          end
 
           orderline.qty = product['qty']
 
+          orderline.discountFormatted = ''
+
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:has_order] == false)
+          if (session[:has_order] == false && orderline.rXrequired == false)
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+
+            orderline.discountFormatted = '20%'
+
           end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
@@ -93,22 +116,61 @@ class Physicians::OrdersController < Physicians::ApplicationController
         }
       }
 
+      has_multi_dist
+
+      if @opp_lines.any? == false
+
+        @commit_action = nil
+
+        delete_cart_session
+
+        flash.now[:danger] = 'Please select a product to order'
+
+        return
+
+      end
+
       @shipping_options.each {|shippingopt|
 
         if (shippingopt.productId != shipping )
           next
         end
 
+
         shippingopt.qty = 1
+
+        shippingopt.discountFormatted = ''
 
         shippingopt.totalPrice = shippingopt.unitPrice
 
-        if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
-          shippingopt.totalPrice = 0
+        if @has_multi_dist == true
+
+          shippingopt.qty = 2
+
+          shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
+
+          if @num_shipping_discounts >= 2
+            shippingopt.discountFormatted = '100%'
+            shippingopt.totalPrice = 0
+          elsif @num_shipping_discounts == 1
+            shippingopt.discountFormatted = '50%'
+            shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
+          end
+
+        else
+          if @num_shipping_discounts >= 1
+            shippingopt.discountFormatted = '100%'
+            shippingopt.totalPrice = 0
+          end
+
         end
 
+
         if (session[:has_order] == false)
+
           shippingopt.totalPrice = 0
+          shippingopt.discountFormatted = '100%'
+
         end
 
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
@@ -149,9 +211,24 @@ class Physicians::OrdersController < Physicians::ApplicationController
             next
           end
 
-          #puts "#{product}\n"
+          if orderline.rXrequired == true
 
-          @order_amount += product['qty'].to_i
+            @has_rx = true
+
+            if product['qty'].to_i >= 2
+              @num_shipping_discounts += 1
+            end
+
+          elsif orderline.rXrequired == false
+
+            @has_not_rx = true
+
+            if product['qty'].to_i >= 2
+              @num_shipping_discounts += 1
+            end
+
+          end
+
 
           orderline.qty = product['qty']
 
@@ -167,6 +244,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
         }
       }
 
+      has_multi_dist
+
       @shipping_options.each {|shippingopt|
 
         products.each { |product|
@@ -180,13 +259,34 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           #puts "#{product}\n"
 
-          shippingopt.qty = product['qty']
+          shippingopt.qty = 1
+
+          shippingopt.discountFormatted = ''
 
           shippingopt.totalPrice = shippingopt.unitPrice
 
-          if shippingopt.productName.include?('Standard Shipping') && @order_amount >= 2
-            shippingopt.totalPrice = 0
+          if @has_multi_dist == true
+
+            shippingopt.qty = 2
+
+            shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
+
+            if @num_shipping_discounts >= 2
+              shippingopt.discountFormatted = '100%'
+              shippingopt.totalPrice = 0
+            elsif @num_shipping_discounts == 1
+              shippingopt.discountFormatted = '50%'
+              shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
+            end
+
+          else
+            if @num_shipping_discounts >= 1
+              shippingopt.discountFormatted = '100%'
+              shippingopt.totalPrice = 0
+            end
+
           end
+
 
           if (session[:has_order] == false)
             shippingopt.totalPrice = 0
@@ -208,6 +308,16 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     puts @has_order
 
+
+  end
+
+  def has_multi_dist
+
+    if @has_rx == true && @has_not_rx == true
+      @has_multi_dist = true
+    else
+      @has_multi_dist = false
+    end
 
   end
 
@@ -255,7 +365,9 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     client = Restforce.new
 
-    result = client.get '/services/apexrest/portal/orders/'
+    result = client.get '/services/apexrest/portal/orders/', :accountId => account_id, :businessUnit => 'PuraCap'
+
+    # handle error response
 
     @order_line = result.body.orderLineList
 

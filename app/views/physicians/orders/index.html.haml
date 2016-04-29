@@ -39,12 +39,8 @@
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td
-                            -if line.productName.include?('Standard Shipping') && @order_amount >= 2
-                              100%
-                            -elsif line.productName.include?('Standard Shipping') && @has_order == false
-                              100%
-                            -elsif line.productFamily == 'Cosmetic' && @has_order == false
-                              20%
+                            = line.discountFormatted.to_s
+
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
 
@@ -66,11 +62,19 @@
                         %td.grand_total_cell
                           %b
                             =number_to_currency(@grand_total)
+
+          -if @has_multi_dist == true
+            .row
+              .col-xs-12
+                .col-xs-12
+                  .well
+                    Items come from 2 locations please expect separate shipments
+
           .row
             .col-xs-12
               .col-xs-12
                 .well
-                  Please select a payment method.
+                  %strong Please select a payment method.
                   %br
                   = radio_button_tag :paymentType, 'payment_invoice',false, :id => 'payment_invoice', :required => 'required'
                   %label{:for => 'payment_invoice', :value => 'payment_invoice'}
@@ -144,12 +148,8 @@
                               = hidden_field_tag 'productline[][qty]', line.qty
                               = hidden_field_tag 'productline[][productId]', line.productId
                             %td
-                              -if line.productName.include?('Standard Shipping') && @order_amount >= 2
-                                100%
-                              -elsif line.productName.include?('Standard Shipping') && @has_order == false
-                                100%
-                              -elsif line.productFamily == 'Cosmetic' && @has_order == false
-                                20%
+                              = line.discountFormatted.to_s
+
                             %td.total_price_cell
                               = number_to_currency(line.totalPrice)
 
@@ -204,7 +204,7 @@
                           %td.unit_price_cell
                             = number_to_currency(line.unitPrice)
                           %td
-                            = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required'
+                            = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required', :value => 0
                             = hidden_field_tag 'productline[][productId]', line.productId
                           %td.total_price_cell
                             = number_to_currency(0)
