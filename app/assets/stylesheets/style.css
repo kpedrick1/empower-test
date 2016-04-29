@@ -13,9 +13,9 @@ html{
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	min-height: 100%;
-      background-image: url("background_smaller.jpg");
+      background-image: url("background.png");
       background-attachment: fixed;
-      background-position: center center;
+      background-position: center top;
       background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
