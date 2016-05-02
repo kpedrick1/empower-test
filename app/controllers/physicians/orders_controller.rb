@@ -149,16 +149,16 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
 
-          if @num_shipping_discounts >= 2
+          if @num_shipping_discounts >= 2 && shippingopt.productName.include?('Standard Shipping') == true
             shippingopt.discountFormatted = '100%'
             shippingopt.totalPrice = 0
-          elsif @num_shipping_discounts == 1
+          elsif @num_shipping_discounts == 1 && shippingopt.productName.include?('Standard Shipping') == true
             shippingopt.discountFormatted = '50%'
             shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
           end
 
         else
-          if @num_shipping_discounts >= 1
+          if @num_shipping_discounts >= 1 && shippingopt.productName.include?('Standard Shipping') == true
             shippingopt.discountFormatted = '100%'
             shippingopt.totalPrice = 0
           end
@@ -166,7 +166,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
         end
 
 
-        if (session[:has_order] == false)
+        if (session[:has_order] == false && shippingopt.productName.include?('Standard Shipping') == true)
 
           shippingopt.totalPrice = 0
           shippingopt.discountFormatted = '100%'
@@ -271,16 +271,16 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
 
-            if @num_shipping_discounts >= 2
+            if @num_shipping_discounts >= 2 && shippingopt.productName.include?('Standard Shipping') == true
               shippingopt.discountFormatted = '100%'
               shippingopt.totalPrice = 0
-            elsif @num_shipping_discounts == 1
+            elsif @num_shipping_discounts == 1 && shippingopt.productName.include?('Standard Shipping') == true
               shippingopt.discountFormatted = '50%'
               shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
             end
 
           else
-            if @num_shipping_discounts >= 1
+            if @num_shipping_discounts >= 1 && shippingopt.productName.include?('Standard Shipping') == true
               shippingopt.discountFormatted = '100%'
               shippingopt.totalPrice = 0
             end
@@ -288,7 +288,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
           end
 
 
-          if (session[:has_order] == false)
+          if (session[:has_order] == false && shippingopt.productName.include?('Standard Shipping') == true)
             shippingopt.totalPrice = 0
           end
 
