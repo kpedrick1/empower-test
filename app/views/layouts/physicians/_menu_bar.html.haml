@@ -1,25 +1,28 @@
 .row.visible-xs.visible-sm.hidden-md.hidden-lg
 
-  .col-xs-12
-    %a{href: physicians_orders_path}
-      = image_tag('EpiCeram-l-KO.png', style: "max-height:150px;border-radius:5px;")
+  .col-xs-6
+    %a{:href => physicians_orders_path}
+      = image_tag('EpiCeram-l-KO.png', :style => "max-height:150px;border-radius:5px;")
+
+  .col-xs-6
+    = image_tag('PROCareE-KO.png', :style => "max-height:80px;border-radius:5px;")
 
   #mobile_nav_bar.col-xs-12
     %ul.nav.nav-pills
       %li
-        %a{href: physicians_orders_path, id: "order-mobile"}
+        %a{:href => physicians_orders_path, :id => "order-mobile"}
           Order
 
       %li
-        %a{href: physicians_orderhistories_path, id: "order-history-mobile"}
+        %a{:href => physicians_orderhistories_path, :id => "order-history-mobile"}
           Order History
 
       %li
-        %a{href: edit_physicians_physician_path(current_physicians_physician), id: "settings-mobile"}
+        %a{:href => edit_physicians_physician_path(current_physicians_physician), :id => "settings-mobile"}
           Account Settings
 
       %li
-        = link_to destroy_physicians_physician_session_path, method: "delete" do
+        = link_to destroy_physicians_physician_session_path, :method =>  "delete" do
           Logout
 
 
