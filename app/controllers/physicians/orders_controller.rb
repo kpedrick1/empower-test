@@ -17,7 +17,9 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     get_order_salesforce
 
-    get_first_order_account
+    session[:first_orders] = @first_orders
+
+    #get_first_order_account
 
 
 
@@ -83,7 +85,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             @has_rx = true
 
-            if product['qty'].to_i >= 2
+            if product['qty'].to_i >= 2 || session[:first_orders].include? orderline.productId
               @num_shipping_discounts += 1
             end
 
@@ -91,7 +93,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             @has_not_rx = true
 
-            if product['qty'].to_i >= 2
+            if product['qty'].to_i >= 2 || session[:first_orders].include? orderline.productId
               @num_shipping_discounts += 1
             end
 
@@ -103,12 +105,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:has_order] == false && orderline.rXrequired == false)
+          if (session[:first_orders].include? orderline.productId && orderline.rXrequired == false)
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
 
             orderline.discountFormatted = '20%'
 
           end
+
+
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -162,14 +166,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
             shippingopt.discountFormatted = '100%'
             shippingopt.totalPrice = 0
           end
-
-        end
-
-
-        if (session[:has_order] == false && shippingopt.productName.include?('Standard Shipping') == true)
-
-          shippingopt.totalPrice = 0
-          shippingopt.discountFormatted = '100%'
 
         end
 
@@ -234,7 +230,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:has_order] == false)
+          if (session[:first_orders].include? orderline.productId )
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
           end
 
@@ -288,10 +284,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
           end
 
 
-          if (session[:has_order] == false && shippingopt.productName.include?('Standard Shipping') == true)
-            shippingopt.totalPrice = 0
-          end
-
           @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
           @opp_lines.push(shippingopt)
@@ -304,9 +296,9 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     delete_cart_session
 
-    puts "has order \n"
+    puts "-------------first_orders ------------------ \n"
 
-    puts @has_order
+    puts session[:first_orders]
 
 
   end
@@ -321,27 +313,27 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
   end
 
-  def get_first_order_account
-
-    account_id = session[:account_id]
-
-    client = Restforce.new
-
-    accounts = client.query("select Id, Orders__c from Account where Id = '#{account_id}'")
-
-    account = accounts.first
-
-
-    if (!account.nil? && account.Orders__c > 0)
-      session[:has_order] = true
-    else
-      session[:has_order] = false
-    end
-
-    @has_order = session[:has_order]
-
-
-  end
+  # def get_first_order_account
+  #
+  #   account_id = session[:account_id]
+  #
+  #   client = Restforce.new
+  #
+  #   accounts = client.query("select Id, Orders__c from Account where Id = '#{account_id}'")
+  #
+  #   account = accounts.first
+  #
+  #
+  #   if (!account.nil? && account.Orders__c > 0)
+  #     session[:has_order] = true
+  #   else
+  #     session[:has_order] = false
+  #   end
+  #
+  #   @has_order = session[:has_order]
+  #
+  #
+  # end
 
   def get_opportunity_salesforce
 
@@ -372,6 +364,10 @@ class Physicians::OrdersController < Physicians::ApplicationController
     @order_line = result.body.orderLineList
 
     @shipping_options = result.body.shippingList
+
+    @first_orders = result.body.firstTimeOrders
+
+
 
   end
 
