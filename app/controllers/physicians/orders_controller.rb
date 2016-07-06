@@ -85,7 +85,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             @has_rx = true
 
-            if product['qty'].to_i >= 2 || session[:first_orders].include? orderline.productId
+            if product['qty'].to_i >= 2
               @num_shipping_discounts += 1
             end
 
@@ -93,7 +93,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             @has_not_rx = true
 
-            if product['qty'].to_i >= 2 || session[:first_orders].include? orderline.productId
+            if product['qty'].to_i >= 2 || session[:first_orders].include?(orderline.productId)
               @num_shipping_discounts += 1
             end
 
@@ -105,10 +105,28 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:first_orders].include? orderline.productId && orderline.rXrequired == false)
+          puts "\n\nproduct Id \n"
+          puts orderline.productId
+          puts "\n"
+          puts "product Array \n"
+          puts session[:first_orders]
+          puts "\n"
+
+          puts "Product in array\n"
+          puts session[:first_orders].include?(orderline.productId)
+          puts "\n\n\n"
+
+          if (session[:first_orders].include?(orderline.productId) && orderline.rXrequired == false)
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
 
             orderline.discountFormatted = '20%'
+
+          end
+
+          if (product['qty'].to_i >= 4 && orderline.rXrequired == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.25)
+
+            orderline.discountFormatted = '25%'
 
           end
 
@@ -219,7 +237,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
             @has_not_rx = true
 
-            if product['qty'].to_i >= 2
+            if product['qty'].to_i >= 2 || session[:first_orders].include?(orderline.productId)
               @num_shipping_discounts += 1
             end
 
@@ -230,8 +248,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:first_orders].include? orderline.productId )
+          if (session[:first_orders].include? orderline.productId && orderline.rXrequired == false)
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+            orderline.discountFormatted = '20%'
+          end
+
+          if (product['qty'].to_i >= 4 && orderline.rXrequired == false)
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.25)
+            orderline.discountFormatted = '25%'
           end
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
