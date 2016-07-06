@@ -129,13 +129,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           end
 
-          if (product['qty'].to_i >= 4 && orderline.rXrequired == false)
-            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.25)
-
-            orderline.discountFormatted = '25%'
-
-          end
-
 
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
