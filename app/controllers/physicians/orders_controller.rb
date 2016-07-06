@@ -116,9 +116,15 @@ class Physicians::OrdersController < Physicians::ApplicationController
           puts session[:first_orders].include?(orderline.productId)
           puts "\n\n\n"
 
-          if (session[:first_orders].include?(orderline.productId) && orderline.rXrequired == false)
-            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
 
+          if (product['qty'].to_i >= 4 && orderline.rXrequired == false)
+
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.25)
+            orderline.discountFormatted = '25%'
+
+          elsif (session[:first_orders].include?(orderline.productId) && orderline.rXrequired == false)
+
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
             orderline.discountFormatted = '20%'
 
           end
@@ -248,15 +254,19 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:first_orders].include? orderline.productId && orderline.rXrequired == false)
-            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
-            orderline.discountFormatted = '20%'
-          end
-
           if (product['qty'].to_i >= 4 && orderline.rXrequired == false)
+
             orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.25)
             orderline.discountFormatted = '25%'
+
+          elsif (session[:first_orders].include? orderline.productId && orderline.rXrequired == false)
+
+            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
+            orderline.discountFormatted = '20%'
+
           end
+
+
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
