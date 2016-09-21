@@ -75,14 +75,14 @@ Rails.application.routes.draw do
 
     devise_for :physicians, :controllers => { :registrations => 'physicians/registrations', :sessions =>  'physicians/sessions'}
 
-    resources :prescriptions
-    resources :activities
-    resources :patients
+    #resources :prescriptions
+    #resources :activities
+    #resources :patients
     resources :physicians
-    resources :mailings
+    #resources :mailings
     #resources :inventories
-    resources :invoices
-    resources :monthend
+    #resources :invoices
+    #resources :monthend
     resources :orders
     resources :orderhistories
 

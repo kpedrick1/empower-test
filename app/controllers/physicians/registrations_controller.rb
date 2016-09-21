@@ -11,8 +11,6 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
   
   def new
 
-    puts "\n\n --------PAGE LOAD---------- \n\n"
-
     @physician_firstname = session['reg_physician_firstname']
     @physician_lastname = session['reg_physician_lastname']
     @physician_practiceZip = session['reg_physician_practiceZip']
@@ -102,7 +100,7 @@ class Physicians::RegistrationsController < Devise::RegistrationsController
     args["practiceZip"] = params[:practiceZip]
     #args["Promo_Code__c"] = params[:promoCode]
     args["Office_Contact__c"] = params[:officeContact]
-    args["Business_Unit__c"] = 'PuraCap'
+    args["Business_Unit__c"] = ENV['BUSINESS_UNIT']
 
     result = client.get '/services/apexrest/portal/physician', :args => args
 
