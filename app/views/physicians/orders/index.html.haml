@@ -23,7 +23,6 @@
                           %th Product
                           %th Cost /Case
                           %th Cases to Order
-                          %th Discount
                           %th Total Cost
 
 
@@ -38,8 +37,6 @@
                             = line.qty
                             = hidden_field_tag 'productline[][qty]', line.qty
                             = hidden_field_tag 'productline[][productId]', line.productId
-                          %td
-                            = line.discountFormatted.to_s
 
                           %td.total_price_cell
                             = number_to_currency(line.totalPrice)
@@ -50,10 +47,8 @@
                         %td
                         %td
                         %td
-                        %td
 
                       %tr
-                        %td
                         %td
                         %td
                         %td
@@ -133,7 +128,6 @@
                             %th Product
                             %th Cost /Case
                             %th Cases to Order
-                            %th Discount
                             %th Total Cost
 
 
@@ -148,8 +142,6 @@
                               = line.qty
                               = hidden_field_tag 'productline[][qty]', line.qty
                               = hidden_field_tag 'productline[][productId]', line.productId
-                            %td
-                              = line.discountFormatted.to_s
 
                             %td.total_price_cell
                               = number_to_currency(line.totalPrice)
@@ -160,10 +152,8 @@
                           %td
                           %td
                           %td
-                          %td
 
                         %tr
-                          %td
                           %td
                           %td
                           %td
