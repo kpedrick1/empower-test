@@ -2,7 +2,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
   layout 'physicians'
 
-
   def index
 
     @opp_lines = []
@@ -41,7 +40,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
           end
 
 
-
           if product['qty'] == nil || product['qty'] == '0'
             next
           end
@@ -69,15 +67,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
           orderline.discountFormatted = ''
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
-
-
-          if (session[:first_orders].include?(orderline.productId) && orderline.rXrequired == false)
-
-            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
-            orderline.discountFormatted = '20%'
-
-          end
-
 
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
@@ -114,25 +103,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
         shippingopt.totalPrice = shippingopt.unitPrice
 
         if @has_multi_dist == true
-
           shippingopt.qty = 2
-
           shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
-
-          if @num_shipping_discounts >= 2 && shippingopt.productName.include?('Standard Shipping') == true
-            shippingopt.discountFormatted = '100%'
-            shippingopt.totalPrice = 0
-          elsif @num_shipping_discounts == 1 && shippingopt.productName.include?('Standard Shipping') == true
-            shippingopt.discountFormatted = '50%'
-            shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
-          end
-
-        else
-          if @num_shipping_discounts >= 1 && shippingopt.productName.include?('Standard Shipping') == true
-            shippingopt.discountFormatted = '100%'
-            shippingopt.totalPrice = 0
-          end
-
         end
 
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
@@ -181,14 +153,6 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
           orderline.totalPrice = orderline.qty.to_f * orderline.unitPrice.to_f
 
-          if (session[:first_orders].include?(orderline.productId) && orderline.rXrequired == false)
-
-            orderline.totalPrice = orderline.totalPrice.to_f - (orderline.totalPrice.to_f * 0.20)
-            orderline.discountFormatted = '20%'
-
-          end
-
-
 
           @grand_total = @grand_total + orderline.totalPrice.to_f
 
@@ -216,25 +180,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
           shippingopt.totalPrice = shippingopt.unitPrice
 
           if @has_multi_dist == true
-
             shippingopt.qty = 2
-
             shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
-
-            if @num_shipping_discounts >= 2 && shippingopt.productName.include?('Standard Shipping') == true
-              shippingopt.discountFormatted = '100%'
-              shippingopt.totalPrice = 0
-            elsif @num_shipping_discounts == 1 && shippingopt.productName.include?('Standard Shipping') == true
-              shippingopt.discountFormatted = '50%'
-              shippingopt.totalPrice = shippingopt.totalPrice.to_f - (shippingopt.totalPrice.to_f * 0.50)
-            end
-
-          else
-            if @num_shipping_discounts >= 1 && shippingopt.productName.include?('Standard Shipping') == true
-              shippingopt.discountFormatted = '100%'
-              shippingopt.totalPrice = 0
-            end
-
           end
 
 
@@ -283,7 +230,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
 
     client = Restforce.new
 
-    result = client.get '/services/apexrest/portal/orders/', :accountId => account_id, :businessUnit => 'PuraCap'
+    result = client.get '/services/apexrest/portal/orders/', :accountId => account_id, :businessUnit => ENV['BUSINESS_UNIT']
 
     # handle error response
 
