@@ -12,6 +12,8 @@ class Physicians::OrdersController < Physicians::ApplicationController
     @has_not_rx = false
     @has_multi_dist = false
 
+    @has_shipping = false;
+
     @num_shipping_discounts = 0;
 
     get_order_salesforce
@@ -44,22 +46,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
             next
           end
 
-          if orderline.rXrequired == true
+          if orderline.freeShipping != true
+            @has_shipping = true;
+          end
 
+          if orderline.rXrequired == true && orderline.freeShipping != true
             @has_rx = true
-
-            if product['qty'].to_i >= 2
-              @num_shipping_discounts += 1
-            end
-
-          elsif orderline.rXrequired == false
-
+          elsif orderline.rXrequired == false && orderline.freeShipping != true
             @has_not_rx = true
-
-            if product['qty'].to_i >= 2 || session[:first_orders].include?(orderline.productId)
-              @num_shipping_discounts += 1
-            end
-
           end
 
           orderline.qty = product['qty']
@@ -107,6 +101,15 @@ class Physicians::OrdersController < Physicians::ApplicationController
           shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
         end
 
+        #  if user only ordered new product discount shipping
+        if @has_shipping == false
+          shippingopt.discountFormatted = '100%'
+          shippingopt.totalPrice = 0
+        end
+
+        # shippingopt.discountFormatted = '100%'
+        # shippingopt.totalPrice = 0
+
         @grand_total = @grand_total + shippingopt.totalPrice.to_f
 
         @opp_lines.push(shippingopt)
@@ -130,22 +133,14 @@ class Physicians::OrdersController < Physicians::ApplicationController
             next
           end
 
-          if orderline.rXrequired == true
+          if orderline.freeShipping != true
+            @has_shipping = true;
+          end
 
+          if orderline.rXrequired == true && orderline.freeShipping != true
             @has_rx = true
-
-            if product['qty'].to_i >= 2
-              @num_shipping_discounts += 1
-            end
-
-          elsif orderline.rXrequired == false
-
+          elsif orderline.rXrequired == false && orderline.freeShipping != true
             @has_not_rx = true
-
-            if product['qty'].to_i >= 2 || session[:first_orders].include?(orderline.productId)
-              @num_shipping_discounts += 1
-            end
-
           end
 
 
@@ -182,6 +177,11 @@ class Physicians::OrdersController < Physicians::ApplicationController
           if @has_multi_dist == true
             shippingopt.qty = 2
             shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
+          end
+
+          if @has_shipping == false
+            shippingopt.discountFormatted = '100%'
+            shippingopt.totalPrice = 0
           end
 
 
