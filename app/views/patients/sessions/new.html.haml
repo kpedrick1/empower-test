@@ -25,12 +25,13 @@
       .panel-footer
         .row
           .col-xs-12.col-md-6
-            = link_to 'Create Account', new_patients_patient_registration_path, class: 'btn btn-warning btn-block new_button'
+            = link_to 'Create Account', new_patients_patient_registration_path, :class => 'btn btn-warning btn-block new_button'
           .col-xs-12.col-md-6
-            = f.submit "Login", class: "btn btn-primary btn-block new_button"
+            = f.submit "Login", :class => "btn btn-primary btn-block new_button"
 
         .row
-          .col-xs-12
-            = link_to "Forgot your password?", new_patients_patient_password_path, class: "btn btn-link btn-block"
-
+          .col-xs-12.col-md-6
+            = link_to "Forgot your password?", new_patients_patient_password_path, :class => "btn btn-link btn-block"
+          .col-xs-12.col-md-6
+            = link_to "Checkout as Guest", {:controller => 'checkout', :action => 'index'}, :class => "btn btn-link btn-block"
 

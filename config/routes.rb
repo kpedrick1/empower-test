@@ -90,6 +90,26 @@ Rails.application.routes.draw do
 
   end
 
+  namespace :patients do
+
+    devise_for :patients, :controllers => { :registrations => 'patients/registrations', :sessions =>  'patients/sessions'}
+
+    resources :patients
+
+    get '/products', :controller => 'products', :action => 'index'
+    post '/products', :controller => 'products', :action => 'add_to_cart'
+
+
+    get '/cart', :controller => 'cart', :action => 'index'
+    post '/cart', :controller => 'cart', :action => 'save'
+
+    get '/checkout', :controller => 'checkout', :action => 'index'
+    post '/checkout', :controller => 'checkout', :action => 'save'
+
+
+
+  end
+
   devise_scope :physicians do
     get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
   end
