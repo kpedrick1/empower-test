@@ -1,12 +1,3 @@
-.row.visible-xs.visible-sm.hidden-md.hidden-lg
-
-  .col-xs-12
-    .col-md-8.col-xs-8
-      %a{href: new_patients_activity_path}
-        = image_tag('logo.png', style: "height:75px")
-    .col-md-4.col-xs-4
-      %a{href: "https://thegoaliscontrol.com/welcome/#{session[:account_email]}", target: "_blank"}
-        = image_tag('GiC_logo.png', style: "max-height:75px")
 
 
 .row.visible-xs.visible-sm.hidden-md.hidden-lg
@@ -14,26 +5,13 @@
   #mobile_nav_bar.col-xs-12
     %ul.nav.nav-pills
       %li
-        %a{href: new_patients_activity_path, id: "blood-pressure-mobile"}
-          %span.sprite_mobile.sprite-bpCareConnect-icon-blood-pressure-mobile{:style => "margin-left:auto;margin-right:auto;"}
+        %a{href: "/patients/products", id: "products-mobile"}
+          Products
 
       %li
-        %a{href: patients_prescriptions_path, id: "prescriptions-mobile"}
-          %span.sprite_mobile.sprite-bpCareConnect-icon-prescriptions-mobile{:style => "margin-left:auto;margin-right:auto;"}
+        %a{href: "/patients/cart", id: "cart-mobile"}
+          Cart
 
-      %li
-        %a{href: patients_patients_path, id: "how-to-mobile"}
-          %span.sprite_mobile.sprite-bpCareConnect-icon-how-to-mobile{:style => "margin-left:auto;margin-right:auto;"}
-
-      %li
-        %a{href: edit_patients_patient_path(current_patients_patient), id: "settings-mobile"}
-          %span.sprite_mobile.sprite-bpCareConnect-icon-account-settings-mobile{:style => "margin-left:auto;margin-right:auto;"}
-
-      %li
-        = link_to destroy_patients_patient_session_path, method: "delete" do
-          %span.sprite_mobile.sprite-bpCareConnect-icon-log-out-mobile{:style => "margin-left:auto;margin-right:auto;"}
-      
-          
           
   
   

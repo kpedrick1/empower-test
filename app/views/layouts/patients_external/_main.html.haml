@@ -1,0 +1,21 @@
+
+.container
+  = render 'layouts/messages_external'
+
+
+  .row.hidden-xs.hidden-sm.visible-md.visible-lg
+
+
+    #top_menu.col-md-8.col-lg-7
+      %ul.nav.nav-pills{:style => "text-align: center;"}
+
+        %li{:style => "width:120px;"}
+          %a{href: "/patients/products", id: "products"}
+            Products
+
+        %li{:style => "width:120px;"}
+          %a{href: "/patients/cart", id: "cart"}
+            Cart
+
+
+  = yield
