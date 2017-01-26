@@ -1,0 +1,82 @@
+class Patients::ProductsController < ApplicationController
+
+  skip_before_action :require_login, only: [:index]
+
+  layout :set_layout
+
+  def index
+
+
+    get_products
+
+
+  end
+
+
+  def get_products
+
+    client = Restforce.new
+
+    result = client.get '/services/apexrest/portal/pricebook/', :pricebook_id => '00B33000006jXc3', :business_unit => ENV['BUSINESS_UNIT']
+
+    # todo: handle error response
+
+
+    puts "get pricebook body \n\n"
+
+    puts result.body
+
+    puts "\n"
+
+    puts "get pricebook body productList \n\n"
+
+    puts result.body.productList
+
+    puts "\n"
+
+
+    @price_book = result.body.productList
+
+
+
+
+  end
+
+  def add_to_cart
+
+    # check if session is set
+
+    if session['cart_products'] == nil
+      session['cart_products'] = {}
+    end
+
+
+    # add product id to cart
+
+    # check if hash has key
+
+    if session['cart_products'].key?(params[:product_id])
+
+      session['cart_products'][params[:product_id]] = session['cart_products'][params[:product_id]].to_i + 1
+    else
+      session['cart_products'][params[:product_id]] = 1
+    end
+
+    # send success message
+
+    flash[:success] = "#{params[:product_name]} added to your cart"
+
+    # redirect to current page
+    redirect_to :action => "index"
+
+
+  end
+
+  private
+
+  def set_layout
+    current_patients_patient ? "patients" : "patients_login"
+  end
+
+
+end
