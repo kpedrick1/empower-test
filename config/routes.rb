@@ -108,6 +108,8 @@ Rails.application.routes.draw do
 
 
 
+
+
   end
 
   devise_scope :physicians do
