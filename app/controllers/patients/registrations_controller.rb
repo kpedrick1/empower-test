@@ -73,7 +73,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
     args["Physician_Registration__c"] = params[:myPhysician]
     args["Password__c"] = params[:password]
     args["Phone"] = params[:phone]
-    args["Business_Unit__c"] = 'PuraCap'
+    args["Business_Unit__c"] = ENV['BUSINESS_UNIT']
 
     result = client.get "/services/apexrest/portal/patientRegistration", :args => args
 
@@ -221,7 +221,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
   def set_layout
 
-    current_patients_patient ? "patients" : "login"
+    current_patients_patient ? "patients" : "patients_login"
   end
 
 

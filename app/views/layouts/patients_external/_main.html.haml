@@ -2,12 +2,10 @@
 .container
   = render 'layouts/messages_external'
 
-
-  .row.hidden-xs.hidden-sm.visible-md.visible-lg
-
+  .row.hidden-xs.hidden-sm.visible-md.visible-lg{:style => "background-color:#1c1e4d"}
 
     #top_menu.col-md-8.col-lg-7
-      %ul.nav.nav-pills{:style => "text-align: center;"}
+      %ul.nav.nav-pills.navbar-right{:style => "text-align: center;"}
 
         %li{:style => "width:120px;"}
           %a{href: "/patients/products", id: "products"}

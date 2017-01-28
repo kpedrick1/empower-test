@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
     set_session_values resource
 
     if resource.kind_of? Patient
-      new_patients_activity_path
+      patients_checkout_path
+
     else
       physicians_orders_path
     end

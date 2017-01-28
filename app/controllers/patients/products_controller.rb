@@ -6,9 +6,7 @@ class Patients::ProductsController < ApplicationController
 
   def index
 
-
     get_products
-
 
   end
 
@@ -17,7 +15,7 @@ class Patients::ProductsController < ApplicationController
 
     client = Restforce.new
 
-    result = client.get '/services/apexrest/portal/pricebook/', :pricebook_id => '00B33000006jXc3', :business_unit => ENV['BUSINESS_UNIT']
+    result = client.get '/services/apexrest/portal/pricebook/', :business_unit => ENV['BUSINESS_UNIT']
 
     # todo: handle error response
 
@@ -34,9 +32,7 @@ class Patients::ProductsController < ApplicationController
 
     puts "\n"
 
-
     @price_book = result.body.productList
-
 
 
 

@@ -1,37 +1,16 @@
-#header_bar.row.hidden-xs.hidden-sm.visible-md.visible-lg
+#header_bar.row.hidden-xs.hidden-sm.visible-md.visible-lg{:style => "background-color:#1c1e4d;margin:0;padding:0;"}
 
-  .col-md-3
-    %a{href: new_patients_activity_path}
-      = image_tag('logo.png', style: "height:75px")
+  #mobile_nav_bar.col-xs-12
+    %ul.nav.nav-pills.navbar-right
+      %li
+        %a{href: "/patients/products", id: "products-mobile"}
+          Products
 
-  .col-md-1.col-lg-2
-    %a{href: "https://thegoaliscontrol.com/welcome/#{session[:account_email]}", target: "_blank"}
-      = image_tag('GiC_logo.png', style: "max-height:75px")
-
-  #top_menu.col-md-8.col-lg-7
-    %ul.nav.nav-pills{:style => "text-align: center;"}
-
-      %li{:style => "width:120px;"}
-        %a{href: new_patients_activity_path, id: "blood-pressure"}
-          %span.sprite.sprite-bpCareConnect-icon-blood-pressure{:style => "margin-left:auto;margin-right:auto;"}
-        %small Blood Pressure Log
-
-      %li{:style => "width:120px;"}
-        %a{href: patients_prescriptions_path, id: "prescriptions"}
-          %span.sprite.sprite-bpCareConnect-icon-prescriptions{:style => "margin-left:auto;margin-right:auto;"}
-        %small Prescriptions
-
-      %li{:style => "width:120px;"}
-        %a{href: patients_patients_path, id: "how-to"}
-          %span.sprite.sprite-bpCareConnect-icon-how-to{:style => "margin-left:auto;margin-right:auto;"}
-        %small How To
-
-      %li{:style => "width:120px;"}
-        %a{href: edit_patients_patient_path(current_patients_patient), id: "settings"}
-          %span.sprite.sprite-bpCareConnect-icon-account-settings{:style => "margin-left:auto;margin-right:auto;"}
-        %small Account Settings
+      %li
+        %a{href: "/patients/cart", id: "cart-mobile"}
+          Cart
 
       %li{:style => "width:120px;"}
         = link_to destroy_patients_patient_session_path, method: "delete" do
-          %span.sprite.sprite-bpCareConnect-icon-log-out{:style => "margin-left:auto;margin-right:auto;"}
-        %small Logout
+          Logout
+

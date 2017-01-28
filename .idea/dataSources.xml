@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2470136999">
+  <component name="DataSourceManagerImpl" format="xml" hash="378568397">
     <data-source source="LOCAL" name="Rails puracap-qa: development" uuid="84e89cfe-8242-4533-a277-81de2e6a2a49">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
@@ -10,15 +10,15 @@
     <data-source source="LOCAL" name="Rails puracap-qa: test" uuid="7d0f21af-423b-4416-83d7-d49f281eb1ef">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql:puracap-qa_test</jdbc-url>
+      <jdbc-url>jdbc:postgresql:puracap_test</jdbc-url>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails puracap-qa: production" uuid="dbb59c2f-86b6-4ab3-a2c8-91e5d073175d">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql:puracap-qa_production</jdbc-url>
-      <user-name>puracap-qa</user-name>
-      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffadfffdff8dfebdfe9dfebdffadf87dffbdfebdff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+      <jdbc-url>jdbc:postgresql:puracap_production</jdbc-url>
+      <user-name>puracap</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffadfffdff8dfebdfe9dfebdffadff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
       <libraries />
     </data-source>
   </component>
