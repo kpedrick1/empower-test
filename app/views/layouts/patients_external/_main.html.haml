@@ -1,19 +1,11 @@
 
 .container
-  = render 'layouts/messages_external'
+  .row{:style => "background-color:#1c1e4d"}
+    .col-md-12
+      = render 'layouts/patients_external/menu'
 
-  .row.hidden-xs.hidden-sm.visible-md.visible-lg{:style => "background-color:#1c1e4d"}
-
-    #top_menu.col-md-8.col-lg-7
-      %ul.nav.nav-pills.navbar-right{:style => "text-align: center;"}
-
-        %li{:style => "width:120px;"}
-          %a{href: "/patients/products", id: "products"}
-            Products
-
-        %li{:style => "width:120px;"}
-          %a{href: "/patients/cart", id: "cart"}
-            Cart
-
-
-  = yield
+#back_ground_wrapper
+  .container{:style => "background-color:#f5f4f2;"}
+    .row
+      #main-container.col-md-12{:style => "padding:0;"}
+        = yield

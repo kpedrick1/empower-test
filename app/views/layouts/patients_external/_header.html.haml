@@ -1,12 +1,15 @@
 .container
-  .row{:style => "margin-top:20px;"}
+  .row{:style => "background-color:#1c1e4d"}
+    .col-md-12{:style => "height:100px"}
+      %span{:style => "color:white;"}
+        Welcome FAQ
 
-    .col-md-12
-      = image_tag('welcome_banner.png')
+    .col-md-12{:style => "margin:0;padding:0;"}
+      = image_tag('welcome_banner.png', :style => "width:100%;")
 
     .col-md-12.col-xs-12{:style => "margin:15px 0 15px 0;"}
-      = image_tag('eptex_banner.png', :style => "max-height:400px;border-radius:5px;")
+      = image_tag('eptex_banner.png', :style => "width:100%;")
 
 .container
-  = render 'layouts/patients/menu_bar'
+  = render 'layouts/patients_external/menu_bar'
 
