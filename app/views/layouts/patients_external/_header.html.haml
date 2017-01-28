@@ -1,8 +1,18 @@
 .container
   .row{:style => "background-color:#1c1e4d"}
-    .col-md-12{:style => "height:100px"}
-      %span{:style => "color:white;"}
-        Welcome FAQ
+    .col-md-12{:style => "padding:20px;"}
+      .col-md-9
+        %span{:style => "color:white;"}
+          Welcome FAQ
+      .col-md-3
+        %a{:href => "https://www.facebook.com/EpiCeram-Controlled-Release-Skin-Barrier-Emulsion-724687184330059/", :target => "_blank"}
+          = image_tag('FB-f-Logo__white_50.png', :style => "vertical-align:middle;display:inline-block;")
+
+        %a{:href => "https://twitter.com/EpiCeram_CRSBE", :target => "_blank", :target => "_blank"}
+          = image_tag('Twitter_Logo_White_On_Image.png', :height => "50px", :width => "50px", :style => "vertical-align:middle;display:inline-block;")
+
+        %a{:href => "https://www.linkedin.com/company/puracap-pharmaceutical-llc", :target => "_blank", :target => "_blank"}
+          = image_tag('In-White-41px-R.png', :height => "50px", :style => "vertical-align:middle;display:inline-block;")
 
     .col-md-12{:style => "margin:0;padding:0;"}
       = image_tag('welcome_banner.png', :style => "width:100%;")
