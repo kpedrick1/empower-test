@@ -2,72 +2,69 @@
   = render 'layouts/messages'
 
   .panel.panel-default{:style => "margin-bottom:0;"}
-    .panel-heading
-      %h4
-        Cart
-      .panel-body
+    .panel-body
 
-        = form_tag do
-          .row
-            .col-xs-12
+      = form_tag do
+        .row
+          .col-xs-12
 
-              .panel.panel-default
-                .panel-body
+            .panel.panel-default
+              .panel-body
 
-                  .table-responsive
+                .table-responsive
 
-                    %table.table.table-hover
-                      %thead
-                        %tr
-                          %th Product
-                          %th Price
-                          %th Quantity
-                          %th Remove
-                          %th Total
+                  %table.table.table-hover
+                    %thead
+                      %tr
+                        %th Product
+                        %th Price
+                        %th Quantity
+                        %th Remove
+                        %th Total
 
 
-                      - @cart_items.each do |line|
-
-                        %tr
-                          %td
-                            = line.productName
-                          %td.unit_price_cell
-                            = number_to_currency(line.productPrice)
-                          %td
-                            = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required', :value => line.quantity
-                            = hidden_field_tag 'productline[][productId]', line.productId
-                          %td
-                            = button_to 'Remove', {:controller => "cart", :action => "save"}, :method => :post, :params => {:commit => 'remove', :product_id => line.productId, :product_name => line.productName}
-
-                          %td.total_price_cell
-                            = number_to_currency(0)
-
+                    - @cart_items.each do |line|
 
                       %tr
                         %td
+                          = raw line.productName
+                        %td.unit_price_cell
+                          = number_to_currency(line.productPrice)
                         %td
+                          = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required', :value => line.quantity
+                          = hidden_field_tag 'productline[][productId]', line.productId
                         %td
-                        %td
-                        %td
+                          = button_to 'Remove', {:controller => "cart", :action => "save"}, :method => :post, :params => {:commit => 'remove', :product_id => line.productId, :product_name => line.productName}
 
-                      %tr
-                        %td
-                        %td
-                        %td
-                        %td
-                          %b
-                            Total
-                        %td.grand_total_cell
-                          %b
-                            =number_to_currency(0)
+                        %td.total_price_cell
+                          = number_to_currency(0)
 
-              .row
-                .col-xs-12
-                  .col-xs-4
-                  .col-xs-4
-                    = link_to "Continue shopping", {:controller => 'products', :action => 'index'}, :class => "btn btn-link btn-block"
-                  .col-xs-4
-                    = submit_tag 'Checkout', :class => 'btn btn-primary new_button'
+
+                    %tr
+                      %td
+                      %td
+                      %td
+                      %td
+                      %td
+
+                    %tr
+                      %td
+                      %td
+                      %td
+                      %td
+                        %b
+                          Total
+                      %td.grand_total_cell
+                        %b
+                          =number_to_currency(0)
+
+            .row
+              .col-xs-12
+                .col-xs-4
+                .col-xs-4
+                  = link_to "Continue shopping", {:controller => 'products', :action => 'index'}, :class => "btn btn-link btn-block"
+                .col-xs-4
+                  = submit_tag 'Checkout', :class => 'btn btn-primary new_button'
 
 
 

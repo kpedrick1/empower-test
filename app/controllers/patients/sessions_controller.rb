@@ -1,5 +1,5 @@
 class Patients::SessionsController < Devise::SessionsController
   
-  layout "login"
+  layout "patients_login"
 
 end

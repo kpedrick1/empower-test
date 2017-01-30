@@ -2,201 +2,195 @@
   = render 'layouts/messages'
 
   .panel.panel-default{:style => "margin-bottom:0;"}
-    .panel-heading
-      %h4
-        Checkout
-      .panel-body
-        = form_tag do
-          .row
-            .col-xs-12
+    .panel-body
+      = form_tag do
+        .row
+          .col-xs-12
 
-              .panel.panel-default
-                .panel-body
+            .panel.panel-default
+              .panel-body
 
-                  .table-responsive
+                .table-responsive
 
-                    %table.table.table-hover
-                      %thead
-                        %tr
-                          %th Product
-                          %th Price
-                          %th Quantity
-                          %th Total
+                  %table.table.table-hover
+                    %thead
+                      %tr
+                        %th Product
+                        %th Price
+                        %th Quantity
+                        %th Total
 
 
-                      - @cart_items.each do |line|
-
-                        %tr
-                          %td
-                            = line.productName
-                          %td.unit_price_cell
-                            = number_to_currency(line.productPrice)
-                          %td{:class => 'product_qty_input'}
-                            = line.quantity
-                            = hidden_field_tag 'productline[][qty]', line.quantity
-                            = hidden_field_tag 'productline[][productId]', line.productId
-                          %td.total_price_cell
-                            = number_to_currency(line.totalPrice)
+                    - @cart_items.each do |line|
 
                       %tr
                         %td
-                        %td
-                        %td
-                        %td
+                          = raw line.productName
+                        %td.unit_price_cell
+                          = number_to_currency(line.productPrice)
+                        %td{:class => 'product_qty_input'}
+                          = line.quantity
+                          = hidden_field_tag 'productline[][qty]', line.quantity
+                          = hidden_field_tag 'productline[][productId]', line.productId
+                        %td.total_price_cell
+                          = number_to_currency(line.totalPrice)
 
-                      %tr
-                        %td
-                        %td
-                        %td
-                          %b
-                            Total
-                        %td.grand_total_cell
-                          %b
-                            =number_to_currency(0)
+                    %tr
+                      %td
+                      %td
+                      %td
+                      %td
 
-
-          .row
-            .col-xs-12
-              .panel.panel-default
-                .panel-body
-
-                  -if @commit_action == 'Continue to Payment method'
-                    .row
-                      .col-xs-12
-
-                        %label Payment
-
-                        .input-group
-                          = label_tag "Card number"
-                          = text_field_tag :card_number, '', :placeholder => 'Card number'
-
-                        .input-group
-                          = label_tag "Card Type"
-                          = select_tag :card_type, options_for_select(['Visa', 'MasterCard', 'American Express'])
+                    %tr
+                      %td
+                      %td
+                      %td
+                        %b
+                          Total
+                      %td.grand_total_cell
+                        %b
+                          =number_to_currency(0)
 
 
-                        %label Expiration
-                        .input-group
-                          = label_tag 'Expiratoin Date'
-                          = select_tag :expiration_month, options_for_select(['01','02','03','04','05','06','07','08','09','10','11','12'])
-                          = select_year(Date.today, { :start_year => Date.today.year, :end_year =>  Date.today.year + 20, :prefix => 'expiration' })
+        .row
+          .col-xs-12
+            .panel.panel-default
+              .panel-body
 
-                        .input-group
-                          = label_tag 'Security code'
-                          = text_field_tag :security_code, '', :placeholder => 'CVV'
+                -if @commit_action == 'Continue to Payment method'
+                  .row
+                    .col-xs-12.col-md-6
 
-                        .input-group
-                          = hidden_field_tag :coupon_code, @checkout_session['coupon_code']
-                          = hidden_field_tag :email_address, @checkout_session['email_address']
-                          = hidden_field_tag :billing_phone, @checkout_session['billing_phone']
-                          = hidden_field_tag :first_name, @checkout_session['first_name']
-                          = hidden_field_tag :last_name, @checkout_session['last_name']
-                          = hidden_field_tag :billing_address1, @checkout_session['billing_address1']
-                          = hidden_field_tag :billing_address2, @checkout_session['billing_address2']
-                          = hidden_field_tag :billing_city, @checkout_session['billing_city']
-                          = hidden_field_tag :billing_state, @checkout_session['billing_state']
-                          = hidden_field_tag :billing_zip, @checkout_session['billing_zip']
-                          = hidden_field_tag :shipping_address1, @checkout_session['shipping_address1']
-                          = hidden_field_tag :shipping_address2, @checkout_session['shipping_address2']
-                          = hidden_field_tag :shipping_city, @checkout_session['shipping_city']
-                          = hidden_field_tag :shipping_state, @checkout_session['shipping_state']
-                          = hidden_field_tag :shipping_zip, @checkout_session['shipping_zip']
+                      .form-group
+                        = label_tag "Card number"
+                        = text_field_tag :card_number, '', :placeholder => 'Card number', :class => "form-control"
 
-                    .row
-                      .col-xs-12
-                        .col-xs-4
-                        .col-xs-4
-                          = submit_tag 'Return to customer information'
-                        .col-xs-4
-                          = submit_tag 'Complete order', :class => 'btn btn-primary new_button'
+                      .form-group
+                        = label_tag "Card Type"
+                        = select_tag :card_type, options_for_select(['Visa', 'MasterCard', 'American Express']), :class => "form-control"
+
+                      .form-group
+                        = label_tag 'Security code'
+                        = text_field_tag :security_code, '', :placeholder => 'CVV', :class => "form-control"
+
+                    .col-xs-12.col-md-6
+
+                      .form-group
+                        = label_tag 'Expiration Month'
+                        = select_tag :expiration_month, options_for_select(['01','02','03','04','05','06','07','08','09','10','11','12']), :class => "form-control"
+                      .form-group
+                        = label_tag 'Expiration Year'
+                        = select_year(Date.today, { :start_year => Date.today.year, :end_year =>  Date.today.year + 20, :prefix => 'expiration'}, {:class => "form-control" })
 
 
 
-                  -else
-                    .row
-                      .col-xs-12
+                      .form-group
+                        = hidden_field_tag :coupon_code, @checkout_session['coupon_code']
+                        = hidden_field_tag :email_address, @checkout_session['email_address']
+                        = hidden_field_tag :billing_phone, @checkout_session['billing_phone']
+                        = hidden_field_tag :first_name, @checkout_session['first_name']
+                        = hidden_field_tag :last_name, @checkout_session['last_name']
+                        = hidden_field_tag :billing_address1, @checkout_session['billing_address1']
+                        = hidden_field_tag :billing_address2, @checkout_session['billing_address2']
+                        = hidden_field_tag :billing_city, @checkout_session['billing_city']
+                        = hidden_field_tag :billing_state, @checkout_session['billing_state']
+                        = hidden_field_tag :billing_zip, @checkout_session['billing_zip']
+                        = hidden_field_tag :shipping_address1, @checkout_session['shipping_address1']
+                        = hidden_field_tag :shipping_address2, @checkout_session['shipping_address2']
+                        = hidden_field_tag :shipping_city, @checkout_session['shipping_city']
+                        = hidden_field_tag :shipping_state, @checkout_session['shipping_state']
+                        = hidden_field_tag :shipping_zip, @checkout_session['shipping_zip']
+
+                  .row
+                    .col-xs-12.col-md-4
+                    .col-xs-12.col-md-4
+                      = submit_tag 'Return to customer information'
+                    .col-xs-12.col-md-4
+                      = submit_tag 'Complete order', :class => 'btn btn-primary new_button'
 
 
-                        %label Coupons
 
-                        .input-group
-                          = label_tag "Coupon Code"
-                          = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon Code'
+                -else
+                  .row
+                    .col-xs-12.col-md-6
+                      .form-group
+                        = label_tag "First Name"
+                        = text_field_tag :first_name, @checkout_session['first_name'], :placeholder => 'First Name', :required => true, :class => "form-control"
 
-                        %label Account information
+                      .form-group
+                        = label_tag "Last Name"
+                        = text_field_tag :last_name, @checkout_session['last_name'], :placeholder => 'Last Name', :required => true, :class => "form-control"
 
-                        .input-group
-                          = label_tag "Email Address"
-                          = text_field_tag :email_address, @checkout_session['email_address'], :placeholder => 'Email Address'
+                      .form-group
+                        = label_tag "Email Address"
+                        = text_field_tag :email_address, @checkout_session['email_address'], :placeholder => 'Email Address', :type => "email", :required => true, :class => "form-control"
 
-                        .input-group
-                          = label_tag "Confirm Email"
-                          = text_field_tag :confirm_email, @checkout_session['confirm_email'], :placeholder => 'Confirm Email'
-
-                        %label Billing information
-
-                        .input-group
-                          = label_tag "Phone"
-                          = text_field_tag :billing_phone, @checkout_session['billing_phone'], :placeholder => 'Phone'
-
-                        .input-group
-                          = label_tag "First Name"
-                          = text_field_tag :first_name, @checkout_session['first_name'], :placeholder => 'First Name'
-
-                        .input-group
-                          = label_tag "Last Name"
-                          = text_field_tag :last_name, @checkout_session['last_name'], :placeholder => 'Last Name'
+                      .form-group
+                        = label_tag "Confirm Email"
+                        = text_field_tag :confirm_email, @checkout_session['confirm_email'], :placeholder => 'Confirm Email', :required => true, :class => "form-control"
 
 
-                        .input-group
-                          = label_tag "Address 1"
-                          = text_field_tag :billing_address1, @checkout_session['billing_address1'], :placeholder => 'Address 1'
 
-                        .input-group
-                          = label_tag "Address 2"
-                          = text_field_tag :billing_address2, @checkout_session['billing_address2'], :placeholder => 'Address 2'
+                      .form-group
+                        = label_tag "Phone"
+                        = text_field_tag :billing_phone, @checkout_session['billing_phone'], :placeholder => 'Phone', :required => true, :class => "form-control"
 
-                        .input-group
-                          = label_tag "City"
-                          = text_field_tag :billing_city, @checkout_session['billing_city'], :placeholder => 'City'
+                      .form-group
+                        = label_tag "Coupon Code"
+                        = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon Code', :class => "form-control"
 
-                        .input-group
-                          = label_tag "State"
-                          = text_field_tag :billing_state, @checkout_session['billing_state'], :placeholder => 'State'
+                    .col-xs-12.col-md-6
 
-                        .input-group
-                          = label_tag "Zip Code"
-                          = text_field_tag :billing_zip, @checkout_session['billing_zip'], :placeholder => 'Zip Code'
+                      %label Billing
 
-                        %label Shipping information
+                      .form-group
+                        = label_tag "Address 1"
+                        = text_field_tag :billing_address1, @checkout_session['billing_address1'], :placeholder => 'Address 1', :class => "form-control"
 
-                        .input-group
-                          = label_tag "Address 1"
-                          = text_field_tag :shipping_address1, @checkout_session['shipping_address1'], :placeholder => 'Address 1'
+                      .form-group
+                        = label_tag "Address 2"
+                        = text_field_tag :billing_address2, @checkout_session['billing_address2'], :placeholder => 'Address 2', :class => "form-control"
 
-                        .input-group
-                          = label_tag "Address 2"
-                          = text_field_tag :shipping_address2, @checkout_session['shipping_address2'], :placeholder => 'Address 2'
+                      .form-group
+                        = label_tag "City"
+                        = text_field_tag :billing_city, @checkout_session['billing_city'], :placeholder => 'City', :class => "form-control"
 
-                        .input-group
-                          = label_tag "City"
-                          = text_field_tag :shipping_city, @checkout_session['shipping_city'], :placeholder => 'City'
+                      .form-group
+                        = label_tag "State"
+                        = text_field_tag :billing_state, @checkout_session['billing_state'], :placeholder => 'State', :class => "form-control"
 
-                        .input-group
-                          = label_tag "State"
-                          = text_field_tag :shipping_state, @checkout_session['shipping_state'], :placeholder => 'State'
+                      .form-group
+                        = label_tag "Zip Code"
+                        = text_field_tag :billing_zip, @checkout_session['billing_zip'], :placeholder => 'Zip Code', :class => "form-control"
 
-                        .input-group
-                          = label_tag "zip Code"
-                          = text_field_tag :shipping_zip, @checkout_session['shipping_zip'], :placeholder => 'zip Code'
+                      %label Shipping
 
-                    .row
-                      .col-xs-12
-                        .col-xs-4
-                        .col-xs-4
-                          = link_to "Return to Cart", {:controller => 'cart', :action => 'index'}, :class => "btn btn-link btn-block"
-                        .col-xs-4
-                          = submit_tag 'Continue to Payment method', :class => 'btn btn-primary new_button'
+                      .form-group
+                        = label_tag "Address 1"
+                        = text_field_tag :shipping_address1, @checkout_session['shipping_address1'], :placeholder => 'Address 1', :class => "form-control"
+
+                      .form-group
+                        = label_tag "Address 2"
+                        = text_field_tag :shipping_address2, @checkout_session['shipping_address2'], :placeholder => 'Address 2', :class => "form-control"
+
+                      .form-group
+                        = label_tag "City"
+                        = text_field_tag :shipping_city, @checkout_session['shipping_city'], :placeholder => 'City', :class => "form-control"
+
+                      .form-group
+                        = label_tag "State"
+                        = text_field_tag :shipping_state, @checkout_session['shipping_state'], :placeholder => 'State', :class => "form-control"
+
+                      .form-group
+                        = label_tag "zip Code"
+                        = text_field_tag :shipping_zip, @checkout_session['shipping_zip'], :placeholder => 'zip Code', :class => "form-control"
+
+                  .row
+                    .col-xs-12.col-md-4
+                    .col-xs-12.col-md-4
+                      = link_to "Return to Cart", {:controller => 'cart', :action => 'index'}, :class => "btn btn-link btn-block"
+                    .col-xs-12.col-md-4
+                      = submit_tag 'Continue to Payment method', :class => 'btn btn-primary new_button'
 
 
 
