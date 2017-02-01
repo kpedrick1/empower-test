@@ -49,7 +49,7 @@
                           Total
                       %td.grand_total_cell
                         %b
-                          =number_to_currency(0)
+                          =number_to_currency(@cart_grand_total)
 
 
         .row
@@ -57,7 +57,7 @@
             .panel.panel-default
               .panel-body
 
-                -if @commit_action == 'Continue to Payment method'
+                -if @commit_action == 'Continue to Payment method' || @checkout_error == true
                   .row
                     .col-xs-12.col-md-6
 
@@ -109,6 +109,12 @@
                       = submit_tag 'Complete order', :class => 'btn btn-primary new_button'
 
 
+
+                -elsif @commit_action == 'Complete order' && @checkout_error == false
+                  .row
+                    .col-xs-12
+                      .alert.alert-success
+                        Your order has been successfully processed! You will receive an email confirmation shortly.
 
                 -else
                   .row

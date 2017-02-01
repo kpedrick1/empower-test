@@ -31,7 +31,7 @@
                         %td.unit_price_cell
                           = number_to_currency(line.productPrice)
                         %td
-                          = number_field_tag 'productline[][qty]', nil, :min => 0, :class => 'product_qty_input', :required => 'required', :value => line.quantity
+                          = number_field_tag 'productline[][qty]', nil, :min => 1, :class => 'product_qty_input', :required => 'required', :value => line.quantity
                           = hidden_field_tag 'productline[][productId]', line.productId
                         %td
                           = button_to 'Remove', {:controller => "cart", :action => "save"}, :method => :post, :params => {:commit => 'remove', :product_id => line.productId, :product_name => line.productName}
@@ -68,11 +68,10 @@
 
 
 
-
-
 :javascript
 
   $(".product_qty_input").on("input",null,null,function(){
+
     calculateQuantityTotal($(this));
   });
 
@@ -92,6 +91,13 @@
 
         productGrandTotal = productGrandTotal + totalPrice;
 
+        console.log(productQuantity);
+        console.log(productCurrency);
+        console.log(productPrice);
+        console.log(totalPrice);
+        console.log(productGrandTotal);
+
+
         var totalPriceCurrency = "$".concat(totalPrice.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
 
         $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
@@ -102,13 +108,19 @@
       thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
   }
 
+  $(function(){
+    $(".product_qty_input").each(function(){
+      calculateQuantityTotal($(this));
+    });
+  });
+
 
   $(function(){
 
-    $("#order").addClass("active");
-    $("#order-mobile").addClass("active");
+    $("#cart").addClass("active");
+    $("#cart-mobile").addClass("active");
 
-  })
+  });
 
 :css
   .modal {overflow-y: auto;}

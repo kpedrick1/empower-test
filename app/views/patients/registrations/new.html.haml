@@ -41,11 +41,6 @@
           = f.password_field :password_confirmation, :class => "form-control", :required => "true"
 
         .form-group
-          = f.label "Physician"
-          = f.label " (optional)", :style => "color:grey;font-size:small;"
-          = f.text_field :myPhysician, :class => "form-control", :autocomplete => "off"
-
-        .form-group
           = f.label "I agree the to the "
           = link_to "End User Agreement", pages_eua_path, class: "btn btn-primary btn-link", style: "padding-left: 0px"
 

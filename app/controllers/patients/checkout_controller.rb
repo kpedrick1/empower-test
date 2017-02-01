@@ -13,7 +13,7 @@ class Patients::CheckoutController < ApplicationController
 
 
 
-
+    @checkout_error = session['checkout_error']
 
 
 
@@ -31,8 +31,14 @@ class Patients::CheckoutController < ApplicationController
     get_cart_items
 
 
+    if @commit_action == 'Complete order' && @checkout_error == false
+      delete_all_cart_session
+    end
 
 
+
+
+    delete_cart_session
 
   end
 
@@ -66,7 +72,7 @@ class Patients::CheckoutController < ApplicationController
 
 
 
-      opportunity_id = save_cart_items(params)
+      save_cart_items(params)
 
 
 
@@ -104,19 +110,38 @@ class Patients::CheckoutController < ApplicationController
     puts result.body
 
 
-    #puts "\n\n result.body['opportunityId'] \n\n"
+    puts "\n\n result.body['code'] \n\n"
+    puts result.body['code']
+    puts "\n\n result.body['message'] \n\n"
+    puts result.body['message']
+    puts "\n\n result.body['isError'] \n\n"
+    puts result.body['isError']
 
 
+    if result.body['isError'] == false
+      puts "\n\n THERE ARE NO ERRORS \n\n"
 
-    result.body['opportunityId']
+      session['checkout_error'] = false
 
-    #puts "\n\n"
+    else
+      puts "\n\n THERE IS AN ERROR\n\n"
+
+
+      session['checkout_error'] = true
+
+      flash[:success] = result.body['message']
+    end
+
 
   end
 
 
 
   def get_cart_items
+
+    @cart_grand_total = 0
+
+    has_eptex = false
 
     client = Restforce.new
 
@@ -140,6 +165,9 @@ class Patients::CheckoutController < ApplicationController
 
     price_book = result.body.productList
 
+    shipping_book = result.body.shippingList
+
+
 
     @cart_items = Array.new
 
@@ -151,6 +179,11 @@ class Patients::CheckoutController < ApplicationController
       if session['cart_products'].key?(line_item.productId)
 
         line_item.quantity = session['cart_products'][line_item.productId]
+
+
+        if line_item.productCode == 'EptxWSngle' || line_item.productCode == 'EptxLSngl'
+          has_eptex = true
+        end
 
 
         #puts "\n\nline_item\n\n"
@@ -167,7 +200,51 @@ class Patients::CheckoutController < ApplicationController
 
         line_item.totalPrice = line_item.quantity.to_f * line_item.productPrice.to_f
 
+
+        @cart_grand_total += line_item.totalPrice
+
         @cart_items.push(line_item)
+      end
+
+    end
+
+    shipping_book.each do |ship_item|
+
+      puts "\n\nship_item\n\n"
+      puts ship_item
+      puts "\n\n"
+
+
+      if has_eptex == true
+
+        if ship_item.productCode == 'Shipping Eptex'
+
+
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice.to_f
+
+
+          @cart_grand_total += ship_item.productPrice.to_f
+
+          @cart_items.push(ship_item)
+
+          break
+        end
+
+      else
+
+        if ship_item.productCode == 'Shipping Epiceram-L'
+
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice.to_f
+
+          @cart_grand_total += ship_item.productPrice.to_f
+
+          @cart_items.push(ship_item)
+
+          break
+        end
+
       end
 
     end
@@ -207,6 +284,35 @@ class Patients::CheckoutController < ApplicationController
 
 
 
+
+  end
+
+  def delete_cart_session
+    session['commit'] = nil
+    session['checkout_error'] = nil
+  end
+
+
+  def delete_all_cart_session
+
+    session['cart_products'] = nil
+
+    # session['coupon_code'] = nil
+    # session['email_address'] = nil
+    # session['confirm_email'] = nil
+    # session['billing_phone'] = nil
+    # session['first_name'] = nil
+    # session['last_name'] = nil
+    # session['billing_address1'] = nil
+    # session['billing_address2'] = nil
+    # session['billing_city'] = nil
+    # session['billing_state'] = nil
+    # session['billing_zip'] = nil
+    # session['shipping_address1'] = nil
+    # session['shipping_address2'] = nil
+    # session['shipping_city'] = nil
+    # session['shipping_state'] = nil
+    # session['shipping_zip'] = nil
 
   end
 

@@ -49,6 +49,12 @@ class Patients::ProductsController < ApplicationController
 
     # add product id to cart
 
+    puts "\n\n params \n\n"
+    puts params
+
+    puts "\n\n params[:product_id] \n\n"
+    puts params[:product_id]
+
     # check if hash has key
 
     if session['cart_products'].key?(params[:product_id])
