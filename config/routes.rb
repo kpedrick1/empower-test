@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   root :to => "home#index"
   get "pages/eua"
 
-  get 'home/download_pdf'
+  #get 'home/download_pdf'
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
 
@@ -71,24 +71,24 @@ Rails.application.routes.draw do
 
 
 
-  namespace :physicians do
-
-    devise_for :physicians, :controllers => { :registrations => 'physicians/registrations', :sessions =>  'physicians/sessions'}
-
-    #resources :prescriptions
-    #resources :activities
-    #resources :patients
-    resources :physicians
-    #resources :mailings
-    #resources :inventories
-    resources :invoices
-    #resources :monthend
-    resources :orders
-    resources :orderhistories
-
-    #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
-
-  end
+  # namespace :physicians do
+  #
+  #   devise_for :physicians, :controllers => { :registrations => 'physicians/registrations', :sessions =>  'physicians/sessions'}
+  #
+  #   #resources :prescriptions
+  #   #resources :activities
+  #   #resources :patients
+  #   resources :physicians
+  #   #resources :mailings
+  #   #resources :inventories
+  #   resources :invoices
+  #   #resources :monthend
+  #   resources :orders
+  #   resources :orderhistories
+  #
+  #   #get '/physicians/inventories/month_end', :controller => 'inventories', :action => 'month_end'
+  #
+  # end
 
   namespace :patients do
 
@@ -112,8 +112,12 @@ Rails.application.routes.draw do
 
   end
 
-  devise_scope :physicians do
-    get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
+  # devise_scope :physicians do
+  #   get '/physicians/physicians/sign_out' => 'physicians/sessions#destroy'
+  # end
+
+  devise_scope :patients do
+    get '/patients/patients/sign_out' => 'patients/sessions#destroy'
   end
 
   wash_out :rumbas
