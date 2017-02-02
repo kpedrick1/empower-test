@@ -214,7 +214,9 @@ class Patients::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    '/patients/patients/sign_in' # Or :prefix_to_your_route
+    #'/patients/patients/sign_in' # Or :prefix_to_your_route
+
+    '/patients/products'
   end
 
   private

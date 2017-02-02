@@ -4,25 +4,24 @@
   .panel.panel-default{:style => "margin-bottom:0;"}
     .panel-body
 
-      = form_tag do
-        .row
-          .col-xs-12
-            - @price_book.each do |prod|
+      .row
+        .col-xs-12
+          - @price_book.each do |prod|
 
-              .row
-                .panel.panel-default
-                  .panel-body
-                    .col-xs-4
-                      %img{:src => "#{prod.productUrl}", :height => "250", :width => "200"}
-                    .col-xs-8
-                      .col-xs-12
-                        %h2
-                          = raw prod.productName
-                      .col-xs-12
-                        = raw prod.productDescription
-                      .col-xs-12{:style => "margin-bottom:20px;margin-top:20px"}
-                        .unit_price_cell
-                          = number_to_currency(prod.productPrice)
-                      .col-xs-12{:style => "margin-bottom:20px;margin-top:20px;color:white;"}
-                        = button_to 'Click to Purchase', {:controller => "products", :action => "add_to_cart"}, :method => :post,:class => 'btn', :style => "background-color:#c7a900; font-weight: bold;", :params => {:product_id => prod.productId, :product_name => prod.productName}
+            .row
+              .panel.panel-default
+                .panel-body
+                  .col-xs-4
+                    %img{:src => "#{prod.productUrl}", :height => "250", :width => "200"}
+                  .col-xs-8
+                    .col-xs-12
+                      %h2
+                        = raw prod.productName
+                    .col-xs-12
+                      = raw prod.productDescription
+                    .col-xs-12{:style => "margin-bottom:20px;margin-top:20px"}
+                      .unit_price_cell
+                        = number_to_currency(prod.productPrice)
+                    .col-xs-12{:style => "margin-bottom:20px;margin-top:20px;color:white;"}
+                      = button_to 'Click to Purchase', {:controller => "products", :action => "add_to_cart"}, :method => :post,:class => 'btn', :style => "background-color:#c7a900; font-weight: bold;", :params => {:product_id => prod.productId, :product_name => prod.productName}
 

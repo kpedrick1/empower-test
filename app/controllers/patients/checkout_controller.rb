@@ -9,6 +9,10 @@ class Patients::CheckoutController < ApplicationController
   def index
 
 
+    puts "\n\nsession[:account_id]\n\n"
+    puts  session[:account_id]
+
+
     @commit_action = session['commit']
 
 
@@ -88,15 +92,15 @@ class Patients::CheckoutController < ApplicationController
   def save_cart_items params
 
 
-    #puts "\n\nsession[:account_id]\n\n"
-    #puts  session[:account_id]
+    puts "\n\nsession[:account_id]\n\n"
+    puts  session[:account_id]
 
     #puts "\n\n save_cart_items - params\n\n"
     #puts params
 
     client = Restforce.new
 
-    if session[:account_id] == nil
+    if session[:account_id] != nil
 
       result = client.post '/services/apexrest/portal/checkout/', :userid => session[:account_id], :par => params, :business_unit => ENV['BUSINESS_UNIT']
 
