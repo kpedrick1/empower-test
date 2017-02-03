@@ -163,7 +163,8 @@
 
                       .form-group
                         = label_tag "State"
-                        = text_field_tag :billing_state, @checkout_session['billing_state'], :placeholder => 'State', :class => "form-control"
+                        = select_tag :billing_state, options_for_select(['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']), :class => "form-control"
+
 
                       .form-group
                         = label_tag "Zip Code"
@@ -185,7 +186,8 @@
 
                       .form-group
                         = label_tag "State"
-                        = text_field_tag :shipping_state, @checkout_session['shipping_state'], :placeholder => 'State', :class => "form-control"
+                        = select_tag :shipping_state, options_for_select(['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']), :class => "form-control"
+
 
                       .form-group
                         = label_tag "zip Code"
