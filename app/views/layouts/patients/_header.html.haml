@@ -5,10 +5,15 @@
         Welcome FAQ
 
     .col-md-12{:style => "margin:0;padding:0;"}
-      = image_tag('welcome_banner.png', :style => "width:100%;")
+      = image_tag('welcome1000x211.png', :style => "width:100%;")
 
     .col-md-12.col-xs-12{:style => "margin:15px 0 15px 0;"}
-      = image_tag('eptex_banner.png', :style => "width:100%;")
+      .col-sm-4{:style => "padding:5px;"}
+        = image_tag('eptex logo.png')
+      .col-sm-4{:style => "padding:5px;"}
+        = image_tag('controlledrelease_textstacked.png')
+      .col-sm-4{:style => "padding:5px;"}
+        = image_tag('EpiCeram-L.png')
 
 .container{:style => "margin:0;"}
   = render 'layouts/patients/menu_bar'
