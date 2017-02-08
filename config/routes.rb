@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   #get 'home/download_pdf'
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
+  get '/terms', :controller => 'terms', :action => 'index'
 
   resources :mailings
 
