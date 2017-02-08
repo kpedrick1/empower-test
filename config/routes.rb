@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     post '/checkout', :controller => 'checkout', :action => 'save'
 
     get '/faq', :controller => 'faq', :action => 'index'
+    get '/terms', :controller => 'terms', :action => 'index'
 
 
 
