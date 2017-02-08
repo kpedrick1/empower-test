@@ -1,21 +1,31 @@
 
 
-.row.visible-xs.visible-sm.hidden-md.hidden-lg{:style => "background-color:#1c1e4d"}
+.row.visible-xs.visible-sm.hidden-md.hidden-lg{:style => "padding:0;background-color:white;"}
 
-  #mobile_nav_bar.col-xs-12
-    %ul.nav.nav-pills.navbar-right
+  #mobile_nav_bar.col-xs-12{:style => "padding:0;"}
+    %ul.nav.nav-pills.navbar-right{:style => "padding-right:20px;padding-top:4px;"}
       %li
-        %a{:href => "/patients/products", :id => "products-mobile", :style => "color:white;background-color:#c7a900;font-weight:bold;"}
+        %a{:href => "/patients/products", :id => "products-mobile", :class => "button-hover"}
           Products
 
       %li
-        %a{:href => "/patients/cart", :id => "cart-mobile", :style => "color:white;background-color:#c7a900;font-weight:bold;"}
+        %a{:href => "/patients/cart", :id => "cart-mobile", :class => "button-hover"}
           Cart
 
       %li{:style => "width:120px;"}
-        = link_to( destroy_patients_patient_session_path, {:method => "delete", :style => "color:white;background-color:#c7a900;font-weight:bold;"}) do
+        = link_to( destroy_patients_patient_session_path, {:method => "delete", :class => "button-hover"}) do
           Logout
 
-          
+
+:CSS
+
+    #mobile_nav_bar .nav-pills > li > a.button-hover{
+        color:white;
+        background-color:#c7a900;
+        font-weight:bold;
+      }
+    #mobile_nav_bar .nav-pills > li > a.button-hover:hover{
+      color:#333333;
+    }
   
   

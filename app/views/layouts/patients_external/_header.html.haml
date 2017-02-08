@@ -3,7 +3,7 @@
     .col-md-12{:style => "padding:15px;"}
       .col-md-10
         %span{:style => "color:white;"}
-          Welcome FAQ
+          =link_to 'Welcome FAQ', {:controller => 'faq', :action => 'index'}, :class => "whitelink"
       .col-md-2
         %a{:href => "https://www.facebook.com/eptex/", :target => "_blank"}
           = image_tag('facebook_30x30white.png', :style => "vertical-align:middle;display:inline-block;")
@@ -16,12 +16,19 @@
 
     .col-md-12.col-xs-12{:style => "margin:15px 0 15px 0;"}
       .col-sm-4{:style => "padding:5px;"}
-        = image_tag('eptex logo.png')
+        = image_tag('eptex logo_hr.png')
       .col-sm-4{:style => "padding:5px;"}
-        = image_tag('controlledrelease_textstacked.png')
+        = image_tag('controlledrelease_textstacked_hr.png')
       .col-sm-4{:style => "padding:5px;"}
-        = image_tag('EpiCeram-L.png')
+        = image_tag('EpiCeram-L_hr.png')
 
-.container
+.container{:style => "margin:0;padding:0;background-color:white;"}
   = render 'layouts/patients_external/menu_bar'
 
+:CSS
+  .whitelink {
+    color:white;
+   }
+  a.whitelink:hover {
+    color:white;
+   }
