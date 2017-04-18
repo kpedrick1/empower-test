@@ -1,102 +1,67 @@
 class Patients::CheckoutController < ApplicationController
 
-
   skip_before_action :require_login, only: [:index]
 
   layout :set_layout
 
-
   def index
-
-
-    puts "\n\nsession[:account_id]\n\n"
-    puts  session[:account_id]
-
 
     @commit_action = session['commit']
 
-
-
     @checkout_error = session['checkout_error']
-
-
 
     if session['cart_products'] == nil
       session['cart_products'] = {}
     end
 
+    @cart_size = session['cart_products'].length
+
+    puts "\n\n@cart_size\n\n"
+    puts @cart_size
+    puts "\n\n"
+
+
+
+
     @checkout_session = session
 
-
-
-    #puts "\n\n @checkout_session['coupon_code'] \n\n"
-    #puts @checkout_session['coupon_code']
-
     get_cart_items
-
 
     if @commit_action == 'Complete order' && @checkout_error == false
       delete_all_cart_session
     end
 
-
-
-
     delete_cart_session
 
   end
 
-
-
   def save
 
-    puts "\n\n params \n\n"
-    puts params
+    if (params['commit'] == 'Continue to Payment method')
 
-    puts "\n\nparams['productline']\n\n"
-    puts params['productline']
+      if params['email_address'] != params['confirm_email']
 
+        params['commit'] = 'Return to customer information'
 
-    puts "\n\n params['expiration_year'] \n\n"
-    puts params['expiration_year']
+        flash[:danger] = 'Emails do not match!'
+
+      end
+    end
 
     # save params to session
     create_cart_session
 
-
-    #puts "\n\nparams['commit']\n\n"
-    #puts params['commit']
-
-
-    #puts "\n\n params \n\n"
-
-    #puts params
-
     if params['commit'] == 'Complete order'
-
-
 
       save_cart_items(params)
 
-
-
     end
 
-
-
-   redirect_to :action => "index"
-
+    redirect_to :action => "index"
 
   end
 
   def save_cart_items params
-
-
-    puts "\n\nsession[:account_id]\n\n"
-    puts  session[:account_id]
-
-    #puts "\n\n save_cart_items - params\n\n"
-    #puts params
 
     client = Restforce.new
 
@@ -110,36 +75,19 @@ class Patients::CheckoutController < ApplicationController
 
     end
 
-    puts "\n\n result.body \n\n"
-    puts result.body
-
-
-    puts "\n\n result.body['code'] \n\n"
-    puts result.body['code']
-    puts "\n\n result.body['message'] \n\n"
-    puts result.body['message']
-    puts "\n\n result.body['isError'] \n\n"
-    puts result.body['isError']
-
 
     if result.body['isError'] == false
-      puts "\n\n THERE ARE NO ERRORS \n\n"
 
       session['checkout_error'] = false
 
     else
-      puts "\n\n THERE IS AN ERROR\n\n"
-
 
       session['checkout_error'] = true
 
-      flash[:success] = result.body['message']
+      flash[:danger] = result.body['message']
     end
 
-
   end
-
-
 
   def get_cart_items
 
@@ -149,36 +97,36 @@ class Patients::CheckoutController < ApplicationController
 
     client = Restforce.new
 
-    result = client.get '/services/apexrest/portal/pricebook/', :business_unit => ENV['BUSINESS_UNIT']
-
-    # todo: handle error response
-
-
-    #puts "get pricebook body \n\n"
-
-    #puts result.body
-
-    #puts "\n"
-
-    #puts "get pricebook body productList \n\n"
-
-    #puts result.body.productList
-
-    #puts "\n"
-
+    result = client.get '/services/apexrest/portal/pricebook/', :business_unit => ENV['BUSINESS_UNIT'], :account_id => session[:account_id]
 
     price_book = result.body.productList
 
     shipping_book = result.body.shippingList
 
+    coupon_map = result.body.couponMap
 
+    account = result.body.account
+
+    if session[:account_id] != nil
+
+      session['first_name'] = account.First_Name__c
+      session['last_name'] = account.Last_Name__c
+      session['email_address'] = account.PersonEmail
+      session['confirm_email'] = account.PersonEmail
+
+      if session['billing_phone'] == nil
+        session['billing_phone'] = account.PersonMobilePhone
+      end
+
+    end
+
+
+
+    BigDecimal("0.9987")
 
     @cart_items = Array.new
 
-
-
     price_book.each do |line_item|
-
 
       if session['cart_products'].key?(line_item.productId)
 
@@ -190,19 +138,21 @@ class Patients::CheckoutController < ApplicationController
         end
 
 
-        #puts "\n\nline_item\n\n"
-        #puts line_item
+        line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
 
+        if @commit_action == 'Continue to Payment method' || (@commit_action == 'Complete order' && @checkout_error == false)
 
-        #puts "\n\nline_item.quantity\n\n"
-        #puts line_item.quantity
+          if coupon_map.key?(line_item.productCode.to_s + '-' + session['coupon_code'].to_s)
 
-        #puts "\n\nline_item.productPrice\n\n"
-        #puts line_item.productPrice
+            line_item.totalPrice = line_item.totalPrice - (line_item.totalPrice * BigDecimal(coupon_map[line_item.productCode.to_s + '-' + session['coupon_code'].to_s].Percent__c.to_s) / 100)
 
+          end
 
+        end
 
-        line_item.totalPrice = line_item.quantity.to_f * line_item.productPrice.to_f
+        puts "\n\nline_item.totalPrice\n\n"
+        puts line_item.totalPrice
+        puts "\n\n"
 
 
         @cart_grand_total += line_item.totalPrice
@@ -214,21 +164,16 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      puts "\n\nship_item\n\n"
-      puts ship_item
-      puts "\n\n"
-
-
       if has_eptex == true
 
         if ship_item.productCode == 'Shipping Eptex'
 
 
           ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice.to_f
+          ship_item.totalPrice = ship_item.productPrice
 
 
-          @cart_grand_total += ship_item.productPrice.to_f
+          @cart_grand_total += ship_item.productPrice
 
           @cart_items.push(ship_item)
 
@@ -240,9 +185,9 @@ class Patients::CheckoutController < ApplicationController
         if ship_item.productCode == 'Shipping Epiceram-L'
 
           ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice.to_f
+          ship_item.totalPrice = ship_item.productPrice
 
-          @cart_grand_total += ship_item.productPrice.to_f
+          @cart_grand_total += ship_item.productPrice
 
           @cart_items.push(ship_item)
 
@@ -253,9 +198,7 @@ class Patients::CheckoutController < ApplicationController
 
     end
 
-
   end
-
 
 
   def create_cart_session
@@ -280,14 +223,7 @@ class Patients::CheckoutController < ApplicationController
     session['shipping_state'] = params['shipping_state']
     session['shipping_zip'] = params['shipping_zip']
 
-    #session['card_number'] = params['card_number']
-    #session['card_type'] = params['card_type']
-    #session['expiration_month'] = params['expiration_month']
-    #session['expiration_year'] = params['expiration_month']
-    #session['security_code'] = params['security_code']
-
-
-
+    session['same_shipping'] = params['same_shipping']
 
   end
 
@@ -301,33 +237,12 @@ class Patients::CheckoutController < ApplicationController
 
     session['cart_products'] = nil
 
-    # session['coupon_code'] = nil
-    # session['email_address'] = nil
-    # session['confirm_email'] = nil
-    # session['billing_phone'] = nil
-    # session['first_name'] = nil
-    # session['last_name'] = nil
-    # session['billing_address1'] = nil
-    # session['billing_address2'] = nil
-    # session['billing_city'] = nil
-    # session['billing_state'] = nil
-    # session['billing_zip'] = nil
-    # session['shipping_address1'] = nil
-    # session['shipping_address2'] = nil
-    # session['shipping_city'] = nil
-    # session['shipping_state'] = nil
-    # session['shipping_zip'] = nil
-
   end
 
-
   private
-
 
   def set_layout
     current_patients_patient ? "patients" : "patients_login"
   end
-
-
 
 end
