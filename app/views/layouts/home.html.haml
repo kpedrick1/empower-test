@@ -15,16 +15,6 @@
     -#%link{rel: "apple-touch-icon", sizes:"120x120", href:"/assets/bpcc_icon_120_red.png"}/
     -#%link{rel: "apple-touch-icon", sizes:"152x152", href:"/assets/bpcc_icon_152_red.png"}/
 
-:javascript
-  function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-	n.queue=[];t=b.createElement(e);t.async=!0;
-	t.src=v;s=b.getElementsByTagName(e)[0];
-	s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-		
- 	fbq('init', '252482198497323'); 
-	fbq('track', 'PageView');
-	
     %link{:href => "assets/normalize.css", :rel => "stylesheet"}/
     %link{:href => "assets/style.css", :rel => "stylesheet"}/
     %script{:src => "assets/jquery-1.10.2.js"}
@@ -33,6 +23,7 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags    
     = render 'layouts/bold_chat'
+	= render 'layouts/google_analytics'    
     = render 'layouts/fb_pixel'
     
 
