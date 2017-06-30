@@ -78,5 +78,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  #added to fb_pixel.js code
+  config.assets.precompile =+ ['fb_pixels']
 
 end
