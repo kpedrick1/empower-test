@@ -1,16 +1,16 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-(function(f, b, e, v, n, t, s) ->
+!((f, b, e, v, n, t, s) ->
   if f.fbq
     return
   n =
-  f.fbq = function()->
+  f.fbq = ->
     if n.callMethod then n.callMethod.apply(n, arguments) else n.queue.push(arguments)
     return
 
   if !f._fbq
-  f._fbq = n
+    f._fbq = n
   n.push = n
   n.loaded = !0
   n.version = '2.0'
