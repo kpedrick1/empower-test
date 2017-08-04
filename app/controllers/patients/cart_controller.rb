@@ -10,6 +10,7 @@ class Patients::CartController < ApplicationController
       session['cart_products'] = {}
     end
 
+    @cart_size = session['cart_products'].length
 
     get_cart_items
 

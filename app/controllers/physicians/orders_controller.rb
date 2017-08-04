@@ -178,8 +178,7 @@ class Physicians::OrdersController < Physicians::ApplicationController
             shippingopt.qty = 2
             shippingopt.totalPrice = shippingopt.unitPrice * shippingopt.qty
           end
-          puts shippingopt.qty.inspect
-          
+
           if @has_shipping == false
             shippingopt.discountFormatted = '100%'
             shippingopt.totalPrice = 0

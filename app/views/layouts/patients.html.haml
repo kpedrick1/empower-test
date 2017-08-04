@@ -1,9 +1,9 @@
 !!!
 %html
   = render 'shared/metainfo'
+  = render 'layouts/google_analytics'
   = javascript_include_tag "patients"
   %body{"data-no-turbolink" => "true"}
     = render 'layouts/patients/header'
     = render 'layouts/patients/main'
     = render 'layouts/external/footer'
-    = render 'google_analytics'

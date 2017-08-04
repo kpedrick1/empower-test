@@ -20,6 +20,7 @@
 //= require jquery.creditCardValidator
 
 
+
 $(function(){
 
     /*setTimeout(function(){

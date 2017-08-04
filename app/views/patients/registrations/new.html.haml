@@ -50,7 +50,35 @@
 
       .panel-footer
         .row
-          .col-xs-12.col-md-6
-            = f.submit "Create Account", class: "btn btn-primary btn-block new_button"
+          .col-xs-12.col-md-6.button-hover
+            = f.submit "Create Account", class: "btn btn-primary btn-block"
           .col-xs-12.col-md-6
             = link_to "Sign In", new_patients_patient_session_path, class: "btn btn-primary btn-link btn-block"
+
+
+:css
+
+    div.button-hover > input[type="submit"] {
+         color:white;
+         background-color:#c7a900;
+         font-weight:bold;
+         border-style:none;
+       }
+    div.button-hover > input[type="submit"]:hover {
+      background-color:#c7a900;
+      font-weight:bold;
+      border-style:none;
+      color:#333333;
+   }
+   div.button-hover > input[type="submit"]:focus {
+            background-color:#c7a900;
+            font-weight:bold;
+            border-style:none;
+            color:#333333;
+         }
+   div.button-hover > input[type="submit"]:active {
+         background-color:#c7a900;
+         font-weight:bold;
+         border-style:none;
+         color:#333333;
+      }

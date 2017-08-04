@@ -8,8 +8,14 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
 
   def new
-    super #we are extending devise so we need to invoke the user creation here
 
+    if session['cart_products'] == nil
+      session['cart_products'] = {}
+    end
+
+    @cart_size = session['cart_products'].length
+
+    super #we are extending devise so we need to invoke the user creation here
   end
 
   def create

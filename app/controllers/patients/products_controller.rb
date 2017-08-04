@@ -6,6 +6,12 @@ class Patients::ProductsController < ApplicationController
 
   def index
 
+    if session['cart_products'] == nil
+      session['cart_products'] = {}
+    end
+
+    @cart_size = session['cart_products'].length
+
     get_products
 
   end
@@ -39,13 +45,6 @@ class Patients::ProductsController < ApplicationController
   end
 
   def add_to_cart
-
-    # check if session is set
-
-    if session['cart_products'] == nil
-      session['cart_products'] = {}
-    end
-
 
     # add product id to cart
 

@@ -66,7 +66,6 @@ Rails.application.routes.draw do
   #get 'home/download_pdf'
 
   get '/emailconfirmation', :controller => 'emailconfirmations', :action => 'index'
-  get '/terms', :controller => 'terms', :action => 'index'
 
   resources :mailings
 
@@ -108,6 +107,7 @@ Rails.application.routes.draw do
     post '/checkout', :controller => 'checkout', :action => 'save'
 
     get '/faq', :controller => 'faq', :action => 'index'
+
     get '/terms', :controller => 'terms', :action => 'index'
 
 

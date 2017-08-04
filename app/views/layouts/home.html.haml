@@ -20,11 +20,10 @@
     %script{:src => "assets/jquery-1.10.2.js"}
     %script{"data-main" => "assets/main", :src => "assets/require.js"}
 
-    = javascript_include_tag "application", "data-turbolinks-track", "fb_pixel" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags    
     = render 'layouts/bold_chat'
-    = render 'google_analytics'
-    
+    = render 'layouts/google_analytics'
 
   %body
     = yield
