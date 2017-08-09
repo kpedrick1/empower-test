@@ -2,8 +2,8 @@
   .row{:style => "background-color:#1c1e4d"}
     .col-md-12{:style => "padding:15px;"}
       .col-md-10
-        %h1{:style => "color:white;"}
-          Welcome
+        %h2{:style => "color:white;"}
+          Welcome  
           =link_to 'FAQ', {:controller => 'faq', :action => 'index'}, :class => "whitelink"
       .col-md-2
         %a{:href => "https://www.facebook.com/eptex/", :target => "_blank"}
@@ -18,7 +18,7 @@
 :CSS
   .whitelink {
     color:white;
-    font-size: 24px;
+    font-size: 2em;
    }
   a.whitelink:hover {
     color:white;
