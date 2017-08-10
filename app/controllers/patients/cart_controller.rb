@@ -101,7 +101,7 @@ class Patients::CartController < ApplicationController
       if current_patients_patient
         redirect_to patients_checkout_path
       else
-        redirect_to new_patients_patient_session_path
+        redirect_to patients_checkout_path
       end
 
 
