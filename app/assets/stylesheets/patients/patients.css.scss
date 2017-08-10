@@ -1,3 +1,48 @@
 // Place all the styles related to the patients/patients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.nav {
+    padding: 15px 15px 15px 0px !important;
+}
+ 
+.img-responsive {
+    width: 100% !important;
+    height: auto !important;
+}
+ 
+.col-md-2 {
+    text-align: right !important;
+}
+ 
+.navbar-right {
+    margin-right: 0px !important;
+}
+ 
+.container, main {
+    margin: 0px auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+ 
+#footer_bar {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+ 
+.panel-default {
+    border: 0px !important;
+}
+ 
+@media (max-width: 767px) {
+    .nav-pills>li {
+            float: none !important;
+        display: inline-block !important;
+    }
+}
+ 
+@media (max-width: 650px) {
+    .panel.panel-default .panel-body .row .col-xs-12 .row .panel.panel-default .panel-body .col-xs-4, .panel.panel-default .panel-body .row .col-xs-12 .row .panel.panel-default .panel-body .col-xs-8  {
+            float: none !important;
+            width: auto !important;
+    }
+}
