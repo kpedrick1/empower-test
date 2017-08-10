@@ -3,21 +3,14 @@
     .col-md-12{:style => "padding:15px;"}
       .col-md-10
         %h2{:style => "color:white;"}
-          Welcome to the Marketplace  
+          Welcome to the SkinCareMarketplace  
       .col-md-2
         %a{:href => "https://www.facebook.com/eptex/", :target => "_blank"}
           = image_tag('facebook_30x30white.png', :style => "vertical-align:middle;display:inline-block;")
 
         %a{:href => "mailto:skincare@puracappharma.com", :target => "_blank"}
           = image_tag('mail_30x30white.png', :style => "vertical-align:middle;display:inline-block;")
-          
-    .col-md-12.col-xs-12{:style => "margin:15px 0 15px 0;"}
-      .col-sm-4{:style => "padding:5px;"}
-        = image_tag('eptex logo_hr.png')
-      .col-sm-4{:style => "padding:5px;"}
-        = image_tag('controlledrelease_textstacked_hr.png')
-      .col-sm-4{:style => "padding:5px;"}
-        = image_tag('EpiCeram-L_hr.png')
+         
 
 .container{:style => "margin:0;padding:0;background-color:white;"}
   = render 'layouts/patients_external/menu_bar'
