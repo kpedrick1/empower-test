@@ -133,7 +133,7 @@ class Patients::CheckoutController < ApplicationController
         line_item.quantity = session['cart_products'][line_item.productId]
 
 
-        if line_item.productCode == 'EptxWSngle' || line_item.productCode == 'EptxLSngl'
+        if line_item.productCode == 'EptxWSngl' || line_item.productCode == 'EptxLSngl'
           has_eptex = true
         end
 
