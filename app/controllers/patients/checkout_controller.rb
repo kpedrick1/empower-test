@@ -164,7 +164,7 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      if has_eptx == true
+      if has_eptex == true
 
         if ship_item.productCode == 'Shipping Eptex'
 
