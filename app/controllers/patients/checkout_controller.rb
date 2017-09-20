@@ -162,39 +162,39 @@ class Patients::CheckoutController < ApplicationController
 
     end
 
-    #shipping_book.each do |ship_item|
+    shipping_book.each do |ship_item|
 
-      #if has_eptex == true
+      if has_eptex == true
 
-        #if ship_item.productCode == 'Shipping Eptex'
-
-
-          #ship_item.quantity = 1
-          #ship_item.totalPrice = ship_item.productPrice
+        if ship_item.productCode == 'Shipping Eptex'
 
 
-          #@cart_grand_total += ship_item.productPrice
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
 
-          #@cart_items.push(ship_item)
 
-          #break
-        #end
+          @cart_grand_total += ship_item.productPrice
 
-      #else
+          @cart_items.push(ship_item)
 
-        #if ship_item.productCode == 'Shipping Epiceram-L'
+          break
+        end
 
-         # ship_item.quantity = 1
-         # ship_item.totalPrice = ship_item.productPrice
+      else
 
-         # @cart_grand_total += ship_item.productPrice
+        if ship_item.productCode == 'Shipping Epiceram-L'
 
-         # @cart_items.push(ship_item)
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
 
-        #  break
-        #end
+          @cart_grand_total += ship_item.productPrice
 
-      #end
+          @cart_items.push(ship_item)
+
+          break
+        end
+
+      end
 
     end
 
