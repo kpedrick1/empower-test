@@ -4,13 +4,16 @@
       .col-md-10
         %h2{:style => "color:black;"}
           Welcome to the CortControl Retail Store 
+      
       .col-md-2
         %a{:href => "https://www.facebook.com/", :target => "_blank"}
           = image_tag('facebook_30x30white.png', :style => "vertical-align:middle;display:inline-block;")
 
         %a{:href => "mailto:order@cortcontrol.com", :target => "_blank"}
           = image_tag('mail_30x30white.png', :style => "vertical-align:middle;display:inline-block;")
-         
+          
+    .col-md-12{:style => "margin:0;padding:0;"}
+      = image_tag('welcome1000x211.png', :style => "width:100%;")     
 
 .container{:style => "margin:0;padding:0;background-color:white;"}
   = render 'layouts/patients_external/menu_bar'
