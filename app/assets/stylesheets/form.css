@@ -3824,8 +3824,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
     background-color: white;
     border: 1px solid transparent;
     border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
 }
 .panel-body {
     padding: 15px;
@@ -4040,8 +4040,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
     background-color: whitesmoke;
     border: 1px solid #e3e3e3;
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
 }
 .well blockquote, .authform form blockquote, .authform fieldset blockquote {
     border-color: #ddd;
