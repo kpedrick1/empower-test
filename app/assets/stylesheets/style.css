@@ -399,7 +399,7 @@ button:hover {
 }
 #top_menu .nav-pills > li > a {
     border:none;
-    background-color: #dddddd;
+    background-color: #ffffff;
 }
 #top_menu .nav-pills > li > a:hover {
     border:none;
@@ -413,7 +413,7 @@ button:hover {
 
 #mobile_nav_bar .nav-pills > li > a {
     border:none;
-    background-color: #dddddd;
+    background-color: #ffffff;
 }
 
 #mobile_nav_bar .nav-pills > li > a:hover {
