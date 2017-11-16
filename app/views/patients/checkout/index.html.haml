@@ -121,6 +121,12 @@
                 -else
                   .row
                     .col-xs-12.col-md-6
+
+                      .form-group
+                        = label_tag "Promotion Code"
+                        = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon Code', :value => 'FRIDAY', :class => "form-control"
+                        *All Codes are UPPERCASE with No Spaces
+
                       .form-group
                         = label_tag "First Name"
                         = text_field_tag :first_name, @checkout_session['first_name'], :placeholder => 'First Name', :pattern => ".*\\S+.*", :required => true, :disabled => ((@checkout_session['account_id'] == nil )?false:true), :class => "form-control"
@@ -143,9 +149,6 @@
                         = label_tag "Phone"
                         = text_field_tag :billing_phone, @checkout_session['billing_phone'], :placeholder => 'Phone', :pattern => ".*\\S+.*", :required => true, :class => "form-control"
 
-                      .form-group
-                        = label_tag "Coupon Code"
-                        = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon Code', :value => 'FRIDAY', :class => "form-control"
 
                     .col-xs-12.col-md-6
 
