@@ -23,7 +23,35 @@
                       .unit_price_cell
                         = number_to_currency(prod.productPrice)
                     .col-xs-8
-                      
+                      = form_tag do
+                        .row
+                          .col-xs-12
+              
+                            .panel.panel-default
+                              .panel-body
+              
+                                .table-responsive
+              
+                                  %table.table.table-hover
+                                    %thead
+                                      %tr
+                                        %th Quantity
+                                        %th Remove
+                                        %th Total
+              
+              
+                                    - @cart_items.each do |line|
+              
+                                      %tr
+                                        %td
+                                          = number_field_tag 'productline[][qty]', nil, :min => 1, :class => 'product_qty_input', :required => 'required', :value => line.quantity
+                                          = hidden_field_tag 'productline[][productId]', line.productId
+                                        %td
+                                          = button_to 'Remove', {:controller => "cart", :action => "save"}, :method => :post, :params => {:commit => 'remove', :product_id => line.productId, :product_name => line.productName}
+
+                                        %td.total_price_cell
+                                          = number_to_currency(0)
+              
                     .col-xs-4{:style => "text-align:right;margin-bottom:20px;margin-top:20px;color:white;"}
                       = button_to 'Add to Cart', {:controller => "products", :action => "add_to_cart"}, :method => :post,:class => 'btn', :style => "background-color:#ffc81f; font-size: 2em; font-weight: bold;", :params => {:product_id => prod.productId, :product_name => prod.productName}
 
