@@ -55,3 +55,49 @@
                     .col-xs-4{:style => "text-align:right;margin-bottom:20px;margin-top:20px;color:white;"}
                       = button_to 'Add to Cart', {:controller => "products", :action => "add_to_cart"}, :method => :post,:class => 'btn', :style => "background-color:#ffc81f; font-size: 2em; font-weight: bold;", :params => {:product_id => prod.productId, :product_name => prod.productName}
 
+
+:javascript
+
+  $(".product_qty_input").on("input",null,null,function(){
+
+    calculateQuantityTotal($(this));
+  });
+
+
+  function calculateQuantityTotal(thisobj) {
+
+    var productGrandTotal = 0;
+
+    $(".product_qty_input").each(function(){
+
+        var productQuantity =  this.value;
+
+        var productCurrency = $(this).closest("tr").find(".unit_price_cell").text();
+        var productPrice = Number(productCurrency.replace(/[^0-9\.]+/g,""));
+
+        var totalPrice = (productPrice * productQuantity);
+
+        productGrandTotal = productGrandTotal + totalPrice;
+
+        console.log(productQuantity);
+        console.log(productCurrency);
+        console.log(productPrice);
+        console.log(totalPrice);
+        console.log(productGrandTotal);
+
+
+        var totalPriceCurrency = "$".concat(totalPrice.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+
+        $(this).closest("tr").find(".total_price_cell").html(totalPriceCurrency);
+
+      });
+
+      var grandTotalCurrency = "$".concat(productGrandTotal.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+      thisobj.closest("table").find(".grand_total_cell").html(grandTotalCurrency);
+  }
+
+  $(function(){
+    $(".product_qty_input").each(function(){
+      calculateQuantityTotal($(this));
+    });
+  });
