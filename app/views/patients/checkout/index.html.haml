@@ -92,12 +92,10 @@
                         = hidden_field_tag :first_name, @checkout_session['first_name']
                         = hidden_field_tag :last_name, @checkout_session['last_name']
                         = hidden_field_tag :billing_address1, @checkout_session['billing_address1']
-                        = hidden_field_tag :billing_address2, @checkout_session['billing_address2']
                         = hidden_field_tag :billing_city, @checkout_session['billing_city']
                         = hidden_field_tag :billing_state, @checkout_session['billing_state']
                         = hidden_field_tag :billing_zip, @checkout_session['billing_zip']
                         = hidden_field_tag :shipping_address1, @checkout_session['shipping_address1']
-                        = hidden_field_tag :shipping_address2, @checkout_session['shipping_address2']
                         = hidden_field_tag :shipping_city, @checkout_session['shipping_city']
                         = hidden_field_tag :shipping_state, @checkout_session['shipping_state']
                         = hidden_field_tag :shipping_zip, @checkout_session['shipping_zip']
@@ -159,10 +157,6 @@
                         = text_field_tag :billing_address1, @checkout_session['billing_address1'], :placeholder => 'Address 1', :pattern => ".*\\S+.*", :required => true, :class => "form-control"
 
                       .form-group
-                        = label_tag "Address 2"
-                        = text_field_tag :billing_address2, @checkout_session['billing_address2'], :placeholder => 'Address 2', :class => "form-control"
-
-                      .form-group
                         = label_tag "City"
                         = text_field_tag :billing_city, @checkout_session['billing_city'], :placeholder => 'City', :pattern => ".*\\S+.*", :required => true, :class => "form-control"
 
@@ -189,10 +183,6 @@
                       .form-group
                         = label_tag "Address 1"
                         = text_field_tag :shipping_address1, @checkout_session['shipping_address1'], :placeholder => 'Address 1', :pattern => ".*\\S+.*", :class => "form-control"
-
-                      .form-group
-                        = label_tag "Address 2"
-                        = text_field_tag :shipping_address2, @checkout_session['shipping_address2'], :placeholder => 'Address 2', :pattern => ".*\\S+.*", :class => "form-control"
 
                       .form-group
                         = label_tag "City"
