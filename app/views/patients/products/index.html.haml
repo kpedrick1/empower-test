@@ -3,6 +3,32 @@
 
   .panel.panel-default{:style => "margin-bottom:0;"}
     .panel-body
+                  
+      .row
+        .col-xs-12
+          %h2
+            Special Offer for Qualifying Couples
+          .row
+            .panel.panel-default
+              .panel-body
+                .col-xs-4
+                  %img{:src => "/assets/GFE.png", :height => "200", :width => "180"}
+                .col-xs-8
+                  .col-xs-12
+                    %h2
+                      Glutrasol FE - (30 day supply per couple)
+                  .col-xs-12
+                    For a limited time, CortControl is offering free product to 50 U.S.-based couples who meet our study requirements as part of a 90-day observational study. Monthly wellness reporting required to receive product throughout with additional screening prior to acceptance.
+                  .col-xs-12
+                    Only shipping and handling fees will apply ($10/monthly shipment)
+                  .col-xs-8
+                    Complete the Enrollment process and we will contact you with your eligibility
+                  .col-xs-4{:style => "text-align:right;margin-bottom:20px;margin-top:20px;color:white;"}
+                    = link_to "Enroll Now", "https://cortcontrolenrollment.sympltech.com/", :id => "Enroll", :class => 'btn', :style => "background-color:#ffc81f; color:#white; font-size:2em; font-weight:bold;"
+
+
+  .panel.panel-default{:style => "margin-bottom:0;"}
+    .panel-body
 
       .row
         .col-xs-12
@@ -26,35 +52,8 @@
              
                     .col-xs-4{:style => "text-align:right;margin-bottom:20px;margin-top:20px;color:white;"}
                       = button_to 'Add to Cart', {:controller => "products", :action => "add_to_cart"}, :method => :post,:class => 'btn', :style => "background-color:#ffc81f; font-size: 2em; font-weight: bold;", :params => {:product_id => prod.productId, :product_name => prod.productName}
-
-  .panel.panel-default{:style => "margin-bottom:0;"}
-    .panel-body
+                 
                   
-      .row
-        .col-xs-12
-          %h2
-            Special Offer for Qualifying Couples
-          .row
-            .panel.panel-default
-              .panel-body
-                .col-xs-4
-                  %img{:src => "/assets/GFE.png", :height => "400", :width => "320"}
-                .col-xs-8
-                  .col-xs-12
-                    %h2
-                      Glutrasol FE - (30 day supply per couple)
-                  .col-xs-12
-                    For a limited time, CortControl is offering free product to 50 U.S.-based couples who meet our study requirements as part of a 90-day observational study. Monthly wellness reporting required to receive product throughout with additional screening prior to acceptance.
-                  .col-xs-12
-                    Only shipping and handling fees will apply ($10/monthly shipment)
-                  .col-xs-8
-                    Complete the Enrollment process and we will contact you with your eligibility
-                  .col-xs-4{:style => "text-align:right;margin-bottom:20px;margin-top:20px;color:white;"}
-                    = link_to "Enroll Now", "https://cortcontrolenrollment.sympltech.com/", :id => "Enroll", :class => 'btn', :style => "background-color:#ffc81f; color:#white; font-size:2em; font-weight:bold;"
-
-                    
-                    
-
 :javascript
 
   $(".product_qty_input").on("input",null,null,function(){
