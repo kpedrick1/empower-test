@@ -54,7 +54,7 @@ header.container {
     color: #333;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
     line-height: 130%;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 10px 4px rgba(0, 0, 0, 0.5);
 }
 #addToHomeScreen.addToHomeIOS7 {
     background: #f2f2f2 !important;
@@ -371,6 +371,7 @@ select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    box-shadow: 0 10px 5px rgba(0,0,0,0);;
 }
 html {
     font-size: 62.5%;
