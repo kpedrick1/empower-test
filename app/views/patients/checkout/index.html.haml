@@ -122,8 +122,8 @@
 
                       .form-group
                         = label_tag "Promotion Code"
-                        = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon Code', :class => "form-control"
-                        *All Codes are UPPERCASE with No Spaces
+                        = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon / Referral Code', :class => "form-control"
+                        *Enter Either a coupon code OR the referral code that was provided to you
 
                       .form-group
                         = label_tag "First Name"
