@@ -31,15 +31,14 @@
       .col-xs-4.col-md-4{:style => "text-align:center;color:#black;"}
         %strong
           * These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.
-      .col-xs-5.col-md-5.align-right{:width => "100%"}
-        = link_to image_tag('CortControlLogo.jpg'),'https://cortcontrol-qa.herokuapp.com/patients/products'
-
-     
+    
     .row{:style => "padding:20px 20px 30px 20px;"}
       .col-xs-4.col-md-4.align-middle
         
       .col-xs-8.col-md-8{:style => "font-size: 16px;"}
         .row
+          .col-xs-8.{:width => "100%"}
+            = link_to image_tag('CortControlLogo.jpg'),'https://cortcontrol-qa.herokuapp.com/patients/products'
           .col-xs-6{:style => "text-align:center;color:#black;"}
             %small
               Distributed by BioMauris
