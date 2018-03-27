@@ -93,7 +93,7 @@ class Patients::CheckoutController < ApplicationController
 
     @cart_grand_total = 0
 
-    has_eptex = false
+    has_healios = false
 
     client = Restforce.new
 
@@ -133,8 +133,8 @@ class Patients::CheckoutController < ApplicationController
         line_item.quantity = session['cart_products'][line_item.productId]
 
 
-        if line_item.productCode == 'EptxWSngl' || line_item.productCode == 'EptxLSngl'
-          has_eptex = true
+        if line_item.productCode == 'HealiosO' || line_item.productCode == 'HealiosG'
+          has_healios = true
         end
 
 
@@ -180,19 +180,19 @@ class Patients::CheckoutController < ApplicationController
           break
         end
 
-      else
+      # else
 
-        if ship_item.productCode == 'ShippingEnl'
+      #   if ship_item.productCode == 'ShippingEnl'
 
-          ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice
+      #     ship_item.quantity = 1
+      #     ship_item.totalPrice = ship_item.productPrice
 
-          @cart_grand_total += ship_item.productPrice
+      #     @cart_grand_total += ship_item.productPrice
 
-          @cart_items.push(ship_item)
+      #     @cart_items.push(ship_item)
 
-          break
-        end
+      #     break
+      #   end
 
       end
 
