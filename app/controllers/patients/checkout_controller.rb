@@ -180,21 +180,21 @@ class Patients::CheckoutController < ApplicationController
           break
         end
 
-      # else
+      else
 
-      #   if ship_item.productCode == 'ShippingEnl'
+        if ship_item.productCode == 'ShippingEnl'
 
-      #     ship_item.quantity = 1
-      #     ship_item.totalPrice = ship_item.productPrice
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
 
-      #     @cart_grand_total += ship_item.productPrice
+          @cart_grand_total += ship_item.productPrice
 
-      #     @cart_items.push(ship_item)
+          @cart_items.push(ship_item)
 
-      #     break
-      #   end
+          break
+        end
 
-      # end
+      end
 
     end
 
