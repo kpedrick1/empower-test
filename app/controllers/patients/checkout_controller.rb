@@ -138,17 +138,17 @@ class Patients::CheckoutController < ApplicationController
         end
 
 
-        line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
+        # line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
 
-        if @commit_action == 'Continue to Payment method' || (@commit_action == 'Complete order' && @checkout_error == false)
+        # if @commit_action == 'Continue to Payment method' || (@commit_action == 'Complete order' && @checkout_error == false)
 
-          if coupon_map.key?(line_item.productCode.to_s + '-' + session['coupon_code'].to_s)
+        #   if coupon_map.key?(line_item.productCode.to_s + '-' + session['coupon_code'].to_s)
 
-            line_item.totalPrice = line_item.totalPrice - (line_item.totalPrice * BigDecimal(coupon_map[line_item.productCode.to_s + '-' + session['coupon_code'].to_s].Percent__c.to_s) / 100)
+        #     line_item.totalPrice = line_item.totalPrice - (line_item.totalPrice * BigDecimal(coupon_map[line_item.productCode.to_s + '-' + session['coupon_code'].to_s].Percent__c.to_s) / 100)
 
-          end
+        #   end
 
-        end
+        # end
 
         puts "\n\nline_item.totalPrice\n\n"
         puts line_item.totalPrice
@@ -180,19 +180,19 @@ class Patients::CheckoutController < ApplicationController
           break
         end
 
-      # else
+      else
 
-      #   if ship_item.productCode == 'ShippingEnl'
+        if ship_item.productCode == 'ShippingEnl'
 
-      #     ship_item.quantity = 1
-      #     ship_item.totalPrice = ship_item.productPrice
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
 
-      #     @cart_grand_total += ship_item.productPrice
+          @cart_grand_total += ship_item.productPrice
 
-      #     @cart_items.push(ship_item)
+          @cart_items.push(ship_item)
 
-      #     break
-      #   end
+          break
+        end
 
       end
 
@@ -206,7 +206,7 @@ class Patients::CheckoutController < ApplicationController
     session['commit'] = params['commit']
     #session['productline'] = params['productline']
 
-    session['coupon_code'] = params['coupon_code'].upcase
+    # session['coupon_code'] = params['coupon_code'].upcase
     session['email_address'] = params['email_address']
     session['confirm_email'] = params['confirm_email']
     session['billing_phone'] = params['billing_phone']
