@@ -1707,12 +1707,12 @@ textarea.input-lg, .input-group-lg>textarea.form-control, .input-group-lg>textar
     background-color: #333333;
 }
 .btn-primary, .submit, .authform .button {
-    color: white;
+    color: #5b5b5b;
     background-color: #428bca;
     border-color: #357ebd;
 }
 .btn-primary:hover, .submit:hover, .authform .button:hover, .btn-primary:focus, .submit:focus, .authform .button:focus, .btn-primary:active, .submit:active, .authform .button:active, .btn-primary.active, .active.submit, .authform .active.button {
-    color: white;
+    color: #5b5b5b;
     background-color: #3276b1;
     border-color: #285e8e;
 }
