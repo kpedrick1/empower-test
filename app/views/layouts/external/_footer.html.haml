@@ -12,12 +12,12 @@
       -#   At empower, we believe our brand and promise we make to patients and their caregivers, customers and business partners – what we do for them and why they should care – 
       -#   will be critical to meeting the unmet patient and market needs. 
       -#   Our brand promises we will help make cancer treatment side effects better.
-        %br
-        %br
-          Learn more about the Science Behind our products <a href="http://www.empower.com/"> here</a>.
-      .col-xs-2
-        %br
-      .col-xs-4{:style => "text-align:right;color:#black;"}
+      -#   %br
+      -#   %br
+      -#     Learn more about the Science Behind our products <a href="http://www.empower.com/"> here</a>.
+      -# .col-xs-2
+      -#   %br
+      .col-xs-12{:style => "text-align:right;color:#black;"}
         %strong
           * These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.
       -# .col-xs-4
@@ -38,11 +38,15 @@
     .row{:style => "padding:20px 20px 30px 20px;"}
       .col-xs-12.col-md-12{:style => "font-size: 16px;"}
         .row
-          .col-xs-6{:height => "100px"}
+          .col-xs-6{:height => "50%"}
             = link_to image_tag('empower-logo.png'),'http://www.empower.com'
-          .col-xs-6{:height => "200px"}
+          .col-xs-2.hidden-xs
+          .col-xs-4{:height => "100%"}
             = link_to image_tag('BioMauris-logo.png'),'http://www.biomauris.com'
-            <strong>Powered by BioMauris</strong>
+    .row
+      .col-xs-8.hidden-xs
+      .col-xs-4
+        <strong>Powered by BioMauris</strong>
 
     .row{:style => "padding:20px 5px 20px 5px;"}
       .col-xs-12{:style => "text-align:center"}
