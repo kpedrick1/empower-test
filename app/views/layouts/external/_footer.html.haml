@@ -17,7 +17,7 @@
       -#     Learn more about the Science Behind our products <a href="http://www.empower.com/"> here</a>.
       -# .col-xs-2
       -#   %br
-      .col-xs-12{:style => "text-align:right;color:#black;"}
+      .col-xs-12{:style => "text-align:left;color:#black;"}
         %strong
           * These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.
       -# .col-xs-4
@@ -38,11 +38,11 @@
     .row{:style => "padding:20px 20px 30px 20px;"}
       .col-xs-12.col-md-12{:style => "font-size: 16px;"}
         .row
-          .col-xs-6{:height => "50%"}
-            = link_to image_tag('empower-logo.png'),'http://www.empower.com'
+          .col-xs-6
+            = link_to image_tag('empower-logo.png'),'http://www.empower.com', :height => "100"
           .col-xs-2.hidden-xs
-          .col-xs-4{:height => "100%"}
-            = link_to image_tag('BioMauris-logo.png'),'http://www.biomauris.com'
+          .col-xs-4
+            = link_to image_tag('BioMauris-logo.png'),'http://www.biomauris.com' :height => "100"
     .row
       .col-xs-8.hidden-xs
       .col-xs-4
