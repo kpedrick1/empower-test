@@ -1717,7 +1717,7 @@ textarea.input-lg, .input-group-lg>textarea.form-control, .input-group-lg>textar
     border-color: #285e8e;
 }
 .open .btn-primary.dropdown-toggle, .open .dropdown-toggle.submit, .open .authform .dropdown-toggle.button, .authform .open .dropdown-toggle.button {
-    color: white;
+    color: #5b5b5b;
     background-color: #3276b1;
     border-color: #285e8e;
 }
@@ -1732,21 +1732,21 @@ textarea.input-lg, .input-group-lg>textarea.form-control, .input-group-lg>textar
     border-color: #357ebd;
 }
 .btn-primary .badge, .submit .badge, .authform .button .badge {
-    color: #428bca;
+    color: #5b5b5b;
     background-color: white;
 }
 .btn-success {
-    color: white;
+    color: #5b5b5b;
     background-color: #5cb85c;
     border-color: #4cae4c;
 }
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active {
-    color: white;
+    color: #5b5b5b;
     background-color: #47a447;
     border-color: #398439;
 }
 .open .btn-success.dropdown-toggle {
-    color: white;
+    color: #5b5b5b;
     background-color: #47a447;
     border-color: #398439;
 }
