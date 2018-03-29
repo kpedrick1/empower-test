@@ -206,7 +206,7 @@ class Patients::CheckoutController < ApplicationController
     session['commit'] = params['commit']
     #session['productline'] = params['productline']
 
-    session['coupon_code'] = params['coupon_code']
+    session['coupon_code'] = params['coupon_code'].upcase
     session['email_address'] = params['email_address']
     session['confirm_email'] = params['confirm_email']
     session['billing_phone'] = params['billing_phone']
