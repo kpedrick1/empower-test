@@ -17,6 +17,8 @@
                     .col-xs-12
                       %h2
                         = raw prod.productName
+                    .col-xs-12{:style => "margin-bottom:20px;margin-top:20px"}
+                      %img{:src => "#{prod.formerprice}", :height => "10"}
                     .col-xs-12
                       = raw prod.productDescription
                     .col-xs-6{:style => "margin-bottom:20px;margin-top:20px"}
