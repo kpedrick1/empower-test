@@ -93,7 +93,9 @@ class Patients::CheckoutController < ApplicationController
 
     @cart_grand_total = 0
 
-    has_healios = false
+    has_gift = false
+
+    has_16 = false
 
     client = Restforce.new
 
@@ -133,10 +135,13 @@ class Patients::CheckoutController < ApplicationController
         line_item.quantity = session['cart_products'][line_item.productId]
 
 
-        if line_item.productCode == 'HealiosO' || line_item.productCode == 'HealiosG'
-          has_healios = true
+        if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox'
+          has_gift = true
         end
 
+        if line_item.productCode == 'EmpSoakingSalts16'
+          has_16 = true
+        end
 
         line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
 
@@ -164,9 +169,9 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      if has_healios == true
+      if has_gift == true
 
-        if ship_item.productCode == 'ShippingEnl'
+        if ship_item.productCode == 'empshipgift'
 
 
           ship_item.quantity = 1
@@ -180,20 +185,36 @@ class Patients::CheckoutController < ApplicationController
           break
         end
 
-      else
+        if has_16 == true
+        
+          if ship_item.productCode == 'empship16'
 
-        if ship_item.productCode == 'ShippingEnl'
 
           ship_item.quantity = 1
           ship_item.totalPrice = ship_item.productPrice
+
 
           @cart_grand_total += ship_item.productPrice
 
           @cart_items.push(ship_item)
 
-          break
-        end
+            break
+          end
 
+        else
+
+          if ship_item.productCode == 'empship'
+
+            ship_item.quantity = 1
+            ship_item.totalPrice = ship_item.productPrice
+
+            @cart_grand_total += ship_item.productPrice
+
+            @cart_items.push(ship_item)
+
+            break
+          end
+        end
       end
 
     end
