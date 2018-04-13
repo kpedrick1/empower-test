@@ -97,6 +97,7 @@
                         = hidden_field_tag :billing_city, @checkout_session['billing_city']
                         = hidden_field_tag :billing_state, @checkout_session['billing_state']
                         = hidden_field_tag :billing_zip, @checkout_session['billing_zip']
+                        = hidden_field_tag :recipient_full_name, @checkout_session['recipient_full_name']
                         = hidden_field_tag :shipping_address1, @checkout_session['shipping_address1']
                         = hidden_field_tag :shipping_city, @checkout_session['shipping_city']
                         = hidden_field_tag :shipping_state, @checkout_session['shipping_state']
@@ -175,14 +176,18 @@
 
                       .form-group
 
-                        = check_box_tag 'same_shipping', 'yes', true
+                        = check_box_tag 'same_shipping', 'yes', false
                         My Shipping information is the same as my Billing information
 
 
                   .row{:id => "shipping_row"}
                     .col-xs-12.col-md-6
-                    .col-xs-12.col-md-6
-                      %label Shipping
+                      %label Recipient and Shipping Information is different from Billing
+
+                      .form-group
+                        = label_tag "Recipient Name"
+                        = text_field_tag :recipient_full_name, @checkout_session['recipient_full_name'], :placeholder => 'Full Name', :pattern => ".*\\S+.*", :class => "form-control"
+  
 
                       .form-group
                         = label_tag "Address 1"
@@ -212,7 +217,7 @@
 
 :javascript
 
-  -# $('#shipping_row').hide();
+  $('#shipping_row').hide();
 
 
   $(".product_qty_input").on("input",null,null,function(){

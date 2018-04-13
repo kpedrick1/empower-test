@@ -237,7 +237,7 @@ class Patients::CheckoutController < ApplicationController
     session['billing_city'] = params['billing_city']
     session['billing_state'] = params['billing_state']
     session['billing_zip'] = params['billing_zip']
-    session['Recipient_Full_Name__c'] = params['Recipient_Full_Name__c']
+    session['recipient_full_name'] = params['recipient_full_name']
     session['shipping_address1'] = params['shipping_address1']
     session['shipping_city'] = params['shipping_city']
     session['shipping_state'] = params['shipping_state']
