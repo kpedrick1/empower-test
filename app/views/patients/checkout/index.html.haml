@@ -128,7 +128,6 @@
                       .form-group
                         = label_tag "Affiliate Code"
                         = text_field_tag :coupon_code, @checkout_session['coupon_code'], :placeholder => 'Coupon / Referral Code', :class => "form-control"
-                        *Enter Either a coupon code OR the referral code that was provided to you
 
                       .form-group
                         = label_tag "First Name"
@@ -175,6 +174,9 @@
                         = text_field_tag :billing_zip, @checkout_session['billing_zip'], :maxlength => 5, :placeholder => 'Zip Code', :pattern => ".*\\S+.*", :required => true, :class => "form-control"
 
                       .form-group
+                        %br
+                        %br
+                        %br
 
                         = check_box_tag 'same_shipping', 'yes', false
                         My Shipping information if the same as my Billing information
