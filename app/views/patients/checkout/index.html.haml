@@ -177,7 +177,7 @@
                       .form-group
 
                         = check_box_tag 'same_shipping', 'yes', false
-                        My Shipping information is the same as my Billing information
+                        My Shipping information if the same as my Billing information
 
 
                   .row{:id => "shipping_row"}
@@ -218,7 +218,7 @@
 
 :javascript
 
-  $('#shipping_row').hide();
+  -# $('#shipping_row').hide();
 
 
   $(".product_qty_input").on("input",null,null,function(){
