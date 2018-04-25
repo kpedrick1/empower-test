@@ -171,6 +171,7 @@ class Patients::CheckoutController < ApplicationController
     end
 
     shipping_book.each do |ship_item|
+
       if free_shipping == true
         if ship_item.productCode == 'fship'
 
@@ -185,6 +186,7 @@ class Patients::CheckoutController < ApplicationController
 
           break
         end
+      else
 
         if has_gift == true
   
