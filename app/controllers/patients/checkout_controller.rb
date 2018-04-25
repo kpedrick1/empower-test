@@ -134,8 +134,11 @@ class Patients::CheckoutController < ApplicationController
 
         line_item.quantity = session['cart_products'][line_item.productId]
 
+        if @cart_grand_total >= 100.00
+          free_shipping = true
+        end
 
-        if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox'
+        if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox' || line_item.productCode == 'EmpTROMDGiftBox'
           has_gift = true
         end
 
@@ -168,10 +171,8 @@ class Patients::CheckoutController < ApplicationController
     end
 
     shipping_book.each do |ship_item|
-
-      if has_gift == true
-
-        if ship_item.productCode == 'empshipgift'
+      if free_shipping == true
+        if ship_item.productCode == 'fship'
 
 
           ship_item.quantity = 1
@@ -185,38 +186,55 @@ class Patients::CheckoutController < ApplicationController
           break
         end
 
-        if has_16 == true
-        
-          if ship_item.productCode == 'empship16'
-
-
-          ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice
-
-
-          @cart_grand_total += ship_item.productPrice
-
-          @cart_items.push(ship_item)
-
-            break
-          end
-
-        else
-
-          if ship_item.productCode == 'empship'
-
+        if has_gift == true
+  
+          if ship_item.productCode == 'empshipgift'
+  
+  
             ship_item.quantity = 1
             ship_item.totalPrice = ship_item.productPrice
-
+  
+  
             @cart_grand_total += ship_item.productPrice
-
+  
             @cart_items.push(ship_item)
-
+  
             break
           end
+  
+          if has_16 == true
+          
+            if ship_item.productCode == 'empship16'
+  
+  
+            ship_item.quantity = 1
+            ship_item.totalPrice = ship_item.productPrice
+  
+  
+            @cart_grand_total += ship_item.productPrice
+  
+            @cart_items.push(ship_item)
+  
+              break
+            end
+
+          else
+  
+            if ship_item.productCode == 'empship'
+  
+              ship_item.quantity = 1
+              ship_item.totalPrice = ship_item.productPrice
+  
+              @cart_grand_total += ship_item.productPrice
+  
+              @cart_items.push(ship_item)
+  
+              break
+            end
+          end
+      
         end
       end
-
     end
 
   end
