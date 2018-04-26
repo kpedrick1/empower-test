@@ -93,6 +93,8 @@ class Patients::CheckoutController < ApplicationController
 
     @cart_grand_total = 0
 
+    free_shipping = false
+
     has_gift = false
 
     has_16 = false
