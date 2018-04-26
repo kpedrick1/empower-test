@@ -190,9 +190,10 @@ class Patients::CheckoutController < ApplicationController
           @cart_items.push(ship_item)
 
           break
-        end 
+        end
+      end 
 
-      elsif has_gift == true
+      if has_gift == true
 
         if ship_item.productCode == 'empshipgift'
           
