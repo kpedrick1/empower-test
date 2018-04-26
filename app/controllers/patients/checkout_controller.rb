@@ -136,6 +136,9 @@ class Patients::CheckoutController < ApplicationController
 
         line_item.quantity = session['cart_products'][line_item.productId]
 
+        if @cart_grand_total >= 100.00
+          free_shipping = true
+        end
 
         if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox' || line_item.productCode == 'EmpTROMDGiftBox'
           has_gift = true
@@ -145,9 +148,7 @@ class Patients::CheckoutController < ApplicationController
           has_16 = true
         end
 
-        if @cart_grand_total >= 100.00
-          free_shipping = true
-        end
+
 
 
         line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
