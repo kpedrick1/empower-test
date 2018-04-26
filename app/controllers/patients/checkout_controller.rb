@@ -145,9 +145,9 @@ class Patients::CheckoutController < ApplicationController
           has_16 = true
         end
 
-        if @cart_grand_total >= 100.00
-          free_shipping = true
-        end
+        # if @cart_grand_total > 99.00
+        #   free_shipping = true
+        # end
 
 
         line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
