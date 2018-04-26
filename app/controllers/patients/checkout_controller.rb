@@ -138,26 +138,22 @@ class Patients::CheckoutController < ApplicationController
 
         if @cart_grand_total >= 100.00
           free_shipping = true
-        end
+        else
 
-        if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox' || line_item.productCode == 'EmpTROMDGiftBox'
-          has_gift = true
-        end
-
-        if line_item.productCode == 'EmpSoakingSalts16'
-          has_16 = true
-        end
-
-        line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
-
-        if @commit_action == 'Continue to Payment method' || (@commit_action == 'Complete order' && @checkout_error == false)
-
-          if coupon_map.key?(line_item.productCode.to_s + '-' + session['coupon_code'].to_s)
-
-            line_item.totalPrice = line_item.totalPrice - (line_item.totalPrice * BigDecimal(coupon_map[line_item.productCode.to_s + '-' + session['coupon_code'].to_s].Percent__c.to_s) / 100)
-
+          if line_item.productCode == 'EmpTROGiftBox' || line_item.productCode == 'EmpTRLGiftBox' || line_item.productCode == 'EmpTROMDGiftBox'
+            has_gift = true
           end
 
+          if line_item.productCode == 'EmpSoakingSalts16'
+            has_16 = true
+          end
+        end
+        
+        line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
+        if @commit_action == 'Continue to Payment method' || (@commit_action == 'Complete order' && @checkout_error == false)
+          if coupon_map.key?(line_item.productCode.to_s + '-' + session['coupon_code'].to_s)
+            line_item.totalPrice = line_item.totalPrice - (line_item.totalPrice * BigDecimal(coupon_map[line_item.productCode.to_s + '-' + session['coupon_code'].to_s].Percent__c.to_s) / 100)
+          end
         end
 
         puts "\n\nline_item.totalPrice\n\n"
