@@ -168,21 +168,21 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      if free_shipping == true
-        if ship_item.productCode == 'fship'
+      # if free_shipping == true
+      #   if ship_item.productCode == 'fship'
 
 
-          ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice
+      #     ship_item.quantity = 1
+      #     ship_item.totalPrice = ship_item.productPrice
 
 
-          @cart_grand_total += ship_item.productPrice
+      #     @cart_grand_total += ship_item.productPrice
 
-          @cart_items.push(ship_item)
+      #     @cart_items.push(ship_item)
 
-          break
-        end
-      else
+      #     break
+      #   end
+      # else
 
         if has_gift == true
   
