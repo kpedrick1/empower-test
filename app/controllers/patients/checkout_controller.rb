@@ -184,55 +184,54 @@ class Patients::CheckoutController < ApplicationController
       #   end
       # else
 
-        if has_gift == true
-  
-          if ship_item.productCode == 'empshipgift'
-  
-  
-            ship_item.quantity = 1
-            ship_item.totalPrice = ship_item.productPrice
-  
-  
-            @cart_grand_total += ship_item.productPrice
-  
-            @cart_items.push(ship_item)
-  
+      if has_gift == true
+
+        if ship_item.productCode == 'empshipgift'
+
+
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
+
+
+          @cart_grand_total += ship_item.productPrice
+
+          @cart_items.push(ship_item)
+
+          break
+        end
+
+        if has_16 == true
+        
+          if ship_item.productCode == 'empship16'
+
+
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
+
+
+          @cart_grand_total += ship_item.productPrice
+
+          @cart_items.push(ship_item)
+
             break
           end
-  
-          if has_16 == true
-          
-            if ship_item.productCode == 'empship16'
-  
-  
+        else
+
+          if ship_item.productCode == 'empship'
+
             ship_item.quantity = 1
             ship_item.totalPrice = ship_item.productPrice
-  
-  
-            @cart_grand_total += ship_item.productPrice
-  
-            @cart_items.push(ship_item)
-  
-              break
-            end
 
-          else
-  
-            if ship_item.productCode == 'empship'
-  
-              ship_item.quantity = 1
-              ship_item.totalPrice = ship_item.productPrice
-  
-              @cart_grand_total += ship_item.productPrice
-  
-              @cart_items.push(ship_item)
-  
-              break
-            end
+            @cart_grand_total += ship_item.productPrice
+
+            @cart_items.push(ship_item)
+
+            break
           end
-      
         end
+    
       end
+    
     end
 
   end
