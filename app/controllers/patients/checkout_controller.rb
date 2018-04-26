@@ -177,23 +177,6 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      if free_shipping == true
-        if ship_item.productCode == 'fship'
-          
-          
-          ship_item.quantity = 1
-          ship_item.totalPrice = ship_item.productPrice
-          
-          
-          @cart_grand_total += ship_item.productPrice
-          
-          @cart_items.push(ship_item)
-          
-          break
-        end 
-
-      end
-
       if has_gift == true
 
         if ship_item.productCode == 'empshipgift'
@@ -225,6 +208,21 @@ class Patients::CheckoutController < ApplicationController
           
           break
         end
+        
+      elsif free_shipping == true
+        if ship_item.productCode == 'fship'
+          
+          
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
+          
+          
+          @cart_grand_total += ship_item.productPrice
+          
+          @cart_items.push(ship_item)
+          
+          break
+        end 
       
       
       else
