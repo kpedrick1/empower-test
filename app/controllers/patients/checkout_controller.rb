@@ -171,34 +171,22 @@ class Patients::CheckoutController < ApplicationController
       if has_gift == true
 
         if ship_item.productCode == 'empshipgift'
-
-
           ship_item.quantity = 1
           ship_item.totalPrice = ship_item.productPrice
-
-
           @cart_grand_total += ship_item.productPrice
-
           @cart_items.push(ship_item)
-
           break
         end
 
       elsif has_16 == true
         
-          if ship_item.productCode == 'empship16'
-
-
+        if ship_item.productCode == 'empship16'
           ship_item.quantity = 1
           ship_item.totalPrice = ship_item.productPrice
-
-
           @cart_grand_total += ship_item.productPrice
-
           @cart_items.push(ship_item)
-
-            break
-          end
+          break
+        end
       else
         if ship_item.productCode == 'empship'
           ship_item.quantity = 1
