@@ -192,7 +192,9 @@ class Patients::CheckoutController < ApplicationController
           break
         end 
 
-      elsif has_gift == true
+      end
+
+      if has_gift == true
 
         if ship_item.productCode == 'empshipgift'
           
