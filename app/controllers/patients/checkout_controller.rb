@@ -145,7 +145,7 @@ class Patients::CheckoutController < ApplicationController
           has_16 = true
         end
 
-        if @cart_grand_total >= 99.00
+        if @cart_grand_total >= 100.00
           free_shipping = true
         end
 
