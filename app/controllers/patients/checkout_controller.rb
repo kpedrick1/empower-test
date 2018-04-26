@@ -144,7 +144,7 @@ class Patients::CheckoutController < ApplicationController
         if line_item.productCode == 'EmpSoakingSalts16'
           has_16 = true
         end
-        
+
         if @cart_grand_total >= 100.00
           free_shipping = true
         end
@@ -195,22 +195,38 @@ class Patients::CheckoutController < ApplicationController
       elsif has_16 == true
         
         if ship_item.productCode == 'empship16'
+          
+          
           ship_item.quantity = 1
           ship_item.totalPrice = ship_item.productPrice
+          
+          
           @cart_grand_total += ship_item.productPrice
+          
           @cart_items.push(ship_item)
+          
           break
         end
+      
+      
       else
+        
         if ship_item.productCode == 'empship'
+          
           ship_item.quantity = 1
           ship_item.totalPrice = ship_item.productPrice
+          
           @cart_grand_total += ship_item.productPrice
+          
           @cart_items.push(ship_item)
+          
           break
+        
         end
       end
+    
     end
+  
   end
 
 
