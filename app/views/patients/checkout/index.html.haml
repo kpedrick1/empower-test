@@ -174,10 +174,7 @@
                         = text_field_tag :billing_zip, @checkout_session['billing_zip'], :maxlength => 5, :placeholder => 'Zip Code', :pattern => ".*\\S+.*", :required => true, :class => "form-control"
 
                       .form-group
-                        %br
-                        %br
-                        %br
-
+     
                         = check_box_tag 'same_shipping', 'yes', false
                         My Shipping information if the same as my Billing information
 
@@ -185,7 +182,7 @@
                   .row{:id => "shipping_row"}
                     .col-xs-12.col-md-6
                     .col-xs-12.col-md-6
-                      %label Recipient and Shipping Information is different from Billing
+                      %label Recipient and Shipping Information
 
                       .form-group
                         = label_tag "Recipient Name"
