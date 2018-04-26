@@ -208,8 +208,8 @@ class Patients::CheckoutController < ApplicationController
           
           break
         end
-        
-      elsif free_shipping == true
+
+      elsif @cart_grand_total >= 100.00
         if ship_item.productCode == 'fship'
           
           
