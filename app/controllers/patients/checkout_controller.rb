@@ -145,9 +145,9 @@ class Patients::CheckoutController < ApplicationController
           has_16 = true
         end
 
-        # if @cart_grand_total > 99.00
-        #   free_shipping = true
-        # end
+        if @cart_grand_total > 99.00
+          free_shipping = true
+        end
 
 
         line_item.totalPrice = BigDecimal(line_item.quantity.to_s) * BigDecimal(line_item.productPrice.to_s)
@@ -176,7 +176,22 @@ class Patients::CheckoutController < ApplicationController
 
     shipping_book.each do |ship_item|
 
-      if has_gift == true
+      if free_shipping == true
+        if ship_item.productCode == 'fship'
+          
+          
+          ship_item.quantity = 1
+          ship_item.totalPrice = ship_item.productPrice
+          
+          
+          @cart_grand_total += ship_item.productPrice
+          
+          @cart_items.push(ship_item)
+          
+          break
+        end 
+
+      elsif has_gift == true
 
         if ship_item.productCode == 'empshipgift'
           
