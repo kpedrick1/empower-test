@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   layout "home"
 
   def index
-    redirect_to '/patients/products'
+    redirect_to '/shop/products'
   end
 
   def download_pdf
