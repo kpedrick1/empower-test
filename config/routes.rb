@@ -94,7 +94,7 @@ Rails.application.routes.draw do
 
     devise_for :patients, :controllers => { :registrations => 'patients/registrations', :sessions =>  'patients/sessions'}
 
-    resources :patients, :as => 'shop'
+    resources :patients, as: 'shop'
 
     get '/products', :controller => 'products', :action => 'index'
     post '/products', :controller => 'products', :action => 'add_to_cart'
