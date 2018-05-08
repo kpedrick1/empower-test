@@ -13,10 +13,10 @@
 
 
       %li
-        %a{:href => "/patients/products", :id => "products-mobile", :class => "button-hover"}
+        %a{:href => "/shop/products", :id => "products-mobile", :class => "button-hover"}
           Products     
       %li
-        %a{:href => "/patients/cart", :id => "cart-mobile", :class => "button-hover"}
+        %a{:href => "/shop/cart", :id => "cart-mobile", :class => "button-hover"}
           Cart
           = (@cart_size.to_i > 0 )?'(' + @cart_size.to_s + ')':''
 
