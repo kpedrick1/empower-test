@@ -90,11 +90,11 @@ Rails.application.routes.draw do
   #
   # end
 
-  namespace :patients do
+  namespace :patients, path: 'shop' do
 
     devise_for :patients, :controllers => { :registrations => 'patients/registrations', :sessions =>  'patients/sessions'}
 
-    resources :patients, as: 'shop'
+    resources :patients
 
     get '/products', :controller => 'products', :action => 'index'
     post '/products', :controller => 'products', :action => 'add_to_cart'
