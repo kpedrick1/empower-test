@@ -60,34 +60,34 @@
                           %b
                             =number_to_currency(0)
 
-            .row
-              .col-xs-12
-                .col-sm-4{:class => "btn btn-link btn-block bold-font btn-lg"}
-                  Select your Shipping Option
-                .col-xs-4
-                  %table.table
-                    %tr
-                      %td
-                        = radio_button_tag 'shippingType', 'Standard'
-                      %td
-                        Standard Shipping
-                      %td
-                        = radio_button_tag 'shippingType', 'Priority'
-                      %td
-                        Priority Shipping
-                                
-                      .row
-                        .col-xs-12
-                          .col-sm-4
-                          .col-sm-4
-                            = link_to "Continue shopping", {:controller => 'products', :action => 'index'}, :class => "btn btn-link btn-block bold-font btn-lg"
-                          .col-sm-4.button-hover{:style => "text-align:right;text-size:3em;padding-right:30px"}
-                            = submit_tag 'Checkout', :class => "btn btn-primary btn-lg"
-                      .panel.panel-default{:style => "margin-top:15px;"}
-                        .panel-body
-                          .row
-                            .col-xs-12
-                              =link_to 'Terms and Conditions', {:controller => 'terms', :action => 'index'}, :class => "btn btn-link btn-block bold-font"
+                .row
+                  .col-xs-12
+                    .col-sm-4{:class => "btn btn-link btn-block bold-font btn-lg"}
+                      Select your Shipping Option
+                    .col-xs-4
+                      %table.table
+                        %tr
+                          %td
+                            = radio_button_tag 'shippingType', 'Standard'
+                          %td
+                            Standard Shipping
+                          %td
+                            = radio_button_tag 'shippingType', 'Priority'
+                          %td
+                            Priority Shipping
+
+                .row
+                  .col-xs-12
+                    .col-sm-4
+                    .col-sm-4
+                      = link_to "Continue shopping", {:controller => 'products', :action => 'index'}, :class => "btn btn-link btn-block bold-font btn-lg"
+                    .col-sm-4.button-hover{:style => "text-align:right;text-size:3em;padding-right:30px"}
+                      = submit_tag 'Checkout', :class => "btn btn-primary btn-lg"
+                .panel.panel-default{:style => "margin-top:15px;"}
+                  .panel-body
+                    .row
+                      .col-xs-12
+                        =link_to 'Terms and Conditions', {:controller => 'terms', :action => 'index'}, :class => "btn btn-link btn-block bold-font"
 
       -else
         .row
