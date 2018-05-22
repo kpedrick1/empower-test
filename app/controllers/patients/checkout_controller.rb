@@ -19,7 +19,7 @@ class Patients::CheckoutController < ApplicationController
     puts "\n\n@cart_size\n\n"
     puts @cart_size
     puts "\n\n"
-    puts "shipping Selection"{shippingType}
+    puts "shipping Selection {shippingType}"
 
 
 
