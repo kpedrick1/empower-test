@@ -60,19 +60,20 @@
                           %b
                             =number_to_currency(0)
 
-                      .row
-                        .col-xs-12
-                          .col-sm-4{:class => "btn btn-link btn-block bold-font btn-lg"}
-                            Select your Shipping Option
-                          .col-xs-4
-                            %table.table
-                              %tr
-                                %td
-                                  Standard Shipping
-                                  = radio_button_tag 'shippingType', 'Standard'
-                                %td
-                                  Priority Shipping
-                                  = radio_button_tag 'shippingType', 'Priority'
+                      .col-xs-12
+                        .col-sm-4{:class => "btn btn-link btn-block bold-font btn-lg"}
+                          Select your Shipping Option
+                        .col-xs-4
+                          %table.table
+                            %tr
+                              %td
+                                = radio_button_tag 'shippingType', 'Standard'
+                              %td
+                                Standard Shipping
+                              %td
+                                = radio_button_tag 'shippingType', 'Priority'
+                              %td
+                                Priority Shipping
                                 
                       .row
                         .col-xs-12

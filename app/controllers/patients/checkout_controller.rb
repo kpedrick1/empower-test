@@ -95,6 +95,8 @@ class Patients::CheckoutController < ApplicationController
 
     free_shipping = false
 
+    shippingType = result.body.shippingType
+
     has_gift = false
 
     has_16 = false
