@@ -19,8 +19,8 @@ class Patients::CheckoutController < ApplicationController
     puts "\n\n@cart_size\n\n"
     puts @cart_size
     puts "\n\n"
-    puts "shipping Selection {shippingType}"
 
+    @shippingType = session['shippingType']
 
 
 
@@ -96,8 +96,6 @@ class Patients::CheckoutController < ApplicationController
 
     free_shipping = false
 
-    shippingType = result.body.shippingType
-
     has_gift = false
 
     has_16 = false
@@ -169,6 +167,7 @@ class Patients::CheckoutController < ApplicationController
         puts "\n\nline_item.totalPrice\n\n"
         puts line_item.totalPrice
         puts "\n\n"
+        puts "shipping Selection {shippingType}"
 
 
         @cart_grand_total += line_item.totalPrice
