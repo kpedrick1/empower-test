@@ -207,6 +207,7 @@
 
                   .row
                     .col-xs-12.col-md-4
+                      = (shippingType)
                     .col-xs-12.col-md-4
                       = link_to "Return to Cart", {:controller => 'cart', :action => 'index'}, :class => "btn btn-link btn-block bold-font"
                     .col-xs-12.col-md-4.button-hover{:style => "text-align:right;padding-right:30px"} 
