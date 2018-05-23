@@ -80,6 +80,7 @@
                 .row
                   .col-xs-12
                     .col-sm-4
+                      = (@shippingType)
                     .col-sm-4
                       = link_to "Continue shopping", {:controller => 'products', :action => 'index'}, :class => "btn btn-link btn-block bold-font btn-lg"
                     .col-sm-4.button-hover{:style => "text-align:right;text-size:3em;padding-right:30px"}
