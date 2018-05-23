@@ -20,9 +20,6 @@ class Patients::CheckoutController < ApplicationController
     puts @cart_size
     puts "\n\n"
 
-    @shippingType = session['shippingType']
-
-
 
     @checkout_session = session
 
