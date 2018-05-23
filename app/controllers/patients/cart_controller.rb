@@ -40,7 +40,6 @@ class Patients::CartController < ApplicationController
 
     puts "\n"
 
-    puts @shippingType
 
 
     price_book = result.body.productList
@@ -69,6 +68,8 @@ class Patients::CartController < ApplicationController
     puts "\n\n params['commit'] \n"
     puts params['commit']
     puts "\n\n"
+    puts @shippingType
+    puts "\n\n"
 
     if params['commit'] == 'remove'
 
@@ -86,6 +87,8 @@ class Patients::CartController < ApplicationController
       puts "\n\n session['cart_products'] \n\n"
       puts session['cart_products']
 
+      puts @shippingType
+      puts "\n\n"
 
       params['productline'].each { |product|
 
