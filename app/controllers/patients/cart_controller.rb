@@ -20,7 +20,7 @@ class Patients::CartController < ApplicationController
   def get_cart_items
 
     @shippingType = session['shippingType']
-    
+
     client = Restforce.new
 
     result = client.get '/services/apexrest/portal/pricebook/', :business_unit => ENV['BUSINESS_UNIT']
@@ -39,6 +39,8 @@ class Patients::CartController < ApplicationController
     puts result.body.productList
 
     puts "\n"
+
+    puts @shippingType
 
 
     price_book = result.body.productList
